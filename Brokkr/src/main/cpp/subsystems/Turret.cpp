@@ -5,9 +5,11 @@
 #include "subsystems/Turret.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Turret::Turret(WPI_TalonFX& mTurret)
-:TurretMotor(mTurret)
+Turret::Turret(WPI_TalonFX& mTurret, WPI_PigeonIMU& mGyro)
+: TurretMotor(mTurret)
+, gyro(mGyro)
 {
+    gyro.SetYaw(0);
 }
 
 // This method will be called once per scheduler run
@@ -17,6 +19,7 @@ void Turret::Periodic() {
     frc::SmartDashboard::PutNumber("GetPitchVision", GetVisionPitch());
     frc::SmartDashboard::PutNumber("GetAreaision", GetVisionArea());
     frc::SmartDashboard::PutNumber("GetVision", camera.GetPipelineIndex());
+    frc::SmartDashboard::PutNumber("GetYawIMU", GetYawIMU());
 }
 
 double Turret::GetTurretPose(){
@@ -54,4 +57,8 @@ int Turret::SetPipeline(int pipeIndex){
 double Turret::SetTurretPose(double pose){
     TurretMotor.Set(pose);
         return pose;
+}
+
+double Turret::GetYawIMU(){
+    return gyro.GetYaw();
 }

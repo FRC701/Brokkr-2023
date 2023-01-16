@@ -4,13 +4,14 @@
 
 #pragma once
 
+
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
 #include <photonlib/PhotonCamera.h>
 
 class Turret : public frc2::SubsystemBase {
  public:
-  Turret(WPI_TalonFX& TurretMotor);
+  Turret(WPI_TalonFX& TurretMotor, WPI_PigeonIMU& gyro);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -24,9 +25,11 @@ class Turret : public frc2::SubsystemBase {
   void SetVisionLED(photonlib::LEDMode index);
   int SetPipeline(int pipeIndex);
   void Periodic() override;
+  double GetYawIMU();
 
  private:
  WPI_TalonFX& TurretMotor;
+ WPI_PigeonIMU& gyro;
 
   photonlib::PhotonCamera camera{"photonvision"}; //It is recommended to Build Robot Code at least once when connected to the Internet before heading to an area where Internet connectivity is limited (for example, a competition). This ensures that the relevant files are downloaded to your filesystem.*
 
