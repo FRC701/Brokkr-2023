@@ -7,6 +7,7 @@
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
 #include <frc/drive/DifferentialDrive.h>
+#include <AHRS.h>
 
 class Chassis : public frc2::SubsystemBase {
  public:
@@ -17,6 +18,8 @@ class Chassis : public frc2::SubsystemBase {
    */
   void Periodic() override;
   void ArcadeDrive(double speed, double rotation);
+  double GetYawNavX();
+  double GetPitchNavX();
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -25,5 +28,6 @@ class Chassis : public frc2::SubsystemBase {
   WPI_TalonFX& leftRear;
   WPI_TalonFX& rightFront;
   WPI_TalonFX& rightRear;
+  AHRS gyroX{frc::SPI::kMXP};
   frc::DifferentialDrive mDrive;
 };
