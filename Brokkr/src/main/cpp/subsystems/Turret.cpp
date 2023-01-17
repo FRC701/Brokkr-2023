@@ -22,6 +22,16 @@ void Turret::Periodic() {
     frc::SmartDashboard::PutNumber("GetYawIMU", GetYawIMU());
 }
 
+double Turret::SetTurretPose(double pose){
+    TurretMotor.Set(ControlMode::Position, pose);
+        return pose;
+}
+
+double Turret::SetTurretSpeed(double speed){
+    TurretMotor.Set(ControlMode::PercentOutput, speed);
+        return speed;
+}
+
 double Turret::GetTurretPose(){
     return TurretMotor.GetSelectedSensorPosition();
 }
@@ -52,11 +62,6 @@ void Turret::SetVisionLED(photonlib::LEDMode index){
 int Turret::SetPipeline(int pipeIndex){
     camera.SetPipelineIndex(pipeIndex);
         return pipeIndex;
-}
-
-double Turret::SetTurretPose(double pose){
-    TurretMotor.Set(pose);
-        return pose;
 }
 
 double Turret::GetYawIMU(){
