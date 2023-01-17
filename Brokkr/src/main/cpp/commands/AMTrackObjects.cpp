@@ -54,20 +54,20 @@ void AMTrackObjects::Execute() {
       outputC = controllerC.Calculate(mChassis.GetYawNavX(), mTurret.GetYawIMU()); //Assuming heading is the same on both gyros
       outputCD = controllerCD.Calculate(mTurret.GetVisionArea(), 100); //Drives until gameobject is in precalculated distance represented by vision area
       mChassis.ArcadeDrive(outputCD, outputC); //Drives forward whilst turning to realign with turret
+      mTurret.SetTurretSpeed(outputT); //keep turret aligned as drive turns
       if(controllerCD.AtSetpoint()){ //not sure if code here is ideal
         mChassis.ArcadeDrive(0, outputC);
         outputC = 0;
       }
-      if(controllerC.AtSetpoint()){
-        mChassis.ArcadeDrive(outputCD, 0);
-        outputCD = 0;
-      } 
       break;
   }
 }
 
 // Called once the command ends or is interrupted.
-void AMTrackObjects::End(bool interrupted) {}
+void AMTrackObjects::End(bool interrupted) {
+  mChassis.ArcadeDrive(0, 0);
+  mTurret.SetTurretSpeed(0);
+}
 
 // Returns true when the command should end.
 bool AMTrackObjects::IsFinished() {
