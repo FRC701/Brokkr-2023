@@ -42,8 +42,7 @@ enum TrackState
 TrackState mTrackState;
 bool NoTargets;
 
-frc2::PIDController controllerT{0.1, 0, 0};
-
+frc2::PIDController controllerT{0.1, 0, 0}; //to be tuned!
 frc2::PIDController controllerC{0.1, 0, 0};
 frc2::PIDController controllerCD{0.1, 0, 0};
 
