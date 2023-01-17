@@ -57,7 +57,6 @@ void AMTrackObjects::Execute() {
       mTurret.SetTurretSpeed(outputT); //keep turret aligned as drive turns
       if(controllerCD.AtSetpoint()){ //not sure if code here is ideal
         mChassis.ArcadeDrive(0, outputC);
-        outputC = 0;
       }
       break;
   }
