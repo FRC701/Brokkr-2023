@@ -4,11 +4,14 @@
 
 #pragma once
 
+
 #include <frc2/command/SubsystemBase.h>
+#include <ctre/Phoenix.h>
+#include <photonlib/PhotonCamera.h>
 
 class Turret : public frc2::SubsystemBase {
  public:
-  Turret();
+  Turret(WPI_TalonFX& TurretMotor, WPI_PigeonIMU& gyro);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -16,6 +19,9 @@ class Turret : public frc2::SubsystemBase {
   void Periodic() override;
 
  private:
+ WPI_TalonFX& TurretMotor;
+ WPI_PigeonIMU& gyro;
+
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
