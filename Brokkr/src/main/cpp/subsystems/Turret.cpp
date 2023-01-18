@@ -3,8 +3,12 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "subsystems/Turret.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
-Turret::Turret() = default;
+Turret::Turret(WPI_TalonFX& mTurret, WPI_PigeonIMU& mGyro)
+: TurretMotor(mTurret)
+, gyro(mGyro)
+{}
 
 // This method will be called once per scheduler run
 void Turret::Periodic() {}
