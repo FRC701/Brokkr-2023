@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "subsystems/Chassis.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 using ControlMode = ctre::phoenix::motorcontrol::ControlMode;
 using WPI_TalonFX = ctre::phoenix::motorcontrol::can::WPI_TalonFX;
@@ -14,6 +15,7 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 ,rightRear(rightRear)
 ,mDrive(leftFront, rightFront)
 {
+    gyroX.ZeroYaw();
     leftFront.Config_kP(0, 0, 0);
     leftFront.Config_kI(0, 0, 0);
     leftFront.Config_kD(0, 0, 0);
@@ -29,9 +31,19 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 }
 
 // This method will be called once per scheduler run
-void Chassis::Periodic() {}
+void Chassis::Periodic() {
+    frc::SmartDashboard::PutNumber("Chassis Yaw", GetYawNavX());
+    frc::SmartDashboard::PutNumber("Chassis Pitch", GetPitchNavX());
+}
 
 void Chassis::ArcadeDrive(double speed, double rotation) 
 {
     mDrive.ArcadeDrive(speed, rotation);
 }
+ double Chassis::GetYawNavX(){
+    return gyroX.GetYaw();
+ }
+
+ double Chassis::GetPitchNavX(){
+    return gyroX.GetPitch();
+ }
