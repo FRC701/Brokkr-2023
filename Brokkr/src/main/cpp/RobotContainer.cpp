@@ -16,7 +16,20 @@ RobotContainer::RobotContainer() {
   ConfigureBindings();
 }
 
-void RobotContainer::ConfigureBindings() {
+void RobotContainer::ConfigureBindings() 
+{
+  frc2::Button driverTrigger{[this]{return driver.GetRawButton(1);}};
+  frc2::Button driverThumbButton{[this]{return driver.GetRawButton(2);}};
+  frc2::Button driverTopButton3{[this]{return driver.GetRawButton(3);}};
+  frc2::Button driverTopButton4{[this]{return driver.GetRawButton(4);}};
+  frc2::Button driverTopButton5{[this]{return driver.GetRawButton(5);}};
+  frc2::Button driverTopButton6{[this]{return driver.GetRawButton(6);}};
+
+  frc2::Button codriverA{[this]{return coDriver.GetRawButton(1);}};
+  frc2::Button codriverB{[this]{return coDriver.GetRawButton(2);}};
+  frc2::Button codriverX{[this]{return coDriver.GetRawButton(3);}};
+  frc2::Button codriverY{[this]{return coDriver.GetRawButton(4);}};
+
   // Configure your trigger bindings here
 
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
