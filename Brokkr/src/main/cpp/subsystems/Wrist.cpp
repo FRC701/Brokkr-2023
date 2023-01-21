@@ -5,8 +5,9 @@
 #include "subsystems/Wrist.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Wrist::Wrist(WPI_TalonFX& wristMotor)
-: mWristMotor(wristMotor)
+Wrist::Wrist(WPI_TalonFX& WristMotor, WPI_CANCoder& WristCoder)
+: mWristMotor(WristMotor)
+, mWristCoder(WristCoder)
 {
     mWristMotor.Config_kP(0, 0, 0);
     mWristMotor.Config_kI(0, 0, 0);
@@ -29,4 +30,15 @@ bool Wrist::IsWristFlicked() const
 {
     const double kWristFlickedLimit{ 100 }; // placeholder
     return mWristMotor.GetSelectedSensorPosition() <= kWristFlickedLimit;
+}
+
+double Wrist::GetWristPosition()
+{
+    return mWristCoder.GetAbsolutePosition();
+}
+
+double Wrist::TurnWristPO(double speed)
+{
+    mWristMotor.Set(ControlMode::Position, speed);
+    return speed;
 }

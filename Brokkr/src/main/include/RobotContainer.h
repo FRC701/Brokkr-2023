@@ -7,8 +7,9 @@
 #include <frc2/command/CommandPtr.h>
 #include <frc2/command/button/CommandXboxController.h>
 #include <frc2/command/button/JoystickButton.h>
-#include <frc/Joystick.h>
 #include <frc2/command/button/Button.h>
+#include <frc/Joystick.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
@@ -32,6 +33,7 @@ class RobotContainer {
   static constexpr  int kArmMotor1{1};
   static constexpr  int kArmMotor2{2};
   static constexpr  int kTelescope{3};
+  static constexpr  int kArmCoder{13};
 
   static constexpr  int kLeftFrontChassis{4};
   static constexpr  int kLeftRearChassis{5};
@@ -40,6 +42,7 @@ class RobotContainer {
   
   static constexpr  int kClawMotor{8};
   static constexpr  int kIntakeMotor{9};
+  static constexpr  int kWristCoder{14};
   
   static constexpr  int kTurretMotor{10};
   static constexpr  int kGyroTurret{11};
@@ -61,7 +64,8 @@ class RobotContainer {
   WPI_TalonFX ArmMotor1{kArmMotor1};
   WPI_TalonFX ArmMotor2{kArmMotor2};
   WPI_TalonFX TelescopingArm{kTelescope};
-  Arm mArm{ArmMotor1, ArmMotor2, TelescopingArm};
+  WPI_CANCoder CanCoder{kArmCoder};
+  Arm mArm{ArmMotor1, ArmMotor2, TelescopingArm, CanCoder};
 
   WPI_TalonFX leftFront{kLeftFrontChassis};
   WPI_TalonFX leftRear{kLeftRearChassis};
@@ -78,7 +82,8 @@ class RobotContainer {
   Turret mTurret{TurretMotor, gyro};
 
   WPI_TalonFX mWristMotor{kWristMotor};
-  Wrist mWrist{mWristMotor}; 
+  WPI_CANCoder mWristCoder{kWristCoder};
+  Wrist mWrist{mWristMotor, mWristCoder}; 
 
 
   void ConfigureBindings();
