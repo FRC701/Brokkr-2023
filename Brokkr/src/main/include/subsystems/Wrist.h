@@ -9,7 +9,7 @@
 
 class Wrist : public frc2::SubsystemBase {
  public:
-  Wrist(WPI_TalonFX& wristMotor);
+  Wrist(WPI_TalonFX& WristMotor, WPI_CANCoder& WristCoder);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -17,10 +17,14 @@ class Wrist : public frc2::SubsystemBase {
   void Periodic() override;
   double TurnWrist(double pos);
   bool IsWristFlicked() const;
+  double GetWristPosition();
+  double TurnWristPO(double speed);
+  
 
 
  private:
  WPI_TalonFX& mWristMotor;
+ WPI_CANCoder& mWristCoder;
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };

@@ -14,10 +14,11 @@ namespace
     }
 }
 
-Arm::Arm(WPI_TalonFX& mArmM1, WPI_TalonFX& mArmM2, WPI_TalonFX& mTeleArm)
+Arm::Arm(WPI_TalonFX& mArmM1, WPI_TalonFX& mArmM2, WPI_TalonFX& mTeleArm, WPI_CANCoder& mCanCoder)
 : ArmMotor1(mArmM1)
 , ArmMotor2(mArmM2)
 , TelescopingArm(mTeleArm)
+, CanCoder(mCanCoder)
 {
     mArmM1.Follow(mArmM2);
     mArmM2.Config_kP(0, 0, 0);
@@ -28,6 +29,7 @@ Arm::Arm(WPI_TalonFX& mArmM1, WPI_TalonFX& mArmM2, WPI_TalonFX& mTeleArm)
 void Arm::Periodic()
 {
     frc::SmartDashboard::PutString("ArmHeightStatus", AsString(GetArmStatus()));
+    frc::SmartDashboard::PutNumber("ArmAngle", CANCoderArmStatus());
 }
 
 double Arm::ArmExtend(double pose)
@@ -40,6 +42,11 @@ double Arm::SetArmHeight(double pose)
 {
     ArmMotor2.Set(ControlMode::Position, pose);
     return pose;
+}
+
+double Arm::CANCoderArmStatus()
+{
+    return CanCoder.GetAbsolutePosition();
 }
 
 Arm::eArmStatus Arm::GetArmStatus()
