@@ -5,8 +5,9 @@
 #include "commands/ArmPosition.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-ArmPosition::ArmPosition(Arm& mArm, double ArmHeight) 
-: mArm(mArm)
+ArmPosition::ArmPosition(Arm& arm, double armHeight) 
+: mArm(arm)
+, mArmHeight(armHeight)
 {
   AddRequirements(&mArm);
   // Use addRequirements() here to declare subsystem dependencies.
@@ -18,7 +19,7 @@ void ArmPosition::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void ArmPosition::Execute() 
 {
-  mArm.SetArmHeight(ArmHeight);
+  mArm.SetArmHeight(mArmHeight);
 }
 
 // Called once the command ends or is interrupted.

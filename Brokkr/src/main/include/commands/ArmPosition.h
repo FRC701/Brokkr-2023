@@ -18,7 +18,7 @@
 class ArmPosition
     : public frc2::CommandHelper<frc2::CommandBase, ArmPosition> {
  public:
-  ArmPosition(Arm& mArm, double ArmHeight);
+  ArmPosition(Arm& arm, double armHeight);
 
   void Initialize() override;
 
@@ -30,5 +30,5 @@ class ArmPosition
 
   private:
   Arm& mArm;
-  double ArmHeight;
+  double mArmHeight;
 };
