@@ -12,7 +12,7 @@
 
 class Turret : public frc2::SubsystemBase {
  public:
-  Turret(WPI_TalonFX& TurretMotor, WPI_PigeonIMU& gyro);
+  Turret(WPI_TalonFX& turretMotor, WPI_PigeonIMU& gyro);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -30,10 +30,14 @@ class Turret : public frc2::SubsystemBase {
   double GetYawIMU();
 
  private:
- WPI_TalonFX& TurretMotor;
- WPI_PigeonIMU& gyro;
+ WPI_TalonFX& mTurretMotor;
+ WPI_PigeonIMU& mGyro;
 
-  photonlib::PhotonCamera camera{"photonvision"}; //It is recommended to Build Robot Code at least once when connected to the Internet before heading to an area where Internet connectivity is limited (for example, a competition). This ensures that the relevant files are downloaded to your filesystem.*
+  photonlib::PhotonCamera mCamera{"photonvision"}; 
+    // It is recommended to Build Robot Code at least once when connected 
+    // to the Internet before heading to an area where Internet connectivity 
+    // is limited (for example, a competition). This ensures that the relevant 
+    // files are downloaded to your filesystem.*
 
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

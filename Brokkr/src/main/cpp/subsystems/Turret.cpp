@@ -6,11 +6,11 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Turret::Turret(WPI_TalonFX& mTurret, WPI_PigeonIMU& mGyro)
-: TurretMotor(mTurret)
-, gyro(mGyro)
+Turret::Turret(WPI_TalonFX& turret, WPI_PigeonIMU& gyro)
+: mTurretMotor(turret)
+, mGyro(gyro)
 {
-    gyro.SetYaw(0);
+    mGyro.SetYaw(0);
 }
 
 // This method will be called once per scheduler run
@@ -19,52 +19,52 @@ void Turret::Periodic() {
     frc::SmartDashboard::PutNumber("GetYawVision", GetVisionYaw());
     frc::SmartDashboard::PutNumber("GetPitchVision", GetVisionPitch());
     frc::SmartDashboard::PutNumber("GetAreaision", GetVisionArea());
-    frc::SmartDashboard::PutNumber("GetVision", camera.GetPipelineIndex());
+    frc::SmartDashboard::PutNumber("GetVision", mCamera.GetPipelineIndex());
     frc::SmartDashboard::PutNumber("GetYawIMU", GetYawIMU());
 }
 
 double Turret::SetTurretPose(double pose){
-    TurretMotor.Set(ControlMode::Position, pose);
+    mTurretMotor.Set(ControlMode::Position, pose);
         return pose;
 }
 
 double Turret::SetTurretSpeed(double speed){
-    TurretMotor.Set(ControlMode::PercentOutput, speed);
+    mTurretMotor.Set(ControlMode::PercentOutput, speed);
         return speed;
 }
 
 double Turret::GetTurretPose(){
-    return TurretMotor.GetSelectedSensorPosition();
+    return mTurretMotor.GetSelectedSensorPosition();
 }
 
 double Turret::GetVisionArea(){
-     photonlib::PhotonPipelineResult result = camera.GetLatestResult();
+     photonlib::PhotonPipelineResult result = mCamera.GetLatestResult();
         return result.GetBestTarget().GetArea();
 }
 
 double Turret::GetVisionYaw(){
-    photonlib::PhotonPipelineResult result = camera.GetLatestResult();
+    photonlib::PhotonPipelineResult result = mCamera.GetLatestResult();
         return result.GetBestTarget().GetYaw();
 }
 
 double Turret::GetVisionPitch(){
-    photonlib::PhotonPipelineResult result = camera.GetLatestResult();
+    photonlib::PhotonPipelineResult result = mCamera.GetLatestResult();
         return result.GetBestTarget().GetPitch();
 }
 bool Turret::HasTargets(){
-    photonlib::PhotonPipelineResult result = camera.GetLatestResult();
+    photonlib::PhotonPipelineResult result = mCamera.GetLatestResult();
         return result.HasTargets();
 }
 
 void Turret::SetVisionLED(photonlib::LEDMode index){
-    camera.SetLEDMode(index);
+    mCamera.SetLEDMode(index);
 }
 
 int Turret::SetPipeline(int pipeIndex){
-    camera.SetPipelineIndex(pipeIndex);
+    mCamera.SetPipelineIndex(pipeIndex);
         return pipeIndex;
 }
 
 double Turret::GetYawIMU(){
-    return gyro.GetYaw();
+    return mGyro.GetYaw();
 }
