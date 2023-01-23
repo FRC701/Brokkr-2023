@@ -20,7 +20,7 @@
 class AMTrackObjects
     : public frc2::CommandHelper<frc2::CommandBase, AMTrackObjects> {
  public:
-  AMTrackObjects(Turret& mTurret, Chassis& mChassis, int pipelineIndex);
+  AMTrackObjects(Turret& turret, Chassis& chassis, int pipelineIndex);
 
   void Initialize() override;
   void Execute() override;
@@ -40,7 +40,7 @@ enum TrackState
 };
 
 TrackState mTrackState;
-bool NoTargets;
+bool mNoTargets;
 
 frc2::PIDController controllerT{0.1, 0, 0}; //to be tuned!
 frc2::PIDController controllerC{0.1, 0, 0};

@@ -8,6 +8,8 @@ AMTrackObjects::AMTrackObjects(Turret& turret, Chassis& chassis, int pipelineInd
 : mTurret(turret)
 , mChassis(chassis)
 , mPipelineIndex(pipelineIndex)
+, mTrackState(HasTarget)
+, mNoTargets(false)
 {
   AddRequirements(&mChassis);// Use addRequirements() here to declare subsystem dependencies.
 }
@@ -16,9 +18,10 @@ AMTrackObjects::AMTrackObjects(Turret& turret, Chassis& chassis, int pipelineInd
 void AMTrackObjects::Initialize() {
   mTurret.SetPipeline(mPipelineIndex);  //Set what game object u want to drive towards
   mTrackState = HasTarget;
-        controllerT.SetTolerance(0.0); //placeholder values
-        controllerCD.SetTolerance(0.0);
-        controllerC.SetTolerance(0.0);
+  controllerT.SetTolerance(0.0); //placeholder values
+  controllerCD.SetTolerance(0.0);
+  controllerC.SetTolerance(0.0);
+  mNoTargets = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -35,7 +38,7 @@ void AMTrackObjects::Execute() {
       }
       else
       {
-        NoTargets = true;
+        mNoTargets = true;
       }
     break; 
   case TurretFacingTarget:
@@ -70,5 +73,5 @@ void AMTrackObjects::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool AMTrackObjects::IsFinished() {
-  return (controllerCD.AtSetpoint() && controllerC.AtSetpoint())|| NoTargets; //Ends whether robot is at the setpoint or has no targets
+  return (controllerCD.AtSetpoint() && controllerC.AtSetpoint())|| mNoTargets; //Ends whether robot is at the setpoint or has no targets
 }
