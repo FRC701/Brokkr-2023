@@ -9,25 +9,25 @@ using ControlMode = ctre::phoenix::motorcontrol::ControlMode;
 using WPI_TalonFX = ctre::phoenix::motorcontrol::can::WPI_TalonFX;
 
 Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rightFront, WPI_TalonFX& rightRear)
-:leftFront(leftFront)
-,leftRear(leftRear)
-,rightFront(rightFront)
-,rightRear(rightRear)
-,mDrive(leftFront, rightFront)
+: mLeftFront(leftFront)
+, mLeftRear(leftRear)
+, mRightFront(rightFront)
+, mRightRear(rightRear)
+, mDrive(leftFront, rightFront)
 {
-    gyroX.ZeroYaw();
-    leftFront.Config_kP(0, 0, 0);
-    leftFront.Config_kI(0, 0, 0);
-    leftFront.Config_kD(0, 0, 0);
-    leftFront.Config_kF(0, 0, 0);
+    mGyroX.ZeroYaw();
+    mLeftFront.Config_kP(0, 0, 0);
+    mLeftFront.Config_kI(0, 0, 0);
+    mLeftFront.Config_kD(0, 0, 0);
+    mLeftFront.Config_kF(0, 0, 0);
 
-    rightFront.Config_kP(0, 0, 0);
-    rightFront.Config_kI(0, 0, 0);
-    rightFront.Config_kD(0, 0, 0);
-    rightFront.Config_kF(0, 0, 0);
+    mRightFront.Config_kP(0, 0, 0);
+    mRightFront.Config_kI(0, 0, 0);
+    mRightFront.Config_kD(0, 0, 0);
+    mRightFront.Config_kF(0, 0, 0);
 
-    leftRear.Follow(leftFront);
-    rightRear.Follow(rightFront);
+    mLeftRear.Follow(mLeftFront);
+    mRightRear.Follow(mRightFront);
 }
 
 // This method will be called once per scheduler run
@@ -40,10 +40,11 @@ void Chassis::ArcadeDrive(double speed, double rotation)
 {
     mDrive.ArcadeDrive(speed, rotation);
 }
- double Chassis::GetYawNavX(){
-    return gyroX.GetYaw();
+
+double Chassis::GetYawNavX() {
+    return mGyroX.GetYaw();
  }
 
- double Chassis::GetPitchNavX(){
-    return gyroX.GetPitch();
+double Chassis::GetPitchNavX() {
+    return mGyroX.GetPitch();
  }

@@ -24,10 +24,10 @@ class Chassis : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  WPI_TalonFX& leftFront;
-  WPI_TalonFX& leftRear;
-  WPI_TalonFX& rightFront;
-  WPI_TalonFX& rightRear;
-  AHRS gyroX{frc::SPI::kMXP};
+  WPI_TalonFX& mLeftFront;
+  WPI_TalonFX& mLeftRear;
+  WPI_TalonFX& mRightFront;
+  WPI_TalonFX& mRightRear;
+  AHRS mGyroX{frc::SPI::kMXP};
   frc::DifferentialDrive mDrive;
 };
