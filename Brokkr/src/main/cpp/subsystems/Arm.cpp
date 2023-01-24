@@ -14,16 +14,16 @@ namespace
     }
 }
 
-Arm::Arm(WPI_TalonFX& mArmM1, WPI_TalonFX& mArmM2, WPI_TalonFX& mTeleArm, WPI_CANCoder& mCanCoder)
-: ArmMotor1(mArmM1)
-, ArmMotor2(mArmM2)
-, TelescopingArm(mTeleArm)
-, CanCoder(mCanCoder)
+Arm::Arm(WPI_TalonFX& armM1, WPI_TalonFX& armM2, WPI_TalonFX& teleArm, WPI_CANCoder& canCoder)
+: mArmMotor1(armM1)
+, mArmMotor2(armM2)
+, mTelescopingArm(teleArm)
+, mCanCoder(canCoder)
 {
-    mArmM1.Follow(mArmM2);
-    mArmM2.Config_kP(0, 0, 0);
-    mArmM2.Config_kI(0, 0, 0);
-    mArmM2.Config_kD(0, 0, 0);
+    mArmMotor1.Follow(mArmMotor2);
+    mArmMotor2.Config_kP(0, 0, 0);
+    mArmMotor2.Config_kI(0, 0, 0);
+    mArmMotor2.Config_kD(0, 0, 0);
 }
 // This method will be called once per scheduler run
 void Arm::Periodic()
@@ -34,24 +34,24 @@ void Arm::Periodic()
 
 double Arm::ArmExtend(double pose)
 {
-    TelescopingArm.Set(ControlMode::Position, pose);
+    mTelescopingArm.Set(ControlMode::Position, pose);
     return pose;
 }
 
 double Arm::SetArmHeight(double pose)
 {
-    ArmMotor2.Set(ControlMode::Position, pose);
+    mArmMotor2.Set(ControlMode::Position, pose);
     return pose;
 }
 
 double Arm::CANCoderArmStatus()
 {
-    return CanCoder.GetAbsolutePosition();
+    return mCanCoder.GetAbsolutePosition();
 }
 
 Arm::eArmStatus Arm::GetArmStatus()
 {
-    double position = ArmMotor2.GetSelectedSensorPosition();
+    double position = mArmMotor2.GetSelectedSensorPosition();
 
     const double kHighLowLimit    = 150.0;
     const double kHighHighLimit   = 160.0;

@@ -9,7 +9,7 @@
 
 class Arm : public frc2::SubsystemBase {
  public:
-  Arm(WPI_TalonFX& mArmM1, WPI_TalonFX& mArmM2, WPI_TalonFX& mTeleArm, WPI_CANCoder& mCanCoder);
+  Arm(WPI_TalonFX& armM1, WPI_TalonFX& armM2, WPI_TalonFX& teleArm, WPI_CANCoder& canCoder);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -33,10 +33,10 @@ class Arm : public frc2::SubsystemBase {
 
  private:
 
- WPI_TalonFX& ArmMotor1;
- WPI_TalonFX& ArmMotor2;
- WPI_TalonFX& TelescopingArm;
- WPI_CANCoder& CanCoder;
+ WPI_TalonFX& mArmMotor1;
+ WPI_TalonFX& mArmMotor2;
+ WPI_TalonFX& mTelescopingArm;
+ WPI_CANCoder& mCanCoder;
 
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
