@@ -13,14 +13,42 @@ IntakeSpin::IntakeSpin(Claw& claw)
 // Called when the command is initially scheduled.
 void IntakeSpin::Initialize() 
 {
-  mTimer.Reset();
+    static const units::second_t kInrushTimer{2};
+
   mTimer.Start();
+  if (mTimer.HasElapsed(kInrushTimer))
+  {
+    mIsInRushOver = true;
+    mTimer.Stop();
+    mTimer.Reset();
+  }
 }
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeSpin::Execute() 
 {
   mClaw.IntakeSpin(0.5);
+  if (mIsInRushOver)
+  {
+    if(mClaw.IsConeOrCubeIn()) //placeholder
+    {
+      mTimer.Start();
+      if (mTimer.HasElapsed(units::millisecond_t(300)) && mClaw.IsConeOrCubeIn())
+      {
+        mIsMotorStalling = true;
+      }
+      else
+      {
+        mTimer.Stop();
+        mTimer.Reset();
+      }
+    }
+    else
+    {
+      mTimer.Stop();
+      mTimer.Reset();
+    }
+  }
 }
 
 // Called once the command ends or is interrupted.
@@ -28,11 +56,11 @@ void IntakeSpin::End(bool interrupted)
 {
   mClaw.IntakeSpin(0);
   mTimer.Stop();
+  mTimer.Reset();
 }
 
 // Returns true when the command should end.
 bool IntakeSpin::IsFinished() 
 {
-  static const units::second_t kSpinTime{5};
-  return mTimer.HasElapsed(kSpinTime);
+  return false || mIsMotorStalling;
 }

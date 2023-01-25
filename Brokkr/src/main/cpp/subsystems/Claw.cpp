@@ -14,6 +14,7 @@ Claw::Claw(WPI_TalonFX& clawMotor, WPI_TalonFX& intakeMotor)
     mClawMotor.Config_kI(0, 0, 0);
     mClawMotor.Config_kD(0, 0, 0);
     mClawMotor.Config_kF(0, 0, 0);
+    mIntakeMotor.SetNeutralMode(Brake);
 }
 
 void Claw::Periodic() 
@@ -27,8 +28,19 @@ bool Claw::IsClawOpen() const
     return mClawMotor.GetSelectedSensorPosition() >= kClawOpenLimit;
 }
 
+bool Claw::IsConeOrCubeIn() 
+{
+    const double kCurrentThreshold = 0;
+    return mIntakeMotor.GetStatorCurrent() >= kCurrentThreshold;
+}
+
 double Claw::IntakeSpin(double speed)
 {
     mIntakeMotor.Set(ControlMode::PercentOutput, speed);
     return speed;
+}
+
+double Claw::GetControllerCurrent()
+{
+    return mIntakeMotor.GetStatorCurrent();
 }

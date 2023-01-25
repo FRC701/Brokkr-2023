@@ -33,4 +33,7 @@ class IntakeSpin
   private:
   Claw& mClaw;
   frc::Timer mTimer;
+
+  bool mIsInRushOver;
+  bool mIsMotorStalling;
 };
