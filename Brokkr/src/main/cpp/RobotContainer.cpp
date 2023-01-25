@@ -11,6 +11,7 @@
 #include "commands/ExampleCommand.h"
 #include "commands/ArmPosition.h"
 #include "commands/WristLevel.h"
+#include "commands/RunTurret.h"
 
 
 RobotContainer::RobotContainer() {
@@ -40,6 +41,9 @@ void RobotContainer::ConfigureBindings()
   frc2::Button codriverB{[this]{return coDriver.GetRawButton(2);}};
   frc2::Button codriverX{[this]{return coDriver.GetRawButton(3);}};
   frc2::Button codriverY{[this]{return coDriver.GetRawButton(4);}};
+
+  codriverA.WhileHeld(RunTurret(mTurret, 0.5)); //placeholder
+  codriverB.WhileHeld(RunTurret(mTurret, -0.5)); //placeholder
 
   // Configure your trigger bindings here
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
