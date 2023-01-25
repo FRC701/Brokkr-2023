@@ -12,6 +12,7 @@
 #include "commands/ArmPosition.h"
 #include "commands/WristLevel.h"
 #include "commands/RunTurret.h"
+#include "commands/ExtendArm.h"
 
 
 RobotContainer::RobotContainer() {
@@ -39,7 +40,7 @@ void RobotContainer::ConfigureBindings()
 
 
   xButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr());
-  yButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+  yButton.WhileTrue(ExtendArm(mArm, 0.5).ToPtr()); //placeholder
   aButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
   bButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
 
