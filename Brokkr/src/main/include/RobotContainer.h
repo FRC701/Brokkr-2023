@@ -10,6 +10,7 @@
 #include <frc2/command/button/Button.h>
 #include <frc/Joystick.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc2/command/button/CommandJoystick.h>
 
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
@@ -52,8 +53,22 @@ class RobotContainer {
   frc2::CommandPtr GetAutonomousCommand();
 
  private:
- frc::Joystick driver{0};
- frc::XboxController coDriver{1};
+ frc2::CommandJoystick driver{0};
+ frc2::CommandXboxController coDriver{1};
+
+ frc2::Trigger trigger = driver.Trigger();
+ frc2::Trigger button1 = driver.Button(1);
+ frc2::Trigger button2 = driver.Button(2);
+ frc2::Trigger button3 = driver.Button(3);
+ frc2::Trigger button4 = driver.Button(4);
+ frc2::Trigger button5 = driver.Button(5);
+
+ frc2::Trigger xButton = coDriver.X();
+ frc2::Trigger yButton = coDriver.Y();
+ frc2::Trigger aButton = coDriver.A();
+ frc2::Trigger bButton = coDriver.B();
+
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   frc2::CommandXboxController m_driverController{
