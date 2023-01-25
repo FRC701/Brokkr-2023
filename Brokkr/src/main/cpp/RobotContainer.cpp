@@ -30,6 +30,7 @@ RobotContainer::RobotContainer() {
 
 void RobotContainer::ConfigureBindings() 
 {
+<<<<<<< Updated upstream
   frc2::Button driverTrigger{[this]{return driver.GetRawButton(1);}};
   frc2::Button driverThumbButton{[this]{return driver.GetRawButton(2);}};
   frc2::Button driverTopButton3{[this]{return driver.GetRawButton(3);}};
@@ -41,6 +42,20 @@ void RobotContainer::ConfigureBindings()
   frc2::Button codriverB{[this]{return coDriver.GetRawButton(2);}};
   frc2::Button codriverX{[this]{return coDriver.GetRawButton(3);}};
   frc2::Button codriverY{[this]{return coDriver.GetRawButton(4);}};
+=======
+  trigger.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+  button1.ToggleOnTrue(RunTurret(mTurret,0.5).ToPtr()); //placeholder
+  button2.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+  button3.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+  button4.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+  button5.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+
+
+  xButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr());
+  yButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+  aButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+  bButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+>>>>>>> Stashed changes
 
   codriverA.WhileHeld(RunTurret(mTurret, 0.5)); //placeholder
   codriverB.WhileHeld(RunTurret(mTurret, -0.5)); //placeholder
