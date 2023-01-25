@@ -18,6 +18,10 @@ class Claw : public frc2::SubsystemBase {
 
   bool IsClawOpen() const;
 
+  bool IsConeOrCubeIn();
+
+  double GetControllerCurrent();
+
   double IntakeSpin(double speed);
 
  private:
