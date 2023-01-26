@@ -27,9 +27,9 @@ class ExtendArm
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-
-private:
-
-Arm& mArm;
-double mMotorSpeed;
+  
+  private:
+  Arm& mArm;
+  double mMotorSpeed;
+  bool ReachLimit;
 };

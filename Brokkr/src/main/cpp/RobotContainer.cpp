@@ -22,7 +22,7 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("ArmPosition High", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("ArmPosition Shelf", new ArmPosition(mArm, 0));
 
-  mArm.SetDefaultCommand(WristLevel(mWrist, mArm));
+  mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
   // Configure the button bindings
   ConfigureBindings();
 
