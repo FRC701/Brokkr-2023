@@ -24,6 +24,7 @@ Arm::Arm(WPI_TalonFX& armM1, WPI_TalonFX& armM2, WPI_TalonFX& teleArm, WPI_CANCo
     mArmMotor2.Config_kP(0, 0, 0);
     mArmMotor2.Config_kI(0, 0, 0);
     mArmMotor2.Config_kD(0, 0, 0);
+    mTelescopingArm.SetNeutralMode(Brake);
 }
 // This method will be called once per scheduler run
 void Arm::Periodic()
@@ -32,10 +33,9 @@ void Arm::Periodic()
     frc::SmartDashboard::PutNumber("ArmAngle", CANCoderArmStatus());
 }
 
-double Arm::ArmExtend(double pose)
+double Arm::ArmExtend(double speed)
 {
-    mTelescopingArm.Set(ControlMode::Position, pose);
-    return pose;
+    mTelescopingArm.Set(speed);
 }
 
 double Arm::SetArmHeight(double pose)
@@ -47,6 +47,16 @@ double Arm::SetArmHeight(double pose)
 double Arm::CANCoderArmStatus()
 {
     return mCanCoder.GetAbsolutePosition();
+}
+
+bool Arm::ArmMaxLimitSwitch()
+{
+    return mArmMotor1.IsFwdLimitSwitchClosed();
+}
+
+bool Arm::ArmMinLimitSwitch()
+{
+    return mArmMotor2.IsRevLimitSwitchClosed();
 }
 
 Arm::eArmStatus Arm::GetArmStatus()

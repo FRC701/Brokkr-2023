@@ -17,8 +17,10 @@ class Arm : public frc2::SubsystemBase {
   void Periodic() override;
 
   double SetArmHeight(double pose);
-  double ArmExtend(double pose);
+  double ArmExtend(double speed);
   double CANCoderArmStatus();
+  bool ArmMaxLimitSwitch();
+  bool ArmMinLimitSwitch();
 
   enum eArmStatus {
     UNKNOWN = -1,
