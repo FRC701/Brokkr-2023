@@ -6,11 +6,21 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
+namespace{
+    constexpr double RPMToTicks(double rpm)
+  {
+    double ticks = (rpm * 2048) / 10 / 60;
+    return ticks;
+  }
+}
+
 Turret::Turret(WPI_TalonFX& turret, WPI_PigeonIMU& gyro)
 : mTurretMotor(turret)
 , mGyro(gyro)
 {
+    mTurretMotor.Config_kP(0, 0.1);
     mGyro.SetYaw(0);
+    mTurretMotor.SetNeutralMode(Brake);
 }
 
 // This method will be called once per scheduler run
@@ -23,13 +33,20 @@ void Turret::Periodic() {
     frc::SmartDashboard::PutNumber("GetYawIMU", GetYawIMU());
 }
 
+double Turret::SetVelocity(double rpm)
+{
+    double speed = RPMToTicks(rpm);
+    mTurretMotor.Set(ControlMode::Velocity, speed);
+    return speed;
+}
+
 double Turret::SetTurretPose(double pose){
     mTurretMotor.Set(ControlMode::Position, pose);
         return pose;
 }
 
 double Turret::SetTurretSpeed(double speed){
-    mTurretMotor.Set(ControlMode::PercentOutput, speed);
+    mTurretMotor.Set(speed);
         return speed;
 }
 
