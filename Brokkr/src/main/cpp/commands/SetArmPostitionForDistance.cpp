@@ -9,23 +9,23 @@ namespace{
 
   double GetCameraDistance(double NodeHeight, double AngleTargetOffset)
   {   
-    const double kCameraAngle = 45*(3.14152653589/180);
+    const double kCameraAngle = 45;
     const double kCameraHeight = 36;
   
     double robotDistance = 0;
-    return robotDistance = (NodeHeight - kCameraHeight)/tan(kCameraAngle + AngleTargetOffset);
-  }
+    return robotDistance = (NodeHeight - kCameraHeight)/tan(/*conversion to radians*/(3.14152653589/180)*(kCameraAngle + AngleTargetOffset));
+  } //Trig math to find disance using angle of camera and height of chosen game object
   
   double GetDistance(double height, double distance)
   {
     double armDistance = 0;
     return armDistance = sqrt(pow(height, 2) + pow(distance, 2));
-  }
+  }//using pythagorean theorem to find ideal arm length
   double GetAngle(double height, double distance)
   {
     double angle = 0;
     return angle = atan(height/distance);
-  }
+  } //Trig math by sam to find ideal angle when given x and y values
 
     const double kHybridHeight = 0;
     const double kMiddleNodeHeight = 34;
@@ -94,7 +94,7 @@ void SetArmPostitionForDistance::Execute() {
   double AngleTargetOffset = mTurret.GetVisionPitch();
   GetNodeAngle(mLevel, AngleTargetOffset);
   GetNodeDistance(mLevel, AngleTargetOffset);
-  
+  // NEEDS TO BE FINISHED HAVING MOTORS SET TO DESIRED ANGLE
 }
 
 // Called once the command ends or is interrupted.
