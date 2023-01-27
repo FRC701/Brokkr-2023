@@ -22,7 +22,7 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("ArmPosition Mid", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("ArmPosition High", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("ArmPosition Shelf", new ArmPosition(mArm, 0));
- frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, NodeLevel::HybridLevel));
+ frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, mTurret, NodeLevel::HybridLevel));
 
 
   mArm.SetDefaultCommand(WristLevel(mWrist, mArm));

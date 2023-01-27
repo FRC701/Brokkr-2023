@@ -6,6 +6,15 @@
 #include <cmath>
 
 namespace{
+
+  double GetCameraDistance(double NodeHeight, double AngleTargetOffset)
+  {   
+    const double kCameraAngle = 45*(3.14152653589/180);
+    const double kCameraHeight = 36;
+  
+    double robotDistance = 0;
+    return robotDistance = (NodeHeight - kCameraHeight)/tan(kCameraAngle + AngleTargetOffset);
+  }
   
   double GetDistance(double height, double distance)
   {
@@ -18,57 +27,74 @@ namespace{
     return angle = atan(height/distance);
   }
 
-  double GetNodeDistance(const NodeLevel& NodeLevel, double distance)
+    const double kHybridHeight = 0;
+    const double kMiddleNodeHeight = 34;
+    const double kUpperNodeHeight = 46;
+
+  double GetNodeDistance(const NodeLevel& NodeLevel, double AngleTargetOffset)
   {
+    double distance = 0;
     switch (NodeLevel)
     {
     case NodeLevel::HybridLevel:
-      return GetDistance(0, distance);
+      distance = GetCameraDistance(kHybridHeight, AngleTargetOffset);
+      return GetDistance(kHybridHeight, distance);
       break;
     
     case NodeLevel::MiddleNodeLevel:
-      return GetDistance(34, distance);
+      distance = GetCameraDistance(kMiddleNodeHeight, AngleTargetOffset);
+      return GetDistance(kMiddleNodeHeight, distance);
       break;
     
     case NodeLevel::UpperNodeLevel:
-      return GetDistance(46, distance);
+      distance = GetCameraDistance(kUpperNodeHeight, AngleTargetOffset);
+      return GetDistance(kUpperNodeHeight, distance);
       break;
     }
   }
 
-  double GetNodeAngle(const NodeLevel& NodeLevel, double distance)
+  double GetNodeAngle(const NodeLevel& NodeLevel, double AngleTargetOffset)
   {
+    double distance = 0;
     switch (NodeLevel)
     {
     case NodeLevel::HybridLevel:
-      return GetAngle(0, distance);
+      distance = GetCameraDistance(kHybridHeight, AngleTargetOffset);
+      return GetAngle(kHybridHeight, distance);
       break;
       
     case NodeLevel::MiddleNodeLevel:
-      return GetAngle(34, distance);
+      distance = GetCameraDistance(kMiddleNodeHeight, AngleTargetOffset);
+      return GetAngle(kMiddleNodeHeight, distance);
       break;
     
     case NodeLevel::UpperNodeLevel:
-      return GetAngle(46, distance);
+      distance = GetCameraDistance(kUpperNodeHeight, AngleTargetOffset);
+      return GetAngle(kUpperNodeHeight, distance);
       break;
     }
   }
   
 }
-SetArmPostitionForDistance::SetArmPostitionForDistance(Arm& arm, const NodeLevel& Level)
+SetArmPostitionForDistance::SetArmPostitionForDistance(Arm& arm, Turret& turret, const NodeLevel& Level)
 : mArm(arm)
+, mTurret(turret)
 , mLevel(Level)
  {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(&mArm);
 }
 
 // Called when the command is initially scheduled.
-void SetArmPostitionForDistance::Initialize() {}
+void SetArmPostitionForDistance::Initialize() {
+}
 
 // Called repeatedly when this Command is scheduled to run
 void SetArmPostitionForDistance::Execute() {
-  GetNodeDistance(mLevel, 50);
-  GetNodeAngle(mLevel, 50);
+  double AngleTargetOffset = mTurret.GetVisionPitch();
+  GetNodeAngle(mLevel, AngleTargetOffset);
+  GetNodeDistance(mLevel, AngleTargetOffset);
+  
 }
 
 // Called once the command ends or is interrupted.

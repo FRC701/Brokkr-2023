@@ -7,6 +7,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Arm.h"
+#include "subsystems/Turret.h"
 
 /**
  * An example command.
@@ -20,7 +21,7 @@
 class SetArmPostitionForDistance
     : public frc2::CommandHelper<frc2::CommandBase, SetArmPostitionForDistance> {
  public:
-  SetArmPostitionForDistance(Arm& arm, const NodeLevel& Level);
+  SetArmPostitionForDistance(Arm& arm, Turret& turret, const NodeLevel& Level);
 
   void Initialize() override;
 
@@ -32,5 +33,6 @@ class SetArmPostitionForDistance
 
 private:
 Arm& mArm;
+Turret& mTurret;
 const NodeLevel& mLevel;
 };
