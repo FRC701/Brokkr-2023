@@ -55,7 +55,9 @@ void RobotContainer::ConfigureBindings()
   m_driverController.B().WhileTrue(m_subsystem.ExampleMethodCommand());
 }
 
-frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
+frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return autos::ExampleAuto(&m_subsystem);
+  frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
+
+  return mChooser.GetSelected();
 }
