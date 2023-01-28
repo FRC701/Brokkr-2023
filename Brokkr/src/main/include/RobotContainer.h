@@ -11,6 +11,7 @@
 #include <frc/Joystick.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/button/CommandJoystick.h>
+#include <frc/smartdashboard/SendableChooser.h>
 
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
@@ -50,9 +51,11 @@ class RobotContainer {
   
   static constexpr  int kWristMotor{12};
 
-  frc2::CommandPtr GetAutonomousCommand();
+  frc2::Command* GetAutonomousCommand();
 
  private:
+
+ frc::SendableChooser<frc2::Command*> mChooser;
  frc2::CommandJoystick driver{0};
  frc2::CommandXboxController coDriver{1};
 
