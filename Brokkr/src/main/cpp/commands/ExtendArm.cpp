@@ -12,9 +12,7 @@ ExtendArm::ExtendArm(Arm& mArm, double mMotorSpeed)
 
 // Called when the command is initially scheduled.
 void ExtendArm::Initialize()
-{
-  bool ReachLimit = false;
-}
+{}
 
 // Called repeatedly when this Command is scheduled to run
 void ExtendArm::Execute() 
@@ -23,11 +21,6 @@ void ExtendArm::Execute()
   {
     mArm.ArmExtend(0);
   }
-  else
-  {
-    mArm.ArmExtend(mMotorSpeed);
-  }
-
   if (mMotorSpeed > 0 && mArm.ArmMinLimitSwitch() == true)
   {
     mArm.ArmExtend(0);
@@ -47,5 +40,5 @@ void ExtendArm::End(bool interrupted)
 // Returns true when the command should end.
 bool ExtendArm::IsFinished()
 {
-  return ReachLimit;
+  return false;
 }

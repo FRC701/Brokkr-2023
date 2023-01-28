@@ -31,5 +31,4 @@ class ExtendArm
   private:
   Arm& mArm;
   double mMotorSpeed;
-  bool ReachLimit;
 };
