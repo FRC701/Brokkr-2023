@@ -16,18 +16,12 @@ namespace
 
 Arm::Arm(
         WPI_TalonFX& armM1, WPI_TalonFX& armM2,
-        WPI_TalonFX& teleArm, WPI_CANCoder& canCoder,
-        frc::DigitalInput& maxLim, frc::DigitalInput& minLim,
-        frc::DigitalInput& maxExtendLim, frc::DigitalInput& minExtendLim
+        WPI_TalonFX& teleArm, WPI_CANCoder& canCoder
 )
 : mArmMotor1(armM1)
 , mArmMotor2(armM2)
 , mTelescopingArm(teleArm)
 , mCanCoder(canCoder)
-, mMaxLim(maxLim)
-, mMinLim(minLim)
-, mMaxExtendLim(maxExtendLim)
-, mMinExtendLim(minExtendLim)
 {
     mArmMotor1.Follow(mArmMotor2);
     mArmMotor2.Config_kP(0, 0, 0);
@@ -72,21 +66,21 @@ double Arm::CANCoderArmStatus()
 
 bool Arm::ArmMaxLimitSwitch()
 {
-    return mMaxExtendLim.Get();
+    return mTelescopingArm.IsFwdLimitSwitchClosed();
 }
 
 bool Arm::ArmMinLimitSwitch()
 {
-    return mMinExtendLim.Get();
+    return mTelescopingArm.IsRevLimitSwitchClosed();
 }
 bool Arm::PivotMaxLimitSwitch()
 {
-    return mMaxLim.Get();
+    return mArmMotor2.IsFwdLimitSwitchClosed();
 }
 
 bool Arm::PivotMinLimitSwitch()
 {
-    return mMinLim.Get();
+    return mArmMotor2.IsRevLimitSwitchClosed();
 }
 
 Arm::eArmStatus Arm::GetArmStatus()

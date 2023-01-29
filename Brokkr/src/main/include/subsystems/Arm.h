@@ -12,9 +12,7 @@ class Arm : public frc2::SubsystemBase {
  public:
   Arm(
       WPI_TalonFX& armM1, WPI_TalonFX& armM2,
-      WPI_TalonFX& teleArm, WPI_CANCoder& canCoder,
-      frc::DigitalInput& maxLim, frc::DigitalInput& minLim,
-      frc::DigitalInput& maxExtendLim, frc::DigitalInput& minExtendLim
+      WPI_TalonFX& teleArm, WPI_CANCoder& canCoder
       );
 
   /**
@@ -49,10 +47,6 @@ class Arm : public frc2::SubsystemBase {
  WPI_TalonFX& mArmMotor2;
  WPI_TalonFX& mTelescopingArm;
  WPI_CANCoder& mCanCoder;
- frc::DigitalInput& mMaxLim;
- frc::DigitalInput& mMinLim;
- frc::DigitalInput& mMaxExtendLim;
- frc::DigitalInput& mMinExtendLim;
 
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
