@@ -14,11 +14,20 @@ namespace
     }
 }
 
-Arm::Arm(WPI_TalonFX& armM1, WPI_TalonFX& armM2, WPI_TalonFX& teleArm, WPI_CANCoder& canCoder)
+Arm::Arm(
+        WPI_TalonFX& armM1, WPI_TalonFX& armM2,
+        WPI_TalonFX& teleArm, WPI_CANCoder& canCoder,
+        frc::DigitalInput& maxLim, frc::DigitalInput& minLim,
+        frc::DigitalInput& maxExtendLim, frc::DigitalInput& minExtendLim
+)
 : mArmMotor1(armM1)
 , mArmMotor2(armM2)
 , mTelescopingArm(teleArm)
 , mCanCoder(canCoder)
+, mMaxLim(maxLim)
+, mMinLim(minLim)
+, mMaxExtendLim(maxExtendLim)
+, mMinExtendLim(minExtendLim)
 {
     mArmMotor1.Follow(mArmMotor2);
     mArmMotor2.Config_kP(0, 0, 0);
@@ -33,9 +42,21 @@ void Arm::Periodic()
     frc::SmartDashboard::PutNumber("ArmAngle", CANCoderArmStatus());
 }
 
+double Arm::GetArmSpeed()
+{
+    return mArmMotor2.Get();
+}
+
 double Arm::ArmExtend(double speed)
 {
     mTelescopingArm.Set(speed);
+    return speed;
+}
+
+double Arm::SetArmSpeed(double speed)
+{
+    mArmMotor2.Set(ControlMode::PercentOutput, speed);
+    return speed;
 }
 
 double Arm::SetArmHeight(double pose)
@@ -51,12 +72,21 @@ double Arm::CANCoderArmStatus()
 
 bool Arm::ArmMaxLimitSwitch()
 {
-    return mArmMotor1.IsFwdLimitSwitchClosed();
+    return mMaxExtendLim.Get();
 }
 
 bool Arm::ArmMinLimitSwitch()
 {
-    return mArmMotor2.IsRevLimitSwitchClosed();
+    return mMinExtendLim.Get();
+}
+bool Arm::PivotMaxLimitSwitch()
+{
+    return mMaxLim.Get();
+}
+
+bool Arm::PivotMinLimitSwitch()
+{
+    return mMinLim.Get();
 }
 
 Arm::eArmStatus Arm::GetArmStatus()
