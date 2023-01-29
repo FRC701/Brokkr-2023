@@ -4,8 +4,9 @@
 
 #include "commands/RunTurret.h"
 
-RunTurret::RunTurret(Turret& mTurret, double mMotorSpeed)
-:mTurret(mTurret)
+RunTurret::RunTurret(Turret& turret, double motorSpeed)
+: mTurret(turret)
+, mMotorSpeed(motorSpeed)
 {
   // Use addRequirements() here to declare subsystem dependencies.
 }
@@ -20,7 +21,9 @@ void RunTurret::Execute()
 }
 
 // Called once the command ends or is interrupted.
-void RunTurret::End(bool interrupted) {}
+void RunTurret::End(bool interrupted) {
+  mTurret.SetTurretSpeed(0);
+}
 
 // Returns true when the command should end.
 bool RunTurret::IsFinished() {

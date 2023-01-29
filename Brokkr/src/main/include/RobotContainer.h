@@ -11,6 +11,7 @@
 #include <frc/Joystick.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/button/CommandJoystick.h>
+#include <frc/smartdashboard/SendableChooser.h>
 
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
@@ -35,6 +36,10 @@ class RobotContainer {
   static constexpr  int kArmMotor2{2};
   static constexpr  int kTelescope{3};
   static constexpr  int kArmCoder{13};
+  static constexpr  int kMaxLimExt{17};
+  static constexpr  int kMinLimExt{18};
+  static constexpr  int kMaxLimPiv{19};
+  static constexpr  int kMinLimPiv{20};
 
   static constexpr  int kLeftFrontChassis{4};
   static constexpr  int kLeftRearChassis{5};
@@ -49,10 +54,14 @@ class RobotContainer {
   static constexpr  int kGyroTurret{11};
   
   static constexpr  int kWristMotor{12};
+  static constexpr  int kWristMaxLim{15};
+  static constexpr  int kWristMinLim{16};
 
-  frc2::CommandPtr GetAutonomousCommand();
+  frc2::Command* GetAutonomousCommand();
 
  private:
+
+ frc::SendableChooser<frc2::Command*> mChooser;
  frc2::CommandJoystick driver{0};
  frc2::CommandXboxController coDriver{1};
 
@@ -80,7 +89,11 @@ class RobotContainer {
   WPI_TalonFX ArmMotor2{kArmMotor2};
   WPI_TalonFX TelescopingArm{kTelescope};
   WPI_CANCoder CanCoder{kArmCoder};
-  Arm mArm{ArmMotor1, ArmMotor2, TelescopingArm, CanCoder};
+  frc::DigitalInput MaxLimPiv{kMaxLimPiv};
+  frc::DigitalInput MinLimPiv{kMaxLimPiv};
+  frc::DigitalInput MaxLimExt{kMaxLimExt};
+  frc::DigitalInput MinLimExt{kMinLimExt};
+  Arm mArm{ArmMotor1, ArmMotor2, TelescopingArm, CanCoder, MaxLimPiv, MinLimPiv, MaxLimExt, MinLimExt};
 
   WPI_TalonFX leftFront{kLeftFrontChassis};
   WPI_TalonFX leftRear{kLeftRearChassis};
@@ -98,7 +111,9 @@ class RobotContainer {
 
   WPI_TalonFX mWristMotor{kWristMotor};
   WPI_CANCoder mWristCoder{kWristCoder};
-  Wrist mWrist{mWristMotor, mWristCoder}; 
+  frc::DigitalInput WristMaxLim{kWristMaxLim};
+  frc::DigitalInput WristMinLim{kWristMinLim};
+  Wrist mWrist{mWristMotor, mWristCoder, WristMaxLim, WristMinLim}; 
 
 
   void ConfigureBindings();

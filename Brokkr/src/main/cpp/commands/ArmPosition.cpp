@@ -19,7 +19,18 @@ void ArmPosition::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void ArmPosition::Execute() 
 {
+  if(mArm.PivotMaxLimitSwitch() && mArm.GetArmSpeed() > 0)
+{
+  mArm.SetArmSpeed(0);
+}
+  else if(mArm.PivotMinLimitSwitch() && mArm.GetArmSpeed() < 0)
+{
+  mArm.SetArmSpeed(0);
+}
+  else
+{
   mArm.SetArmHeight(mArmHeight);
+}
 }
 
 // Called once the command ends or is interrupted.

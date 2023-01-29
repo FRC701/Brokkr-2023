@@ -6,10 +6,16 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
+#include <frc/DigitalInput.h>
 
 class Arm : public frc2::SubsystemBase {
  public:
-  Arm(WPI_TalonFX& armM1, WPI_TalonFX& armM2, WPI_TalonFX& teleArm, WPI_CANCoder& canCoder);
+  Arm(
+      WPI_TalonFX& armM1, WPI_TalonFX& armM2,
+      WPI_TalonFX& teleArm, WPI_CANCoder& canCoder,
+      frc::DigitalInput& maxLim, frc::DigitalInput& minLim,
+      frc::DigitalInput& maxExtendLim, frc::DigitalInput& minExtendLim
+      );
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -18,9 +24,13 @@ class Arm : public frc2::SubsystemBase {
 
   double SetArmHeight(double pose);
   double ArmExtend(double speed);
+  double SetArmSpeed(double speed);
+  double GetArmSpeed();
   double CANCoderArmStatus();
   bool ArmMaxLimitSwitch();
   bool ArmMinLimitSwitch();
+  bool PivotMaxLimitSwitch();
+  bool PivotMinLimitSwitch();
 
   enum eArmStatus {
     UNKNOWN = -1,
@@ -39,6 +49,10 @@ class Arm : public frc2::SubsystemBase {
  WPI_TalonFX& mArmMotor2;
  WPI_TalonFX& mTelescopingArm;
  WPI_CANCoder& mCanCoder;
+ frc::DigitalInput& mMaxLim;
+ frc::DigitalInput& mMinLim;
+ frc::DigitalInput& mMaxExtendLim;
+ frc::DigitalInput& mMinExtendLim;
 
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.

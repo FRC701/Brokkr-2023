@@ -5,9 +5,11 @@
 #include "subsystems/Wrist.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder)
+Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder, frc::DigitalInput& wristmaxlim, frc::DigitalInput& wristminlim)
 : mWristMotor(wristMotor)
 , mWristCoder(wristCoder)
+, mWristMaxLim(wristmaxlim)
+, mWristMinLim(wristminlim)
 {
     mWristMotor.Config_kP(0, 0, 0);
     mWristMotor.Config_kI(0, 0, 0);
@@ -39,6 +41,16 @@ double Wrist::GetWristPosition()
 
 double Wrist::TurnWristPO(double speed)
 {
-    mWristMotor.Set(ControlMode::Position, speed);
+    mWristMotor.Set(ControlMode::PercentOutput, speed);
     return speed;
+}
+
+bool Wrist::WristMaxLimitSwitch()
+{
+    return mWristMaxLim.Get();
+}
+
+bool Wrist::WristMinLimitSwitch()
+{
+    return mWristMinLim.Get();
 }
