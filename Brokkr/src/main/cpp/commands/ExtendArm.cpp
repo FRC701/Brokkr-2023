@@ -17,11 +17,11 @@ void ExtendArm::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ExtendArm::Execute() 
 {
-  if (mMotorSpeed < 0 && mArm.ArmMaxLimitSwitch() == true)
+  if (mMotorSpeed < 0 && mArm.ArmMaxLimitSwitch())
   {
     mArm.ArmExtend(0);
   }
-  if (mMotorSpeed > 0 && mArm.ArmMinLimitSwitch() == true)
+  else if (mMotorSpeed > 0 && mArm.ArmMinLimitSwitch())
   {
     mArm.ArmExtend(0);
   }

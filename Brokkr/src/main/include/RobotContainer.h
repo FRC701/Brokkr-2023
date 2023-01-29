@@ -36,6 +36,10 @@ class RobotContainer {
   static constexpr  int kArmMotor2{2};
   static constexpr  int kTelescope{3};
   static constexpr  int kArmCoder{13};
+  static constexpr  int kMaxLimExt{17};
+  static constexpr  int kMinLimExt{18};
+  static constexpr  int kMaxLimPiv{19};
+  static constexpr  int kMinLimPiv{20};
 
   static constexpr  int kLeftFrontChassis{4};
   static constexpr  int kLeftRearChassis{5};
@@ -83,7 +87,11 @@ class RobotContainer {
   WPI_TalonFX ArmMotor2{kArmMotor2};
   WPI_TalonFX TelescopingArm{kTelescope};
   WPI_CANCoder CanCoder{kArmCoder};
-  Arm mArm{ArmMotor1, ArmMotor2, TelescopingArm, CanCoder};
+  frc::DigitalInput MaxLimPiv{kMaxLimPiv};
+  frc::DigitalInput MinLimPiv{kMaxLimPiv};
+  frc::DigitalInput MaxLimExt{kMaxLimExt};
+  frc::DigitalInput MinLimExt{kMinLimExt};
+  Arm mArm{ArmMotor1, ArmMotor2, TelescopingArm, CanCoder, MaxLimPiv, MinLimPiv, MaxLimExt, MinLimExt};
 
   WPI_TalonFX leftFront{kLeftFrontChassis};
   WPI_TalonFX leftRear{kLeftRearChassis};
