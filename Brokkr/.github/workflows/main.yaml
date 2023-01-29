@@ -9,9 +9,8 @@ name: CI
 # events but only for the ci_test [main] branch.
 on:
   push:
-    branches: [ ci_test ]
-  pull_request:
-    branches: [ ci_test ]
+    branches: [ cicd-gha ]
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
