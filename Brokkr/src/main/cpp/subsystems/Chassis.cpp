@@ -15,7 +15,9 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 , mRightRear(rightRear)
 , mDrive(leftFront, rightFront)
 {
+#if ! __APPLE__
     mGyroX.ZeroYaw();
+#endif
     mLeftFront.Config_kP(0, 0, 0);
     mLeftFront.Config_kI(0, 0, 0);
     mLeftFront.Config_kD(0, 0, 0);
@@ -42,9 +44,17 @@ void Chassis::ArcadeDrive(double speed, double rotation)
 }
 
 double Chassis::GetYawNavX() {
-    return mGyroX.GetYaw();
+#if ! __APPLE__
+   return mGyroX.GetYaw();
+#else
+    return 0;
+#endif
  }
 
 double Chassis::GetPitchNavX() {
+#if ! __APPLE__
     return mGyroX.GetPitch();
+#else
+    return 0;
+#endif
  }
