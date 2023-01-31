@@ -13,6 +13,7 @@
 #include "commands/WristLevel.h"
 #include "commands/RunTurret.h"
 #include "commands/ExtendArm.h"
+#include  "commands/SetArmPostitionForDistance.h"
 
 
 RobotContainer::RobotContainer() {
@@ -21,6 +22,8 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("ArmPosition Mid", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("ArmPosition High", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("ArmPosition Shelf", new ArmPosition(mArm, 0));
+ frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, mTurret, NodeLevel::HybridLevel));
+
 
   mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
   // Configure the button bindings
