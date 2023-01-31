@@ -7,6 +7,16 @@
 
 namespace
 {
+    constexpr double kArmGearRatioExtension(120/1);
+    constexpr double kTicksInRotation(2048);
+    constexpr double kArmCircumfrence(10);
+    constexpr double kDistancePerTick{(kArmCircumfrence / kArmGearRatioExtension) / kTicksInRotation};
+
+    double ticksToArmDistance(double ticks)
+    {
+        double distance = 0;
+        return distance = kDistancePerTick * ticks;
+    }
     template <typename T>
     bool inRange(const T upper, const T lower, const T value)
     {
