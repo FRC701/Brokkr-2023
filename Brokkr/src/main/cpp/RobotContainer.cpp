@@ -25,7 +25,7 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, mTurret, NodeLevel::HybridLevel));
 
 
-  mArm.SetDefaultCommand(WristLevel(mWrist, mArm));
+  mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
   // Configure the button bindings
   ConfigureBindings();
 
@@ -58,7 +58,9 @@ void RobotContainer::ConfigureBindings()
   m_driverController.B().WhileTrue(m_subsystem.ExampleMethodCommand());
 }
 
-frc2::CommandPtr RobotContainer::GetAutonomousCommand() {
+frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return autos::ExampleAuto(&m_subsystem);
+  frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
+
+  return mChooser.GetSelected();
 }

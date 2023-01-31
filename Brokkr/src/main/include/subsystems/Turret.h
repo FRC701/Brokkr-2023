@@ -4,8 +4,6 @@
 
 #pragma once
 
-
-
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
 #include <photonlib/PhotonCamera.h>
@@ -17,6 +15,7 @@ class Turret : public frc2::SubsystemBase {
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
+  double SetVelocity(double rpm);
   double SetTurretPose(double pose);
   double SetTurretSpeed(double speed);
   double GetTurretPose();

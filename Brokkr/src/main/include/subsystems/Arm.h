@@ -6,10 +6,14 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
+#include <frc/DigitalInput.h>
 
 class Arm : public frc2::SubsystemBase {
  public:
-  Arm(WPI_TalonFX& armM1, WPI_TalonFX& armM2, WPI_TalonFX& teleArm, WPI_CANCoder& canCoder);
+  Arm(
+      WPI_TalonFX& armM1, WPI_TalonFX& armM2,
+      WPI_TalonFX& teleArm, WPI_CANCoder& canCoder
+      );
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -17,8 +21,14 @@ class Arm : public frc2::SubsystemBase {
   void Periodic() override;
 
   double SetArmHeight(double pose);
-  double ArmExtend(double pose);
+  double ArmExtend(double speed);
+  double SetArmSpeed(double speed);
+  double GetArmSpeed();
   double CANCoderArmStatus();
+  bool ArmMaxLimitSwitch();
+  bool ArmMinLimitSwitch();
+  bool PivotMaxLimitSwitch();
+  bool PivotMinLimitSwitch();
 
   enum eArmStatus {
     UNKNOWN = -1,

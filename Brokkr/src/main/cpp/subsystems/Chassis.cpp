@@ -5,6 +5,20 @@
 #include "subsystems/Chassis.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
+namespace{
+    constexpr double kGearRatio{7.35/1};
+    constexpr double kTicksInRotation{2048};
+    constexpr double kWheelCircumfrence{37.7};
+    constexpr double kWheelDiameter{6};
+    constexpr double kDistancePerTick{(kWheelCircumfrence / kGearRatio) / kTicksInRotation};
+    
+    [[maybe_unused]] 
+    double ticksToDistance(double ticks)
+    {
+        double distance = 0;
+        return distance = kDistancePerTick * ticks;
+    }
+}
 using ControlMode = ctre::phoenix::motorcontrol::ControlMode;
 using WPI_TalonFX = ctre::phoenix::motorcontrol::can::WPI_TalonFX;
 
@@ -58,3 +72,15 @@ double Chassis::GetPitchNavX() {
     return 0;
 #endif
  }
+
+double Chassis::EncoderTicksLeft() 
+{
+    double Ticks = 0;
+    return Ticks = mLeftFront.GetSelectedSensorPosition();
+}
+
+double Chassis::EncoderTicksRight()
+{
+    double Ticks = 0;
+    return Ticks = mRightFront.GetSelectedSensorPosition();
+}
