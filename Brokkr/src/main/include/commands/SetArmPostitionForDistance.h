@@ -25,14 +25,14 @@ class SetArmPostitionForDistance
 
   void Initialize() override;
 
-  void Execute() override;
+  void Execute() override; 
 
   void End(bool interrupted) override;
 
   bool IsFinished() override;
 
 private:
-Arm& mArm;
-Turret& mTurret;
-const NodeLevel& mLevel;
+  Arm& mArm;
+  Turret& mTurret;
+  const NodeLevel& mLevel;
 };
