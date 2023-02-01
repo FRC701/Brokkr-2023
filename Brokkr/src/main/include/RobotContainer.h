@@ -28,7 +28,8 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and trigger mappings) should be declared here.
  */
-class RobotContainer {
+class RobotContainer 
+{
  public:
   RobotContainer();
 
@@ -51,8 +52,6 @@ class RobotContainer {
   static constexpr  int kGyroTurret{11};
   
   static constexpr  int kWristMotor{12};
-  static constexpr  int kWristMaxLim{15};
-  static constexpr  int kWristMinLim{16};
 
   frc2::Command* GetAutonomousCommand();
 
@@ -104,9 +103,7 @@ class RobotContainer {
 
   WPI_TalonFX mWristMotor{kWristMotor};
   WPI_CANCoder mWristCoder{kWristCoder};
-  frc::DigitalInput WristMaxLim{kWristMaxLim};
-  frc::DigitalInput WristMinLim{kWristMinLim};
-  Wrist mWrist{mWristMotor, mWristCoder, WristMaxLim, WristMinLim}; 
+  Wrist mWrist{mWristMotor, mWristCoder}; 
 
 
   void ConfigureBindings();

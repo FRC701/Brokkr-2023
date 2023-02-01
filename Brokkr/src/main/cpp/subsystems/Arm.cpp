@@ -17,6 +17,13 @@ namespace
         double distance = 0;
         return distance = kDistancePerTick * ticks;
     }
+
+    double armDistanceToTicks(double distance)
+    {
+        double ticks = 0;
+        return ticks = distance / kDistancePerTick;
+    }
+
     template <typename T>
     bool inRange(const T upper, const T lower, const T value)
     {
@@ -44,6 +51,16 @@ void Arm::Periodic()
 {
     frc::SmartDashboard::PutString("ArmHeightStatus", AsString(GetArmStatus()));
     frc::SmartDashboard::PutNumber("ArmAngle", CANCoderArmStatus());
+    frc::SmartDashboard::PutNumber("ArmDistance", ticksToArmDistance(GetExtendTicks()));
+}
+double Arm::DistanceToTicks(double distance)
+{
+    return armDistanceToTicks(distance);
+}
+
+double Arm::GetExtendTicks()
+{
+    return mTelescopingArm.GetSelectedSensorPosition();
 }
 
 double Arm::GetArmSpeed()
