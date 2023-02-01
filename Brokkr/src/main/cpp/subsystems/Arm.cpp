@@ -7,6 +7,23 @@
 
 namespace
 {
+    constexpr double kArmGearRatioExtension(120/1);
+    constexpr double kTicksInRotation(2048);
+    constexpr double kArmCircumfrence(10);
+    constexpr double kDistancePerTick{(kArmCircumfrence / kArmGearRatioExtension) / kTicksInRotation};
+
+    double ticksToArmDistance(double ticks)
+    {
+        double distance = 0;
+        return distance = kDistancePerTick * ticks;
+    }
+
+    double armDistanceToTicks(double distance)
+    {
+        double ticks = 0;
+        return ticks = distance / kDistancePerTick;
+    }
+
     template <typename T>
     bool inRange(const T upper, const T lower, const T value)
     {
@@ -44,6 +61,16 @@ void Arm::Periodic()
 {
     frc::SmartDashboard::PutString("ArmHeightStatus", AsString(GetArmStatus()));
     frc::SmartDashboard::PutNumber("ArmAngle", CANCoderArmStatus());
+    frc::SmartDashboard::PutNumber("ArmDistance", ticksToArmDistance(GetExtendTicks()));
+}
+double Arm::DistanceToTicks(double distance)
+{
+    return armDistanceToTicks(distance);
+}
+
+double Arm::GetExtendTicks()
+{
+    return mTelescopingArm.GetSelectedSensorPosition();
 }
 
 double Arm::GetArmSpeed()

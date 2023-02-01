@@ -27,7 +27,8 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and trigger mappings) should be declared here.
  */
-class RobotContainer {
+class RobotContainer 
+{
  public:
   RobotContainer();
 
