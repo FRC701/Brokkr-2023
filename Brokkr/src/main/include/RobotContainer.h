@@ -20,7 +20,6 @@
 #include "subsystems/Claw.h"
 #include "subsystems/Turret.h"
 #include "subsystems/Wrist.h"
-
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -51,8 +50,6 @@ class RobotContainer {
   static constexpr  int kGyroTurret{11};
   
   static constexpr  int kWristMotor{12};
-  static constexpr  int kWristMaxLim{15};
-  static constexpr  int kWristMinLim{16};
 
   frc2::Command* GetAutonomousCommand();
 
@@ -104,9 +101,7 @@ class RobotContainer {
 
   WPI_TalonFX mWristMotor{kWristMotor};
   WPI_CANCoder mWristCoder{kWristCoder};
-  frc::DigitalInput WristMaxLim{kWristMaxLim};
-  frc::DigitalInput WristMinLim{kWristMinLim};
-  Wrist mWrist{mWristMotor, mWristCoder, WristMaxLim, WristMinLim}; 
+  Wrist mWrist{mWristMotor, mWristCoder}; 
 
 
   void ConfigureBindings();

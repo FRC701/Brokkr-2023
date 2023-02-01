@@ -18,7 +18,6 @@ Turret::Turret(WPI_TalonFX& turret, WPI_PigeonIMU& gyro)
 : mTurretMotor(turret)
 , mGyro(gyro)
 {
-    mTurretMotor.Config_kP(0, 0.1);
     mGyro.SetYaw(0);
     mTurretMotor.SetNeutralMode(Brake);
 }
