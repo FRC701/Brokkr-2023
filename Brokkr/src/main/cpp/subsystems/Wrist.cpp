@@ -18,6 +18,8 @@ Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder)
 void Wrist::Periodic() 
 {
     frc::SmartDashboard::PutBoolean("IsWristFlicked", IsWristFlicked());
+    frc::SmartDashboard::PutBoolean("MaxLimitSwitch", WristMaxLimitSwitch());
+    frc::SmartDashboard::PutBoolean("MinLimitSwitch", WristMinLimitSwitch());
 }
 
 double Wrist::TurnWrist(double pos) 
@@ -45,10 +47,10 @@ double Wrist::TurnWristPO(double speed)
 
 bool Wrist::WristMaxLimitSwitch()
 {
-    return mWristMotor.IsRevLimitSwitchClosed();
+    return mWristMotor.IsFwdLimitSwitchClosed();
 }
 
 bool Wrist::WristMinLimitSwitch()
 {
-    return mWristMotor.IsFwdLimitSwitchClosed();
+    return mWristMotor.IsRevLimitSwitchClosed();
 }

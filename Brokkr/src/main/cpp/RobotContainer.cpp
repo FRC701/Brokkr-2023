@@ -14,15 +14,20 @@
 #include "commands/RunTurret.h"
 #include "commands/ExtendArm.h"
 #include "commands/ArmInitialPosition.h"
+#include "commands/WristInitialPosition.h"
+#include  "commands/SetArmPostitionForDistance.h"
 
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
  frc::SmartDashboard::PutData("ArmPosition Hybrid", new ArmPosition(mArm, 0)); //Placeholder values
+ frc::SmartDashboard::PutData("InitClaw", new WristInitialPosition(mWrist, 0));
  frc::SmartDashboard::PutData("ArmPosition Mid", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("ArmPosition High", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("ArmPosition Shelf", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("SetArmPosition", new ArmInitialPosition(mArm, 0));
+ frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, mTurret, NodeLevel::HybridLevel));
+
 
   mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
   // Configure the button bindings
