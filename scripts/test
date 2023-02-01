@@ -1,0 +1,6 @@
+if [ "$(whoami)" == "runner" ]; then
+  echo "We are on GitHub, so don't run lint manually"
+else
+  echo "Running locally because we don't think we are on GitHub"
+  lint_ci
+fi

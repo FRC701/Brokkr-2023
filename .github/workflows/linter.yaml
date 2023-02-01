@@ -46,6 +46,10 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter/slim@v4
         env:
-          VALIDATE_ALL_CODEBASE: false
+          FILTER_REGEX_INCLUDE: ./Brokkr/src/.*
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_CPP: true
+          VALIDATE_MARKDOWN: false
+          VALIDATE_YAML: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
