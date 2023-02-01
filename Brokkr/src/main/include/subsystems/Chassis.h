@@ -7,11 +7,16 @@
 #include <frc2/command/SubsystemBase.h>
 #include <ctre/Phoenix.h>
 #include <frc/drive/DifferentialDrive.h>
+
+#if ! __APPLE__
 #include <AHRS.h>
+#endif
+
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/geometry/Translation2d.h>
 #include <units/length.h>
+
 
 class Chassis : public frc2::SubsystemBase {
  public:
@@ -34,7 +39,9 @@ class Chassis : public frc2::SubsystemBase {
   WPI_TalonFX& mLeftRear;
   WPI_TalonFX& mRightFront;
   WPI_TalonFX& mRightRear;
+  #if ! __APPLE__
   AHRS mGyroX{frc::SPI::kMXP};
+  #endif
   frc::DifferentialDrive mDrive;
   /*
   frc::Translation2d mLocationFrontRight{+12_in, +12.5_in};
