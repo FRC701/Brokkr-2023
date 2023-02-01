@@ -22,6 +22,8 @@ class Arm : public frc2::SubsystemBase {
 
   double SetArmHeight(double pose);
   double ArmExtend(double speed);
+  double DistanceToTicks(double distance);
+  double GetExtendTicks();
   double SetArmSpeed(double speed);
   double GetArmSpeed();
   double CANCoderArmStatus();
@@ -47,7 +49,6 @@ class Arm : public frc2::SubsystemBase {
  WPI_TalonFX& mArmMotor2;
  WPI_TalonFX& mTelescopingArm;
  WPI_CANCoder& mCanCoder;
-
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
 };
