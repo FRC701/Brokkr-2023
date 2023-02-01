@@ -8,8 +8,6 @@
 Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder, frc::DigitalInput& wristmaxlim, frc::DigitalInput& wristminlim)
 : mWristMotor(wristMotor)
 , mWristCoder(wristCoder)
-, mWristMaxLim(wristmaxlim)
-, mWristMinLim(wristminlim)
 {
     mWristMotor.Config_kP(0, 0, 0);
     mWristMotor.Config_kI(0, 0, 0);
@@ -20,6 +18,8 @@ Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder, frc::DigitalInpu
 void Wrist::Periodic() 
 {
     frc::SmartDashboard::PutBoolean("IsWristFlicked", IsWristFlicked());
+    frc::SmartDashboard::PutBoolean("MaxLimitSwitch", WristMaxLimitSwitch());
+    frc::SmartDashboard::PutBoolean("MinLimitSwitch", WristMinLimitSwitch());
 }
 
 double Wrist::TurnWrist(double pos) 
@@ -47,10 +47,10 @@ double Wrist::TurnWristPO(double speed)
 
 bool Wrist::WristMaxLimitSwitch()
 {
-    return mWristMaxLim.Get();
+    return mWristMotor.IsFwdLimitSwitchClosed();
 }
 
 bool Wrist::WristMinLimitSwitch()
 {
-    return mWristMinLim.Get();
+    return mWristMotor.IsRevLimitSwitchClosed();
 }
