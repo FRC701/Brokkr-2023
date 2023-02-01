@@ -34,45 +34,49 @@ namespace{
   double GetNodeDistance(const NodeLevel& NodeLevel, double AngleTargetOffset)
   {
     double distance = 0;
+    double armDistance = 0;
     switch (NodeLevel)
     {
     case NodeLevel::HybridLevel:
       distance = GetCameraDistance(kHybridHeight, AngleTargetOffset);
-      return GetDistance(kHybridHeight, distance);
+      armDistance = GetDistance(kHybridHeight, distance);
       break;
     
     case NodeLevel::MiddleNodeLevel:
       distance = GetCameraDistance(kMiddleNodeHeight, AngleTargetOffset);
-      return GetDistance(kMiddleNodeHeight, distance);
+      armDistance = GetDistance(kMiddleNodeHeight, distance);
       break;
     
     case NodeLevel::UpperNodeLevel:
       distance = GetCameraDistance(kUpperNodeHeight, AngleTargetOffset);
-      return GetDistance(kUpperNodeHeight, distance);
+      armDistance =  GetDistance(kUpperNodeHeight, distance);
       break;
     }
+    return armDistance;
   }
 
   double GetNodeAngle(const NodeLevel& NodeLevel, double AngleTargetOffset)
   {
     double distance = 0;
+    double armAngle = 0;
     switch (NodeLevel)
     {
     case NodeLevel::HybridLevel:
       distance = GetCameraDistance(kHybridHeight, AngleTargetOffset);
-      return GetAngle(kHybridHeight, distance);
+      armAngle = GetAngle(kHybridHeight, distance);
       break;
       
     case NodeLevel::MiddleNodeLevel:
       distance = GetCameraDistance(kMiddleNodeHeight, AngleTargetOffset);
-      return GetAngle(kMiddleNodeHeight, distance);
+      armAngle = GetAngle(kMiddleNodeHeight, distance);
       break;
     
     case NodeLevel::UpperNodeLevel:
       distance = GetCameraDistance(kUpperNodeHeight, AngleTargetOffset);
-      return GetAngle(kUpperNodeHeight, distance);
+      armAngle = GetAngle(kUpperNodeHeight, distance);
       break;
     }
+    return armAngle;
   }
   
 }
