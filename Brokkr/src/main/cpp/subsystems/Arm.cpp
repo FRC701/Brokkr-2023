@@ -12,14 +12,14 @@ namespace
     {
         return (value >= lower && value < upper);
     }
-}
-
     const double kArmAngle_P = 10.0;
     const double kArmAngle_I = 0;
     const double kArmAngle_D = 0;
     const double kArmExtend_P = 3.0;
     const double kArmExtend_I = 0;
     const double kArmExtend_D = 0;
+}
+
 
 Arm::Arm(
         WPI_TalonFX& armM1, WPI_TalonFX& armM2,
