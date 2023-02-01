@@ -10,7 +10,7 @@
 
 class Wrist : public frc2::SubsystemBase {
  public:
-  Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder, frc::DigitalInput& mWristMaxLim, frc::DigitalInput& mWristMinLim);
+  Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

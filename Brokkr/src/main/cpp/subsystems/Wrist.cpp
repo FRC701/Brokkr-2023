@@ -5,7 +5,7 @@
 #include "subsystems/Wrist.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder, frc::DigitalInput& wristmaxlim, frc::DigitalInput& wristminlim)
+Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder)
 : mWristMotor(wristMotor)
 , mWristCoder(wristCoder)
 {
