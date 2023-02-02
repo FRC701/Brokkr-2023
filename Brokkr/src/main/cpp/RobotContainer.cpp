@@ -9,6 +9,7 @@
 
 #include "commands/Autos.h"
 #include "commands/ExampleCommand.h"
+#include "commands/ArcadeDrive.h"
 #include "commands/ArmPosition.h"
 #include "commands/WristLevel.h"
 #include "commands/RunTurret.h"
@@ -33,6 +34,15 @@ RobotContainer::RobotContainer() {
   // Configure the button bindings
   ConfigureBindings();
 
+  mChassis.SetDefaultCommand
+  (
+    ArcadeDrive
+    (
+      mChassis,
+      [this] {return -1.0*driver.GetY(); },
+      [this] {return -1.0*driver.GetTwist(); }
+    )
+  );
 
 }
 
