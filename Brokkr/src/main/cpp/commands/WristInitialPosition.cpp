@@ -8,7 +8,7 @@ WristInitialPosition::WristInitialPosition(Wrist& wrist, double pose)
 :mWrist(wrist)
 ,mPose(pose)
 {
-  AddRequirements(&wrist);
+  AddRequirements(&mWrist);
 }
 
 // Called when the command is initially scheduled.
