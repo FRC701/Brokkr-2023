@@ -16,7 +16,8 @@
 #include "commands/ExtendArm.h"
 #include "commands/ArmInitialPosition.h"
 #include "commands/WristInitialPosition.h"
-#include  "commands/SetArmPostitionForDistance.h"
+#include "commands/SetArmPostitionForDistance.h"
+#include "commands/TurretManualControl.h"
 
 
 RobotContainer::RobotContainer() {
@@ -60,6 +61,10 @@ void RobotContainer::ConfigureBindings()
   yButton.WhileTrue(ExtendArm(mArm, 0.5).ToPtr()); //placeholder
   aButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
   bButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+
+  lBumperButton.WhileTrue(TurretManualControl(mTurret,-200).ToPtr());
+  rBumperButton.WhileTrue(TurretManualControl(mTurret, 200).ToPtr());
+
 
   // Configure your trigger bindings here
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`

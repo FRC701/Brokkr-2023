@@ -4,9 +4,9 @@
 
 #include "commands/TurretManualControl.h"
 
-TurretManualControl::TurretManualControl(Turret& turret, std::function<double()> speed) 
+TurretManualControl::TurretManualControl(Turret& turret, double rpm) 
 : mTurret(turret)
-, mSpeed(speed)
+, rpm(rpm)
 {
   AddRequirements(&turret);
 }
@@ -17,7 +17,7 @@ void TurretManualControl::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void TurretManualControl::Execute() 
 {
-  mTurret.SetTurretSpeed(mSpeed());
+  mTurret.SetVelocity(rpm);
 }
 
 // Called once the command ends or is interrupted.

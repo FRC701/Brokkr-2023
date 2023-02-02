@@ -19,7 +19,7 @@
 class TurretManualControl
     : public frc2::CommandHelper<frc2::CommandBase, TurretManualControl> {
  public:
-  TurretManualControl(Turret& turret, std::function<double()> speed);
+  TurretManualControl(Turret& turret, double rpm);
 
   void Initialize() override;
 
@@ -31,5 +31,5 @@ class TurretManualControl
 
   private:
   Turret& mTurret;
-  std::function<double()> mSpeed;
+  double rpm;
 };
