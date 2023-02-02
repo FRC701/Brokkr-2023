@@ -27,7 +27,7 @@ void IntakeSpin::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void IntakeSpin::Execute() 
 {
-  mClaw.IntakeSpin(0.5);
+  mClaw.IntakeSpin(1);
   if (mIsInRushOver)
   {
     if(mClaw.IsConeOrCubeIn()) //placeholder

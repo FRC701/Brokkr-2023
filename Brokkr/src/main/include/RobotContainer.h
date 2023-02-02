@@ -20,7 +20,6 @@
 #include "subsystems/Claw.h"
 #include "subsystems/Turret.h"
 #include "subsystems/Wrist.h"
-
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -28,7 +27,8 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and trigger mappings) should be declared here.
  */
-class RobotContainer {
+class RobotContainer 
+{
  public:
   RobotContainer();
 
@@ -51,8 +51,6 @@ class RobotContainer {
   static constexpr  int kGyroTurret{11};
   
   static constexpr  int kWristMotor{12};
-  static constexpr  int kWristMaxLim{15};
-  static constexpr  int kWristMinLim{16};
 
   frc2::Command* GetAutonomousCommand();
 
@@ -73,7 +71,8 @@ class RobotContainer {
  frc2::Trigger yButton = coDriver.Y();
  frc2::Trigger aButton = coDriver.A();
  frc2::Trigger bButton = coDriver.B();
-
+ frc2::Trigger lBumperButton = coDriver.LeftBumper();
+ frc2::Trigger rBumperButton = coDriver.RightBumper();
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -104,9 +103,7 @@ class RobotContainer {
 
   WPI_TalonFX mWristMotor{kWristMotor};
   WPI_CANCoder mWristCoder{kWristCoder};
-  frc::DigitalInput WristMaxLim{kWristMaxLim};
-  frc::DigitalInput WristMinLim{kWristMinLim};
-  Wrist mWrist{mWristMotor, mWristCoder, WristMaxLim, WristMinLim}; 
+  Wrist mWrist{mWristMotor, mWristCoder}; 
 
 
   void ConfigureBindings();

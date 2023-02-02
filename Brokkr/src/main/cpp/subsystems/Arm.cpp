@@ -7,12 +7,36 @@
 
 namespace
 {
+    constexpr double kArmGearRatioExtension(120/1);
+    constexpr double kTicksInRotation(2048);
+    constexpr double kArmCircumfrence(10);
+    constexpr double kDistancePerTick{(kArmCircumfrence / kArmGearRatioExtension) / kTicksInRotation};
+
+    double ticksToArmDistance(double ticks)
+    {
+        double distance = 0;
+        return distance = kDistancePerTick * ticks;
+    }
+
+    double armDistanceToTicks(double distance)
+    {
+        double ticks = 0;
+        return ticks = distance / kDistancePerTick;
+    }
+
     template <typename T>
     bool inRange(const T upper, const T lower, const T value)
     {
         return (value >= lower && value < upper);
     }
+    const double kArmAngle_P = 10.0;
+    const double kArmAngle_I = 0;
+    const double kArmAngle_D = 0;
+    const double kArmExtend_P = 3.0;
+    const double kArmExtend_I = 0;
+    const double kArmExtend_D = 0;
 }
+
 
 Arm::Arm(
         WPI_TalonFX& armM1, WPI_TalonFX& armM2,
@@ -24,16 +48,29 @@ Arm::Arm(
 , mCanCoder(canCoder)
 {
     mArmMotor1.Follow(mArmMotor2);
-    mArmMotor2.Config_kP(0, 0, 0);
-    mArmMotor2.Config_kI(0, 0, 0);
-    mArmMotor2.Config_kD(0, 0, 0);
+    mArmMotor2.Config_kP(0, kArmAngle_P);
+    mArmMotor2.Config_kI(0, kArmAngle_I);
+    mArmMotor2.Config_kD(0, kArmAngle_D);
     mTelescopingArm.SetNeutralMode(Brake);
+    mTelescopingArm.Config_kP(0, kArmExtend_P);
+    mTelescopingArm.Config_kI(0, kArmExtend_I);
+    mTelescopingArm.Config_kD(0, kArmExtend_D);
 }
 // This method will be called once per scheduler run
 void Arm::Periodic()
 {
     frc::SmartDashboard::PutString("ArmHeightStatus", AsString(GetArmStatus()));
     frc::SmartDashboard::PutNumber("ArmAngle", CANCoderArmStatus());
+    frc::SmartDashboard::PutNumber("ArmDistance", ticksToArmDistance(GetExtendTicks()));
+}
+double Arm::DistanceToTicks(double distance)
+{
+    return armDistanceToTicks(distance);
+}
+
+double Arm::GetExtendTicks()
+{
+    return mTelescopingArm.GetSelectedSensorPosition();
 }
 
 double Arm::GetArmSpeed()

@@ -9,23 +9,41 @@
 
 #include "commands/Autos.h"
 #include "commands/ExampleCommand.h"
+#include "commands/ArcadeDrive.h"
 #include "commands/ArmPosition.h"
 #include "commands/WristLevel.h"
 #include "commands/RunTurret.h"
 #include "commands/ExtendArm.h"
+#include "commands/ArmInitialPosition.h"
+#include "commands/WristInitialPosition.h"
+#include "commands/SetArmPostitionForDistance.h"
+#include "commands/TurretManualControl.h"
 
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
  frc::SmartDashboard::PutData("ArmPosition Hybrid", new ArmPosition(mArm, 0)); //Placeholder values
+ frc::SmartDashboard::PutData("InitClaw", new WristInitialPosition(mWrist, 0));
  frc::SmartDashboard::PutData("ArmPosition Mid", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("ArmPosition High", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("ArmPosition Shelf", new ArmPosition(mArm, 0));
+ frc::SmartDashboard::PutData("SetArmPosition", new ArmInitialPosition(mArm, 0));
+ frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, mTurret, NodeLevel::HybridLevel));
+
 
   mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
   // Configure the button bindings
   ConfigureBindings();
 
+  mChassis.SetDefaultCommand
+  (
+    ArcadeDrive
+    (
+      mChassis,
+      [this] {return -1.0*driver.GetY(); },
+      [this] {return -1.0*driver.GetTwist(); }
+    )
+  );
 
 }
 
@@ -43,6 +61,10 @@ void RobotContainer::ConfigureBindings()
   yButton.WhileTrue(ExtendArm(mArm, 0.5).ToPtr()); //placeholder
   aButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
   bButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+
+  lBumperButton.WhileTrue(TurretManualControl(mTurret,-200).ToPtr());
+  rBumperButton.WhileTrue(TurretManualControl(mTurret, 200).ToPtr());
+
 
   // Configure your trigger bindings here
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
