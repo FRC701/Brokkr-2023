@@ -71,7 +71,8 @@ class RobotContainer
  frc2::Trigger yButton = coDriver.Y();
  frc2::Trigger aButton = coDriver.A();
  frc2::Trigger bButton = coDriver.B();
-
+ frc2::Trigger lBumperButton = coDriver.LeftBumper();
+ frc2::Trigger rBumperButton = coDriver.RightBumper();
 
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
