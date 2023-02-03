@@ -18,6 +18,7 @@
 #include "commands/WristInitialPosition.h"
 #include "commands/SetArmPostitionForDistance.h"
 #include "commands/TurretManualControl.h"
+#include "commands/MoveArmIntake.h"
 #include "commands/IntakeSpin.h"
 #include "commands/IntakeEjectObject.h"
 
@@ -58,7 +59,7 @@ void RobotContainer::ConfigureBindings()
   button5.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
 
 
-  xButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr());
+  xButton.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 45).ToPtr());
   yButton.WhileTrue(ExtendArm(mArm, 0.5).ToPtr()); //placeholder
   aButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
   bButton.ToggleOnTrue(IntakeEjectObject(mClaw).ToPtr()); //Release Game Object

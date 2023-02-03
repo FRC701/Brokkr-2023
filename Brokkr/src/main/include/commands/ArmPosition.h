@@ -6,6 +6,8 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc/controller/PIDController.h>
+
 #include "subsystems/Arm.h"
 
 /**
@@ -30,5 +32,6 @@ class ArmPosition
 
   private:
   Arm& mArm;
+  frc2::PIDController mArmControl{0, 0, 0};
   double mArmHeight;
 };
