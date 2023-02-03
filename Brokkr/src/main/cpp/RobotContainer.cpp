@@ -18,7 +18,8 @@
 #include "commands/WristInitialPosition.h"
 #include "commands/SetArmPostitionForDistance.h"
 #include "commands/TurretManualControl.h"
-
+#include "commands/IntakeSpin.h"
+#include "commands/IntakeEjectObject.h"
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
@@ -60,10 +61,10 @@ void RobotContainer::ConfigureBindings()
   xButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr());
   yButton.WhileTrue(ExtendArm(mArm, 0.5).ToPtr()); //placeholder
   aButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
-  bButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+  bButton.ToggleOnTrue(IntakeEjectObject(mClaw).ToPtr()); //Release Game Object
 
-  lBumperButton.WhileTrue(TurretManualControl(mTurret,-200).ToPtr());
-  rBumperButton.WhileTrue(TurretManualControl(mTurret, 200).ToPtr());
+  lBumperButton.WhileTrue(TurretManualControl(mTurret,-200).ToPtr()); //Turn Turret Left
+  rBumperButton.WhileTrue(TurretManualControl(mTurret, 200).ToPtr()); //Turn Turret Right
 
 
   // Configure your trigger bindings here
