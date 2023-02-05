@@ -14,7 +14,7 @@ on:
   #   branches: [Feature/cicd-gha]
     # Remove the line above to run when pushing to master
   pull_request:
-    branches: [Feature/cicd-gha]
+    branches: [main]
 
 ###############
 # Set the Job #
