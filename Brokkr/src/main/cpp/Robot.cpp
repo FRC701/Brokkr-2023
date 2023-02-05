@@ -2,67 +2,47 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+#include <numbers>
+
+#include <frc/Encoder.h>
+#include <frc/Joystick.h>
 #include <frc/TimedRobot.h>
-#include <frc/Timer.h>
-#include <frc/XboxController.h>
-#include <frc/controller/RamseteController.h>
-#include <frc/filter/SlewRateLimiter.h>
-#include <frc/trajectory/TrajectoryGenerator.h>
+#include <frc/motorcontrol/PWMSparkMax.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
-#include "Drivetrain.h"
-
+/**
+ * This sample program shows how to control a motor using a joystick. In the
+ * operator control part of the program, the joystick is read and the value is
+ * written to the motor.
+ *
+ * Joystick analog values range from -1 to 1 and motor controller inputs as
+ * range from -1 to 1 making it easy to work together.
+ *
+ * In addition, the encoder value of an encoder connected to ports 0 and 1 is
+ * consistently sent to the Dashboard.
+ */
 class Robot : public frc::TimedRobot {
  public:
+  void TeleopPeriodic() override { m_motor.Set(m_stick.GetY()); }
+
+  /*
+   * The RobotPeriodic function is called every control packet no matter the
+   * robot mode.
+   */
+  void RobotPeriodic() override {
+    frc::SmartDashboard::PutNumber("Encoder", m_encoder.GetDistance());
+  }
+
   void RobotInit() override {
-    m_trajectory = frc::TrajectoryGenerator::GenerateTrajectory(
-        frc::Pose2d{2_m, 2_m, 0_rad}, {}, frc::Pose2d{6_m, 4_m, 0_rad},
-        frc::TrajectoryConfig(2_mps, 2_mps_sq));
+    // Use SetDistancePerPulse to set the multiplier for GetDistance
+    // This is set up assuming a 6 inch wheel with a 360 CPR encoder.
+    m_encoder.SetDistancePerPulse((std::numbers::pi * 6) / 360.0);
   }
-
-  void RobotPeriodic() override { m_drive.Periodic(); }
-
-  void AutonomousInit() override {
-    m_timer.Reset();
-    m_drive.ResetOdometry(m_trajectory.InitialPose());
-  }
-
-  void AutonomousPeriodic() override {
-    auto elapsed = m_timer.Get();
-    auto reference = m_trajectory.Sample(elapsed);
-    auto speeds = m_ramsete.Calculate(m_drive.GetPose(), reference);
-    m_drive.Drive(speeds.vx, speeds.omega);
-  }
-
-  void TeleopPeriodic() override {
-    // Get the x speed. We are inverting this because Xbox controllers return
-    // negative values when we push forward.
-    const auto xSpeed = -m_speedLimiter.Calculate(m_controller.GetLeftY()) *
-                        Drivetrain::kMaxSpeed;
-
-    // Get the rate of angular rotation. We are inverting this because we want a
-    // positive value when we pull to the left (remember, CCW is positive in
-    // mathematics). Xbox controllers return positive values when you pull to
-    // the right by default.
-    auto rot = -m_rotLimiter.Calculate(m_controller.GetRightX()) *
-               Drivetrain::kMaxAngularSpeed;
-
-    m_drive.Drive(xSpeed, rot);
-  }
-
-  void SimulationPeriodic() override { m_drive.SimulationPeriodic(); }
 
  private:
-  frc::XboxController m_controller{0};
-
-  // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0
-  // to 1.
-  frc::SlewRateLimiter<units::scalar> m_speedLimiter{3 / 1_s};
-  frc::SlewRateLimiter<units::scalar> m_rotLimiter{3 / 1_s};
-
-  Drivetrain m_drive;
-  frc::Trajectory m_trajectory;
-  frc::RamseteController m_ramsete;
-  frc::Timer m_timer;
+  frc::Joystick m_stick{0};
+  frc::PWMSparkMax m_motor{0};
+  frc::Encoder m_encoder{0, 1};
 };
 
 #ifndef RUNNING_FRC_TESTS
