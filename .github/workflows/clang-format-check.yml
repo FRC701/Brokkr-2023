@@ -10,6 +10,8 @@ jobs:
   formatting-check:
     name: Formatting Check
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
         path:
           - 'src'
     steps:
@@ -18,5 +20,4 @@ jobs:
       uses: jidicula/clang-format-action@v4.10.2
       with:
         clang-format-version: '15'
-        exclude-regex: ^\./build/.*$
         fallback-style: 'Google' # optional
