@@ -1,8 +1,8 @@
 name: clang-format Check
 on:
-  push:
-    branches: [Feature/cicd-gha]
-    # Remove the line above to run when pushing to master
+  # push:
+  #   branches: [Feature/cicd-gha]
+  #   # Remove the line above to run when pushing to master
   pull_request:
     branches: [Feature/cicd-gha]
 
@@ -20,4 +20,5 @@ jobs:
       uses: jidicula/clang-format-action@v4.10.2
       with:
         clang-format-version: '15'
+        check-path: ${{ matrix.path }}
         fallback-style: 'Google' # optional
