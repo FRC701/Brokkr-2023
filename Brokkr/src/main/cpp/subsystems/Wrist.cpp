@@ -5,14 +5,22 @@
 #include "subsystems/Wrist.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
+namespace
+{
+  const double kWrist_P = 10.0;
+  const double kWrist_I = 0.0;
+  const double kWrist_D = 0.0;
+  const double kWrist_F = 0.0;
+}
+
 Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder)
 : mWristMotor(wristMotor)
 , mWristCoder(wristCoder)
 {
-    mWristMotor.Config_kP(0, 0, 0);
-    mWristMotor.Config_kI(0, 0, 0);
-    mWristMotor.Config_kD(0, 0, 0);
-    mWristMotor.Config_kF(0, 0, 0);
+    mWristMotor.Config_kP(0, kWrist_P);
+    mWristMotor.Config_kI(0, kWrist_I);
+    mWristMotor.Config_kD(0, kWrist_D);
+    mWristMotor.Config_kF(0, kWrist_F);
 }
 // This method will be called once per scheduler run
 void Wrist::Periodic() 
