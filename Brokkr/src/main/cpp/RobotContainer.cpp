@@ -23,6 +23,7 @@
 #include "commands/IntakeEjectObject.h"
 #include "commands/PivotWrist.h"
 #include "commands/ManualArmAngle.h"
+#include "commands/RetractIntoFramePerimeter.h"
 
 
 RobotContainer::RobotContainer() {
@@ -49,20 +50,21 @@ RobotContainer::RobotContainer() {
       [this] {return -1.0*driver.GetTwist(); }
     )
   );
-  mWrist.SetDefaultCommand
+  /*mWrist.SetDefaultCommand
   (
     PivotWrist
     (
       mWrist,
       [this] {return -0.4*coDriver.GetRightY();}
     )
-  );
+  );*/
 }
 void RobotContainer::ConfigureBindings() 
 {
   trigger.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
   button1.ToggleOnTrue(RunTurret(mTurret,0.5).ToPtr()); //placeholder
   button2.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+
   button3.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
   button4.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
   button5.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
@@ -74,11 +76,11 @@ void RobotContainer::ConfigureBindings()
   bButton.ToggleOnTrue(IntakeEjectObject(mClaw).ToPtr()); //Release Game Object
   lTrigger.WhileTrue(ManualArmAngle(mArm, 0.3).ToPtr()); // Raise Arm
   rTrigger.WhileTrue(ManualArmAngle(mArm, -0.3).ToPtr()); // Lower Arm
-  /*upDPAD.WhileTrue(PivotWrist(mWrist, 0.3).ToPtr()); // Raise Wrist
-  downDPAD.WhileTrue(PivotWrist(mWrist, -0.3).ToPtr());*/ // Lower Wrist 
+  upDPAD.WhileTrue(PivotWrist(mWrist, 0.3).ToPtr()); // Raise Wrist
+  downDPAD.WhileTrue(PivotWrist(mWrist, -0.3).ToPtr()); // Lower Wrist 
   lBumperButton.WhileTrue(TurretManualControl(mTurret,-200).ToPtr()); //Turn Turret Left
   rBumperButton.WhileTrue(TurretManualControl(mTurret, 200).ToPtr()); //Turn Turret Right
-
+  Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist, mClaw, mTurret).ToPtr());
 
   // Configure your trigger bindings here
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`

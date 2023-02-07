@@ -18,7 +18,7 @@
 class PivotWrist
     : public frc2::CommandHelper<frc2::CommandBase, PivotWrist> {
  public:
-  PivotWrist(Wrist & mWrist, std::function<double()> mMotorSpeed);
+  PivotWrist(Wrist & mWrist, double mMotorSpeed);
 
   void Initialize() override;
 
@@ -30,5 +30,5 @@ class PivotWrist
 
   private:
   Wrist& mWrist;
-  std::function<double()> mMotorSpeed;
+  double mMotorSpeed;
 };

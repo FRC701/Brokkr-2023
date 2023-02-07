@@ -4,7 +4,7 @@
 
 #include "commands/PivotWrist.h"
 
-PivotWrist::PivotWrist(Wrist& wrist, std::function<double()> motorspeed) 
+PivotWrist::PivotWrist(Wrist& wrist, double motorspeed) 
 : mWrist(wrist)
 , mMotorSpeed(motorspeed)
 {
@@ -27,7 +27,7 @@ void PivotWrist::Execute()
   }
   else
   {*/
-    mWrist.TurnWristPO(mMotorSpeed());
+    mWrist.TurnWristPO(mMotorSpeed);
 
 }
 
