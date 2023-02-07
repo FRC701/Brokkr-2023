@@ -15,5 +15,4 @@ class IntakeEjectObject
   IntakeEjectObject(Claw& claw);
 
 private:
-Claw& mClaw;
 };

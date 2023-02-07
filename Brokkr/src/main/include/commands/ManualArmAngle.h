@@ -6,8 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Wrist.h"
-
+#include "subsystems/Arm.h"
 /**
  * An example command.
  *
@@ -15,10 +14,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class PivotWrist
-    : public frc2::CommandHelper<frc2::CommandBase, PivotWrist> {
+class ManualArmAngle
+    : public frc2::CommandHelper<frc2::CommandBase, ManualArmAngle> {
  public:
-  PivotWrist(Wrist & mWrist, std::function<double()> mMotorSpeed);
+  ManualArmAngle(Arm& arm, double speed);
 
   void Initialize() override;
 
@@ -27,8 +26,8 @@ class PivotWrist
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+private:
 
-  private:
-  Wrist& mWrist;
-  std::function<double()> mMotorSpeed;
+  Arm& mArm;
+  double mSpeed;
 };

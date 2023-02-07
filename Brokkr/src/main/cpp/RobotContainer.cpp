@@ -21,6 +21,9 @@
 #include "commands/MoveArmIntake.h"
 #include "commands/IntakeSpin.h"
 #include "commands/IntakeEjectObject.h"
+#include "commands/PivotWrist.h"
+#include "commands/ManualArmAngle.h"
+
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
@@ -46,9 +49,15 @@ RobotContainer::RobotContainer() {
       [this] {return -1.0*driver.GetTwist(); }
     )
   );
-
+  mWrist.SetDefaultCommand
+  (
+    PivotWrist
+    (
+      mWrist,
+      [this] {return -0.4*coDriver.GetRightY();}
+    )
+  );
 }
-
 void RobotContainer::ConfigureBindings() 
 {
   trigger.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
@@ -59,11 +68,14 @@ void RobotContainer::ConfigureBindings()
   button5.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
 
 
-  xButton.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 45).ToPtr());
-  yButton.WhileTrue(ExtendArm(mArm, 0.5).ToPtr()); //placeholder
-  aButton.WhileTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
+  xButton.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 45).ToPtr()); //Select arm height and run intake
+  yButton.WhileTrue(ExtendArm(mArm, 0.3).ToPtr()); // Extend arm
+  aButton.WhileTrue(ExtendArm(mArm, -0.3).ToPtr()); // Retract arm
   bButton.ToggleOnTrue(IntakeEjectObject(mClaw).ToPtr()); //Release Game Object
-
+  lTrigger.WhileTrue(ManualArmAngle(mArm, 0.3).ToPtr()); // Raise Arm
+  rTrigger.WhileTrue(ManualArmAngle(mArm, -0.3).ToPtr()); // Lower Arm
+  /*upDPAD.WhileTrue(PivotWrist(mWrist, 0.3).ToPtr()); // Raise Wrist
+  downDPAD.WhileTrue(PivotWrist(mWrist, -0.3).ToPtr());*/ // Lower Wrist 
   lBumperButton.WhileTrue(TurretManualControl(mTurret,-200).ToPtr()); //Turn Turret Left
   rBumperButton.WhileTrue(TurretManualControl(mTurret, 200).ToPtr()); //Turn Turret Right
 
