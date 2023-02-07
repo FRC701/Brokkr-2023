@@ -17,7 +17,7 @@ void PivotWrist::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void PivotWrist::Execute() 
 {
-  if(mWrist.WristMaxLimitSwitch() && mMotorSpeed > 0)
+  /*if(mWrist.WristMaxLimitSwitch() && mMotorSpeed > 0)
   {
     mWrist.TurnWristPO(0);
   }
@@ -26,13 +26,15 @@ void PivotWrist::Execute()
     mWrist.TurnWristPO(0);
   }
   else
-  {
+  {*/
     mWrist.TurnWristPO(mMotorSpeed);
-  }
+
 }
 
 // Called once the command ends or is interrupted.
-void PivotWrist::End(bool interrupted) {}
+void PivotWrist::End(bool interrupted) {
+  mWrist.TurnWristPO(0);
+}
 
 // Returns true when the command should end.
 bool PivotWrist::IsFinished() {

@@ -2,32 +2,27 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "commands/ExtendArm.h"
+#include "commands/IntakeSpinSimple.h"
 
-ExtendArm::ExtendArm(Arm& mArm, double mMotorSpeed)
-: mArm(mArm)
+IntakeSpinSimple::IntakeSpinSimple(Claw& claw)
+: mClaw(claw)
 {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(&mClaw);
 }
 
 // Called when the command is initially scheduled.
-void ExtendArm::Initialize()
-{}
+void IntakeSpinSimple::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ExtendArm::Execute() 
-{
-    mArm.ArmExtend(mMotorSpeed);
+void IntakeSpinSimple::Execute() {
+  mClaw.IntakeSpin(-0.2);
 }
 
 // Called once the command ends or is interrupted.
-void ExtendArm::End(bool interrupted)
-{
-  mArm.ArmExtend(0);
-}
+void IntakeSpinSimple::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ExtendArm::IsFinished()
-{
+bool IntakeSpinSimple::IsFinished() {
   return false;
 }

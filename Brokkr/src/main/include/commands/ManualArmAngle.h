@@ -6,10 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include <frc/controller/PIDController.h>
-
 #include "subsystems/Arm.h"
-
 /**
  * An example command.
  *
@@ -17,10 +14,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ArmPosition
-    : public frc2::CommandHelper<frc2::CommandBase, ArmPosition> {
+class ManualArmAngle
+    : public frc2::CommandHelper<frc2::CommandBase, ManualArmAngle> {
  public:
-  ArmPosition(Arm& arm, double armHeight);
+  ManualArmAngle(Arm& arm, double speed);
 
   void Initialize() override;
 
@@ -29,9 +26,8 @@ class ArmPosition
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+private:
 
-  private:
   Arm& mArm;
-  frc2::PIDController mArmControl{0, 0, 0};
-  double mArmHeight;
+  double mSpeed;
 };

@@ -12,6 +12,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/button/CommandJoystick.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <frc2/command/button/CommandGenericHID.h>
 
 #include "Constants.h"
 #include "subsystems/ExampleSubsystem.h"
@@ -20,6 +21,7 @@
 #include "subsystems/Claw.h"
 #include "subsystems/Turret.h"
 #include "subsystems/Wrist.h"
+
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -59,6 +61,7 @@ class RobotContainer
  frc::SendableChooser<frc2::Command*> mChooser;
  frc2::CommandJoystick driver{0};
  frc2::CommandXboxController coDriver{1};
+ frc2::CommandGenericHID coDriver2{1};
 
  frc2::Trigger trigger = driver.Trigger();
  frc2::Trigger button1 = driver.Button(1);
@@ -73,7 +76,11 @@ class RobotContainer
  frc2::Trigger bButton = coDriver.B();
  frc2::Trigger lBumperButton = coDriver.LeftBumper();
  frc2::Trigger rBumperButton = coDriver.RightBumper();
-
+ frc2::Trigger lTrigger = coDriver.LeftTrigger();
+ frc2::Trigger rTrigger = coDriver.RightTrigger();
+ frc2::Trigger Middle = coDriver.Button(13);
+ frc2::Trigger upDPAD = coDriver2.POVUp();
+ frc2::Trigger downDPAD = coDriver2.POVDown();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   frc2::CommandXboxController m_driverController{

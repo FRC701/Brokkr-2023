@@ -14,12 +14,17 @@ ArmPosition::ArmPosition(Arm& arm, double armHeight)
 }
 
 // Called when the command is initially scheduled.
-void ArmPosition::Initialize() {}
+void ArmPosition::Initialize() 
+{
+  mArmControl.SetTolerance(1);
+  mArmControl.EnableContinuousInput(2, 270);
+}
 
 // Called repeatedly when this Command is scheduled to run
 void ArmPosition::Execute() 
 {
-  mArm.SetArmHeight(mArmHeight);
+  double output = mArmControl.Calculate(mArm.CANCoderArmStatus(), mArmHeight);
+  mArm.SetArmSpeed(output);
 }
 
 // Called once the command ends or is interrupted.
@@ -27,5 +32,5 @@ void ArmPosition::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool ArmPosition::IsFinished() {
-  return false;
+  return mArmControl.AtSetpoint();
 }

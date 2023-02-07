@@ -30,6 +30,6 @@ class ArmInitialPosition
 
   private:
   Arm& mArm;
-  frc2::PIDController mArmControl{0, 0, 0};
   double mDistance;
+  frc2::PIDController mArmControl;
 };

@@ -6,9 +6,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include <frc/controller/PIDController.h>
-
-#include "subsystems/Arm.h"
+#include "subsystems/Claw.h"
 
 /**
  * An example command.
@@ -17,10 +15,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ArmPosition
-    : public frc2::CommandHelper<frc2::CommandBase, ArmPosition> {
+class IntakeSpinSimple
+    : public frc2::CommandHelper<frc2::CommandBase, IntakeSpinSimple> {
  public:
-  ArmPosition(Arm& arm, double armHeight);
+  IntakeSpinSimple(Claw& claw);
 
   void Initialize() override;
 
@@ -30,8 +28,6 @@ class ArmPosition
 
   bool IsFinished() override;
 
-  private:
-  Arm& mArm;
-  frc2::PIDController mArmControl{0, 0, 0};
-  double mArmHeight;
+private:
+Claw& mClaw;
 };
