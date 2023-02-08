@@ -24,6 +24,7 @@
 #include "commands/PivotWrist.h"
 #include "commands/ManualArmAngle.h"
 #include "commands/RetractIntoFramePerimeter.h"
+#include "commands/TurnTurretAndExtendToNode.h"
 
 
 RobotContainer::RobotContainer() {
@@ -35,6 +36,7 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("ArmPosition Shelf", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("SetArmPosition", new ArmInitialPosition(mArm, 0));
  frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, mTurret, NodeLevel::HybridLevel));
+
 
 
   mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
@@ -61,14 +63,11 @@ RobotContainer::RobotContainer() {
 }
 void RobotContainer::ConfigureBindings() 
 {
-  trigger.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
-  button1.ToggleOnTrue(RunTurret(mTurret,0.5).ToPtr()); //placeholder
-  button2.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
-
-  button3.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
-  button4.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
-  button5.ToggleOnTrue(RunTurret(mTurret, 0.5).ToPtr()); //placeholder
-
+  trigger.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 135).ToPtr()); //placeholder
+  button7.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::UpperNodeLevel).ToPtr()); //placeholder
+  button9.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::MiddleNodeLevel).ToPtr()); //placeholder
+  button11.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::HybridLevel).ToPtr()); //placeholder
+  
 
   xButton.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 45).ToPtr()); //Select arm height and run intake
   yButton.WhileTrue(ExtendArm(mArm, 0.3).ToPtr()); // Extend arm
