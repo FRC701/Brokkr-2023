@@ -64,11 +64,10 @@ class RobotContainer
  frc2::CommandGenericHID coDriver2{1};
 
  frc2::Trigger trigger = driver.Trigger();
- frc2::Trigger button1 = driver.Button(1);
- frc2::Trigger button2 = driver.Button(2);
- frc2::Trigger button3 = driver.Button(3);
- frc2::Trigger button4 = driver.Button(4);
- frc2::Trigger button5 = driver.Button(5);
+ frc2::Trigger button7 = driver.Button(7);
+ frc2::Trigger button9 = driver.Button(9);
+ frc2::Trigger button11 = driver.Button(11);
+
 
  frc2::Trigger xButton = coDriver.X();
  frc2::Trigger yButton = coDriver.Y();
