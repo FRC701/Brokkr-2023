@@ -50,6 +50,7 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 void Chassis::Periodic() {
     frc::SmartDashboard::PutNumber("Chassis Yaw", GetYawNavX());
     frc::SmartDashboard::PutNumber("Chassis Pitch", GetPitchNavX());
+    frc::SmartDashboard::PutNumber("Yaxis", driver.GetY());
 }
 
 void Chassis::ArcadeDrive(double speed, double rotation) 
