@@ -1,8 +1,18 @@
 {
   "HALProvider": {
     "Encoders": {
+      "0": {
+        "header": {
+          "open": true
+        }
+      },
       "window": {
         "visible": true
+      }
+    },
+    "Other Devices": {
+      "window": {
+        "visible": false
       }
     },
     "RoboRIO": {
@@ -53,20 +63,47 @@
       }
     }
   },
+  "NetworkTables Info": {
+    "Connections": {
+      "open": true
+    },
+    "Server": {
+      "open": true
+    },
+    "visible": true
+  },
   "Plot": {
     "Plot <0>": {
       "plots": [
         {
-          "height": 332
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
+          "height": 332,
+          "series": [
+            {
+              "color": [
+                0.2980392277240753,
+                0.44705885648727417,
+                0.6901960968971252,
+                1.0
+              ],
+              "id": "Encoder[0,1] Count"
+            }
+          ]
         }
-      ],
-      "window": {
-        "visible": false
-      }
+      ]
     },
     "Plot <1>": {
       "plots": [
         {
+          "axis": [
+            {
+              "autoFit": true
+            }
+          ],
           "height": 332,
           "series": [
             {
