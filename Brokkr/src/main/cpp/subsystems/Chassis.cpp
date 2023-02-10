@@ -42,6 +42,9 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
     mRightFront.Config_kD(0, 0, 0);
     mRightFront.Config_kF(0, 0, 0);
 
+    mRightFront.SetInverted(true);
+    mRightRear.SetInverted(true);
+
     mLeftRear.Follow(mLeftFront);
     mRightRear.Follow(mRightFront);
 }

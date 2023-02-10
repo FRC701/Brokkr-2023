@@ -18,7 +18,7 @@
 class ArcadeDrive
     : public frc2::CommandHelper<frc2::CommandBase, ArcadeDrive> {
  public:
-  ArcadeDrive(Chassis& mChassis, std::function<double()> mLeft, std::function<double()> mRight);
+  ArcadeDrive(Chassis& mChassis, std::function<double()> speed, std::function<double()> right);
 
   void Initialize() override;
 
@@ -30,6 +30,6 @@ class ArcadeDrive
 
   private:
   Chassis& mChassis;
-  std::function<double()> mLeft;
-  std::function<double()> mRight;
+  std::function<double()> mSpeed;
+  std::function<double()> mRotation;
 };
