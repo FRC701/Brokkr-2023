@@ -45,11 +45,11 @@ RobotContainer::RobotContainer() {
 
   mChassis.SetDefaultCommand
   (
-    ArcadeDrive
+    ArcadeDrive 
     (
       mChassis,
       [this] {return -1.0*driver.GetY(); },
-      [this] {return -1.0*driver.GetTwist(); }
+      [this] {return -0.7*driver.GetTwist(); }
     )
   );
   /*mWrist.SetDefaultCommand

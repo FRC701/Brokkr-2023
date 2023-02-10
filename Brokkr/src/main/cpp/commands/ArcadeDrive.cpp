@@ -4,10 +4,10 @@
 
 #include "commands/ArcadeDrive.h"
 
-ArcadeDrive::ArcadeDrive(Chassis& chassis, std::function<double()> left, std::function<double()> right)
+ArcadeDrive::ArcadeDrive(Chassis& chassis, std::function<double()> speed, std::function<double()> rotation)
 : mChassis(chassis)
-, mLeft(left)
-, mRight(right)
+, mSpeed(speed)
+, mRotation(rotation)
 {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(&mChassis);
@@ -22,7 +22,7 @@ void ArcadeDrive::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ArcadeDrive::Execute() 
 {
-  mChassis.ArcadeDrive(mLeft(), mRight());
+  mChassis.ArcadeDrive(mSpeed(), mRotation());
 }
 
 // Called once the command ends or is interrupted.
