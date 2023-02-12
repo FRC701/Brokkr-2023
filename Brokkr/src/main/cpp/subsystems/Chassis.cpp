@@ -42,6 +42,9 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
     mRightFront.Config_kD(0, 0, 0);
     mRightFront.Config_kF(0, 0, 0);
 
+    mRightFront.SetInverted(true);
+    mRightRear.SetInverted(true);
+
     mLeftRear.Follow(mLeftFront);
     mRightRear.Follow(mRightFront);
 }
@@ -50,6 +53,7 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 void Chassis::Periodic() {
     frc::SmartDashboard::PutNumber("Chassis Yaw", GetYawNavX());
     frc::SmartDashboard::PutNumber("Chassis Pitch", GetPitchNavX());
+    frc::SmartDashboard::PutNumber("Yaxis", driver.GetY());
 }
 
 void Chassis::ArcadeDrive(double speed, double rotation) 

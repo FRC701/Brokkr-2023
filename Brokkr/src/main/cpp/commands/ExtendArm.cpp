@@ -17,18 +17,7 @@ void ExtendArm::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ExtendArm::Execute() 
 {
-  if (mMotorSpeed < 0 && mArm.ArmMaxLimitSwitch())
-  {
-    mArm.ArmExtend(0);
-  }
-  else if (mMotorSpeed > 0 && mArm.ArmMinLimitSwitch())
-  {
-    mArm.ArmExtend(0);
-  }
-  else
-  {
     mArm.ArmExtend(mMotorSpeed);
-  }
 }
 
 // Called once the command ends or is interrupted.

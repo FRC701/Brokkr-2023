@@ -6,7 +6,8 @@
 
 ArmInitialPosition::ArmInitialPosition(Arm& arm, double distance)
 :mArm(arm)
-,mDistance(distance) 
+,mDistance(distance)
+, mArmControl{0, 0, 0} 
 {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(&mArm);

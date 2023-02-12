@@ -16,6 +16,9 @@
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <frc/geometry/Translation2d.h>
 #include <units/length.h>
+#include "frc/Joystick.h"
+#include "frc/XboxController.h"
+#include <frc2/command/button/CommandJoystick.h>
 
 
 class Chassis : public frc2::SubsystemBase {
@@ -43,6 +46,8 @@ class Chassis : public frc2::SubsystemBase {
   AHRS mGyroX{frc::SPI::kMXP};
   #endif
   frc::DifferentialDrive mDrive;
+  frc2::CommandJoystick driver{0};
+  frc::XboxController coDriver{1};
   /*
   frc::Translation2d mLocationFrontRight{+12_in, +12.5_in};
   frc::Translation2d mLocationRearRight{+12_in, -12.5_in};

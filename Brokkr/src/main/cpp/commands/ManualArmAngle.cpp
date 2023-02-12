@@ -2,33 +2,30 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "commands/ArcadeDrive.h"
+#include "commands/ManualArmAngle.h"
 
-ArcadeDrive::ArcadeDrive(Chassis& chassis, std::function<double()> speed, std::function<double()> rotation)
-: mChassis(chassis)
-, mSpeed(speed)
-, mRotation(rotation)
-{
+ManualArmAngle::ManualArmAngle(Arm& arm, double speed)
+ : mArm(arm)
+ , mSpeed(speed)
+ {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(&mChassis);
+  AddRequirements(&mArm);
 }
 
 // Called when the command is initially scheduled.
-void ArcadeDrive::Initialize() 
-{
-  
-}
+void ManualArmAngle::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ArcadeDrive::Execute() 
-{
-  mChassis.ArcadeDrive(mSpeed(), mRotation());
+void ManualArmAngle::Execute() {
+  mArm.SetArmSpeed(mSpeed);
 }
 
 // Called once the command ends or is interrupted.
-void ArcadeDrive::End(bool interrupted) {}
+void ManualArmAngle::End(bool interrupted) {
+  mArm.SetArmSpeed(0);
+}
 
 // Returns true when the command should end.
-bool ArcadeDrive::IsFinished() {
+bool ManualArmAngle::IsFinished() {
   return false;
 }
