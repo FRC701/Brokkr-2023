@@ -11,6 +11,21 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
+      - name: copy clang format file
+        uses: canastro/copy-file-action@master
+        with:
+          source: "Brokkr/.clang-format"
+          target: ".clang-format"
+      - name: copy style guide file
+        uses: canastro/copy-file-action@master
+        with:
+          source: "Brokkr/.styleguide"
+          target: ".styleguide"
+      - name: copy style guide license file
+        uses: canastro/copy-file-action@master
+        with:
+          source: "Brokkr/.styleguide-license"
+          target: ".styleguide-license"
       - name: Fetch all history and metadata
         run: |
           git config --global --add safe.directory /__w/allwpilib/allwpilib
