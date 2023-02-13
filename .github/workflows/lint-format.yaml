@@ -1,7 +1,8 @@
-name: Lint and Format
+name: CI-lint and format
 
 on:
-  pull_request: [main]
+  pull_request:
+   branches: [main]
   push:
 
 jobs:
