@@ -47,6 +47,8 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 
     mLeftRear.Follow(mLeftFront);
     mRightRear.Follow(mRightFront);
+    mLeftFront.ConfigOpenloopRamp(0.75);
+    mRightFront.ConfigOpenloopRamp(0.75);
 }
 
 // This method will be called once per scheduler run

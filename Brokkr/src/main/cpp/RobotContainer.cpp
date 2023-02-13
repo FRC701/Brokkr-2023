@@ -49,7 +49,7 @@ RobotContainer::RobotContainer() {
     (
       mChassis,
       [this] {return -1.0*driver.GetY(); },
-      [this] {return -0.7*driver.GetTwist(); }
+      [this] {return -0.5*driver.GetTwist(); }
     )
   );
   /*mWrist.SetDefaultCommand
@@ -77,8 +77,8 @@ void RobotContainer::ConfigureBindings()
   rTrigger.WhileTrue(ManualArmAngle(mArm, -0.3).ToPtr()); // Lower Arm
   upDPAD.WhileTrue(PivotWrist(mWrist, 0.3).ToPtr()); // Raise Wrist
   downDPAD.WhileTrue(PivotWrist(mWrist, -0.3).ToPtr()); // Lower Wrist 
-  lBumperButton.WhileTrue(TurretManualControl(mTurret,-200).ToPtr()); //Turn Turret Left
-  rBumperButton.WhileTrue(TurretManualControl(mTurret, 200).ToPtr()); //Turn Turret Right
+  lBumperButton.WhileTrue(TurretManualControl(mTurret,0.3).ToPtr()); //Turn Turret Left
+  rBumperButton.WhileTrue(TurretManualControl(mTurret, -0.3).ToPtr()); //Turn Turret Right
   Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist, mClaw, mTurret).ToPtr());
 
   // Configure your trigger bindings here
