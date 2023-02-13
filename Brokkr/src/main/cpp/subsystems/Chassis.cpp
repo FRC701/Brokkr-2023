@@ -34,6 +34,7 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 , mRightRear(rightRear)
 , mDrive(leftFront, rightFront)
 , mOdometry{mGyroX.GetRotation2d(), units::meter_t{0}, units::meter_t{0}}
+, mDriveKinematics{units::meter_t{24}}
 {
 #if ! __APPLE__
     mGyroX.ZeroYaw();

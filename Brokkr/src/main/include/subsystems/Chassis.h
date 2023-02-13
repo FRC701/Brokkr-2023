@@ -59,6 +59,8 @@ class Chassis : public frc2::SubsystemBase {
   frc::XboxController coDriver{1};
 
   frc::DifferentialDriveOdometry mOdometry;
+  frc::DifferentialDriveKinematics mDriveKinematics;
+
   /*
   frc::Translation2d mLocationFrontRight{+12_in, +12.5_in};
   frc::Translation2d mLocationRearRight{+12_in, -12.5_in};
