@@ -37,6 +37,8 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("SetArmPosition", new ArmInitialPosition(mArm, 0));
  frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, mTurret, NodeLevel::HybridLevel));
 
+mChooser.AddOption("Auto2Piece", &mAutoTwoPieceTaxi);
+frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
 
   mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
@@ -94,7 +96,5 @@ void RobotContainer::ConfigureBindings()
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
-
   return mChooser.GetSelected();
 }
