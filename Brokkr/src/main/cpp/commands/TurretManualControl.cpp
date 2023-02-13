@@ -8,7 +8,7 @@ TurretManualControl::TurretManualControl(Turret& turret, double rpm)
 : mTurret(turret)
 , rpm(rpm)
 {
-  AddRequirements(&turret);
+  AddRequirements(&mTurret);
 }
 
 // Called when the command is initially scheduled.
@@ -17,11 +17,13 @@ void TurretManualControl::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void TurretManualControl::Execute() 
 {
-  mTurret.SetVelocity(rpm);
+  mTurret.SetTurretSpeed(rpm);//bad name for var
 }
 
 // Called once the command ends or is interrupted.
-void TurretManualControl::End(bool interrupted) {}
+void TurretManualControl::End(bool interrupted) {
+  mTurret.SetTurretSpeed(0);
+}
 
 // Returns true when the command should end.
 bool TurretManualControl::IsFinished() {
