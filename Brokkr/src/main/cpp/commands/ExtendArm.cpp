@@ -4,10 +4,12 @@
 
 #include "commands/ExtendArm.h"
 
-ExtendArm::ExtendArm(Arm& mArm, double mMotorSpeed)
-: mArm(mArm)
+ExtendArm::ExtendArm(Arm& arm, double motorSpeed)
+: mArm(arm)
+, mMotorSpeed(motorSpeed)
 {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(&mArm);
 }
 
 // Called when the command is initially scheduled.

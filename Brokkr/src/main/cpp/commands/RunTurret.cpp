@@ -9,6 +9,7 @@ RunTurret::RunTurret(Turret& turret, double motorSpeed)
 , mMotorSpeed(motorSpeed)
 {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements(&mTurret);
 }
 
 // Called when the command is initially scheduled.
