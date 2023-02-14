@@ -22,6 +22,7 @@
 #include "subsystems/Turret.h"
 #include "subsystems/Wrist.h"
 #include "commands/AutoTwoPieceTaxi.h"
+#include "commands/AutoBalanceDrive.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -115,6 +116,8 @@ class RobotContainer
   Wrist mWrist{mWristMotor, mWristCoder}; 
 
   AutoTwoPieceTaxi mAutoTwoPieceTaxi{mArm, mChassis, mClaw, mWrist, mTurret};
+
+  AutoBalanceDrive mAutoBalanceDrive{mChassis, mArm, mClaw, mTurret, mWrist};
 
   void ConfigureBindings();
 };

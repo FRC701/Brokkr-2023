@@ -25,6 +25,7 @@
 #include "commands/ManualArmAngle.h"
 #include "commands/RetractIntoFramePerimeter.h"
 #include "commands/TurnTurretAndExtendToNode.h"
+#include "commands/AutoForwardAndBackDrive.h"
 
 
 RobotContainer::RobotContainer() {
@@ -36,7 +37,10 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("ArmPosition Shelf", new ArmPosition(mArm, 0));
  frc::SmartDashboard::PutData("SetArmPosition", new ArmInitialPosition(mArm, 0));
  frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, mTurret, NodeLevel::HybridLevel));
+ frc::SmartDashboard::PutData("Auto Forward for 2.5 sec", new AutoForwardAndBackDrive(mChassis, 11.5, 11.5, 2.5));
+ frc::SmartDashboard::PutData("Auto Back for 1.25 sec", new AutoForwardAndBackDrive(mChassis, -11.5, -11.5, 1.25));
 
+mChooser.AddOption("AutoBalDrive", &mAutoBalanceDrive);
 mChooser.AddOption("Auto2Piece", &mAutoTwoPieceTaxi);
 frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
