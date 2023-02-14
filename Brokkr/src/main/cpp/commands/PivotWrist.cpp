@@ -9,6 +9,7 @@ PivotWrist::PivotWrist(Wrist& wrist, double motorspeed)
 , mMotorSpeed(motorspeed)
 {
     // Use addRequirements() here to declare subsystem dependencies.
+    AddRequirements(&mWrist);
 }
 
 // Called when the command is initially scheduled.
