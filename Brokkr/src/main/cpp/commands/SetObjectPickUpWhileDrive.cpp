@@ -7,6 +7,8 @@
 #include "commands/ArmInitialPosition.h"
 #include "commands/ArmPosition.h"
 #include "commands/TurretPID.h"
+#include "commands/AutoForwardAndBackDrive.h"
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -17,6 +19,7 @@ SetObjectPickUpWhileDrive::SetObjectPickUpWhileDrive(Arm& arm, Chassis& chassis,
     IntakeSpin(claw),
     ArmInitialPosition(arm, 3),
     ArmPosition(arm, 20),
-    TurretPID(turret, 15)
+    TurretPID(turret, 15),
+    AutoForwardAndBackDrive(chassis, 11.5, 11.5, 2.5) //2.5 is a placholder
   );
 }

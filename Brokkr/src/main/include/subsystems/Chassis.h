@@ -34,7 +34,7 @@ class Chassis : public frc2::SubsystemBase {
   double GetPitchNavX();
   double EncoderTicksLeft();
   double EncoderTicksRight();
-  void TankDriveVoltage(units::volt_t(left), units::volt_t(right));
+  void TankDriveVoltage(double left, double right);
   double GetRightMPS();
   double GetLeftMPS();
   void SetMaxOutput(double maxOutput);

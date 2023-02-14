@@ -9,6 +9,9 @@
 #include "commands/IntakeEjectObject.h"
 #include "commands/WristLevel.h"
 #include "commands/SetExtendtoNodeDrive.h"
+#include "commands/AutoForwardAndBackDrive.h"
+#include "commands/IntakeSpin.h"
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -21,6 +24,7 @@ AutoTwoPieceTaxi::AutoTwoPieceTaxi(Arm& arm, Chassis& chassis, Claw& claw, Wrist
     IntakeEjectObject(claw),
     SetObjectPickUpWhileDrive(arm, chassis, claw, turret),
     WristLevel(wrist, arm),
+    IntakeSpin(claw),
     SetExtendtoNodeDrive(arm, chassis, wrist, turret),
     IntakeEjectObject(claw)
   );

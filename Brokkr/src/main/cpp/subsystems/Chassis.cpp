@@ -66,10 +66,10 @@ void Chassis::Periodic() {
     frc::SmartDashboard::PutNumber("Yaxis", driver.GetY());
 }
 
-void Chassis::TankDriveVoltage(units::volt_t left, units::volt_t right)
+void Chassis::TankDriveVoltage(double left, double right)
 {
-    mLeftFront.SetVoltage(left);
-    mRightFront.SetVoltage(right);
+    mLeftFront.SetVoltage(units::volt_t(left));
+    mRightFront.SetVoltage(units::volt_t(right));
     mDrive.Feed();
 }
 
