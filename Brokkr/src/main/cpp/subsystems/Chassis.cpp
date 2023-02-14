@@ -18,6 +18,11 @@ namespace{
         double distance = 0;
         return distance = kDistancePerTick * ticks;
     }
+    
+    double RPMtoMetersPerSec(double rpm)
+    {
+        return (rpm / 60) * 0.95758;
+    }
 }
 using ControlMode = ctre::phoenix::motorcontrol::ControlMode;
 using WPI_TalonFX = ctre::phoenix::motorcontrol::can::WPI_TalonFX;
@@ -28,6 +33,8 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 , mRightFront(rightFront)
 , mRightRear(rightRear)
 , mDrive(leftFront, rightFront)
+, mOdometry{mGyroX.GetRotation2d(), units::meter_t{0}, units::meter_t{0}}
+, mDriveKinematics{units::meter_t{24}}
 {
 #if ! __APPLE__
     mGyroX.ZeroYaw();
@@ -51,14 +58,67 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 
 // This method will be called once per scheduler run
 void Chassis::Periodic() {
+     mOdometry.Update(mGyroX.GetRotation2d(),
+                            units::meter_t{ticksToDistance(EncoderTicksLeft())},
+                            units::meter_t{ticksToDistance(EncoderTicksRight())});
     frc::SmartDashboard::PutNumber("Chassis Yaw", GetYawNavX());
     frc::SmartDashboard::PutNumber("Chassis Pitch", GetPitchNavX());
     frc::SmartDashboard::PutNumber("Yaxis", driver.GetY());
 }
 
+void Chassis::TankDriveVoltage(double left, double right)
+{
+    mLeftFront.SetVoltage(units::volt_t(left));
+    mRightFront.SetVoltage(units::volt_t(right));
+    mDrive.Feed();
+}
+
+double Chassis::GyroTurnRate()
+{
+    return -mGyroX.GetRate();
+}
+
+double Chassis::GetLeftMPS()
+{
+   return mLeftFront.GetSelectedSensorVelocity(); 
+}
+
+double Chassis::GetRightMPS()
+{
+    return mRightFront.GetSelectedSensorVelocity();
+}
+
+frc::DifferentialDriveWheelSpeeds Chassis::GetWheelSpeeds() {
+    return {units::meters_per_second_t{RPMtoMetersPerSec(GetLeftMPS())},
+            units::meters_per_second_t{RPMtoMetersPerSec(GetRightMPS())}};  
+}
+
+units::degree_t Chassis::GetHeading() const
+{
+    return mGyroX.GetRotation2d().Degrees();
+}
+
+void Chassis::SetMaxOutput(double MaxOutput)
+{
+    mDrive.SetMaxOutput(MaxOutput);
+}
+
 void Chassis::ArcadeDrive(double speed, double rotation) 
 {
     mDrive.ArcadeDrive(speed, rotation);
+}
+
+frc::Pose2d Chassis::GetPose()
+{
+    return mOdometry.GetPose();
+}
+
+void Chassis::ResetOdometry(frc::Pose2d pose)
+{
+    mOdometry.ResetPosition(mGyroX.GetRotation2d(),
+                            units::meter_t{ticksToDistance(EncoderTicksLeft())},
+                            units::meter_t{ticksToDistance(EncoderTicksRight())},
+                            pose);
 }
 
 double Chassis::GetYawNavX() {

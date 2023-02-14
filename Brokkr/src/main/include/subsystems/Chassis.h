@@ -34,6 +34,15 @@ class Chassis : public frc2::SubsystemBase {
   double GetPitchNavX();
   double EncoderTicksLeft();
   double EncoderTicksRight();
+  void TankDriveVoltage(double left, double right);
+  double GetRightMPS();
+  double GetLeftMPS();
+  void SetMaxOutput(double maxOutput);
+  double GyroTurnRate();
+  units::degree_t GetHeading() const;
+  frc::DifferentialDriveWheelSpeeds GetWheelSpeeds();
+  frc::Pose2d GetPose();
+  void ResetOdometry(frc::Pose2d pose);
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -48,6 +57,10 @@ class Chassis : public frc2::SubsystemBase {
   frc::DifferentialDrive mDrive;
   frc2::CommandJoystick driver{0};
   frc::XboxController coDriver{1};
+
+  frc::DifferentialDriveOdometry mOdometry;
+  frc::DifferentialDriveKinematics mDriveKinematics;
+
   /*
   frc::Translation2d mLocationFrontRight{+12_in, +12.5_in};
   frc::Translation2d mLocationRearRight{+12_in, -12.5_in};
