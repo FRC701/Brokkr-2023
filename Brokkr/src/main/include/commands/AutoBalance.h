@@ -30,7 +30,6 @@ class AutoBalance
   bool IsFinished() override;
 
   private:
-  frc::PIDController control;
-  Chassis& mChassis;
-  
+    Chassis& mChassis;
+  frc::PIDController control;  
 };
