@@ -10,7 +10,6 @@ ArmInitialPosition::ArmInitialPosition(Arm& arm, double distance)
 , mArmControl{0, 0, 0} 
 {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements(&mArm);
 }
 
 // Called when the command is initially scheduled.
