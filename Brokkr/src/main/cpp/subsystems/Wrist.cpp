@@ -21,10 +21,13 @@ Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder)
     mWristMotor.Config_kI(0, kWrist_I);
     mWristMotor.Config_kD(0, kWrist_D);
     mWristMotor.Config_kF(0, kWrist_F);
+    mWristCoder.ConfigAbsoluteSensorRange(ctre::phoenix::sensors::AbsoluteSensorRange::Unsigned_0_to_360);
+    mWristCoder.ConfigMagnetOffset(194.25);
 }
 // This method will be called once per scheduler run
 void Wrist::Periodic() 
 {
+    frc::SmartDashboard::PutNumber("WristCancoder", GetWristPosition());
     frc::SmartDashboard::PutBoolean("IsWristFlicked", IsWristFlicked());
     frc::SmartDashboard::PutBoolean("MaxLimitSwitch", WristMaxLimitSwitch());
     frc::SmartDashboard::PutBoolean("MinLimitSwitch", WristMinLimitSwitch());

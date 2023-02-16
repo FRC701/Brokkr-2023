@@ -5,12 +5,13 @@
 #include "subsystems/Arm.h"
 #include "frc/smartdashboard/SmartDashboard.h"
 
+using namespace std::numbers;
 namespace
 {
-    constexpr double kArmGearRatioExtension(120/1);
+    constexpr double kArmGearRatioExtension(16/24);
     constexpr double kTicksInRotation(2048);
-    constexpr double kArmCircumfrence(10);
-    constexpr double kDistancePerTick{(kArmCircumfrence / kArmGearRatioExtension) / kTicksInRotation};
+    constexpr double kArmCircumfrence(3 * pi); //9.42
+    constexpr double kDistancePerTick{(kArmCircumfrence * kArmGearRatioExtension) / kTicksInRotation};
 
     double ticksToArmDistance(double ticks)
     {
@@ -39,15 +40,13 @@ namespace
 
 
 Arm::Arm(
-        WPI_TalonFX& armM1, WPI_TalonFX& armM2,
+        WPI_TalonFX& armM2,
         WPI_TalonFX& teleArm, WPI_CANCoder& canCoder
 )
-: mArmMotor1(armM1)
-, mArmMotor2(armM2)
+: mArmMotor2(armM2)
 , mTelescopingArm(teleArm)
 , mCanCoder(canCoder)
 {
-    mArmMotor1.Follow(mArmMotor2);
     mArmMotor2.Config_kP(0, kArmAngle_P);
     mArmMotor2.Config_kI(0, kArmAngle_I);
     mArmMotor2.Config_kD(0, kArmAngle_D);
@@ -55,6 +54,8 @@ Arm::Arm(
     mTelescopingArm.Config_kP(0, kArmExtend_P);
     mTelescopingArm.Config_kI(0, kArmExtend_I);
     mTelescopingArm.Config_kD(0, kArmExtend_D);
+    mCanCoder.ConfigAbsoluteSensorRange(ctre::phoenix::sensors::AbsoluteSensorRange::Unsigned_0_to_360);
+    mCanCoder.ConfigMagnetOffset(9);
 }
 // This method will be called once per scheduler run
 void Arm::Periodic()

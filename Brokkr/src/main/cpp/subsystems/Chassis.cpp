@@ -64,6 +64,8 @@ void Chassis::Periodic() {
     frc::SmartDashboard::PutNumber("Chassis Yaw", GetYawNavX());
     frc::SmartDashboard::PutNumber("Chassis Pitch", GetPitchNavX());
     frc::SmartDashboard::PutNumber("Yaxis", driver.GetY());
+    frc::SmartDashboard::PutNumber("Left Front Motor Voltage", mLeftFront.GetMotorOutputVoltage());
+    frc::SmartDashboard::PutNumber("Right Front Motor Voltage", mRightFront.GetMotorOutputVoltage());
 }
 
 void Chassis::TankDriveVoltage(double left, double right)

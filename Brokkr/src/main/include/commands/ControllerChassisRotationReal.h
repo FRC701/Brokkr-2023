@@ -6,9 +6,8 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Chassis.h"
-#include "subsystems/Turret.h"
-#include <frc/controller/PIDController.h>
+
+#include "commands/AMTrackObjects.h"
 
 /**
  * An example command.
@@ -17,33 +16,22 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class AMTrackObjects
-    : public frc2::CommandHelper<frc2::CommandBase, AMTrackObjects> {
+class ControllerChassisRotationReal
+    : public frc2::CommandHelper<frc2::CommandBase, ControllerChassisRotationReal> {
  public:
-  AMTrackObjects(Turret& turret, Chassis& chassis, int pipelineIndex);
+  ControllerChassisRotationReal(Chassis& chassis, Turret& turret);
 
   void Initialize() override;
+
   void Execute() override;
+
   void End(bool interrupted) override;
+
   bool IsFinished() override;
 
 private:
 
-Turret& mTurret;
 Chassis& mChassis;
-int mPipelineIndex;
-enum TrackState
-{
-  HasTarget = 0,
-  TurretFacingTarget = 1,
-  ChassisAlignDrive = 2
-};
-
-TrackState mTrackState;
-bool mNoTargets;
-
-frc2::PIDController controllerT; //to be tuned!
-frc2::PIDController controllerC;
-frc2::PIDController controllerCD;
-
+Turret& mTurret;
+frc::PIDController controllerChassisRot;
 };

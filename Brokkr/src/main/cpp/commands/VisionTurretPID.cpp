@@ -27,7 +27,7 @@ VisionTurretPID::VisionTurretPID(Turret& turret, double yawSetPoint)
                     }},
       mTurret(turret)
 {
-  GetController().EnableContinuousInput(0, 180);
+  GetController().EnableContinuousInput(0, 360);
   GetController().SetTolerance(3.0);
   AddRequirements(&turret);
 }

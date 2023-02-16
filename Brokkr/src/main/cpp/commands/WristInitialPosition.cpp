@@ -14,7 +14,7 @@ WristInitialPosition::WristInitialPosition(Wrist& wrist, double pose)
 // Called when the command is initially scheduled.
 void WristInitialPosition::Initialize() {
   mWristControl.SetTolerance(1);
-  mWristControl.EnableContinuousInput(2, 270);
+  mWristControl.EnableContinuousInput(70, 194.25);
 }
 
 // Called repeatedly when this Command is scheduled to run

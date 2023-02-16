@@ -6,10 +6,8 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include <frc/controller/PIDController.h>
 
-#include "subsystems/Arm.h"
-#include "subsystems/Turret.h"
+#include "commands/AMTrackObjects.h"
 
 /**
  * An example command.
@@ -18,12 +16,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-  enum class NodeLevel {HybridLevel, MiddleNodeLevel, UpperNodeLevel};
-
-class SetArmPostitionForDistance
-    : public frc2::CommandHelper<frc2::CommandBase, SetArmPostitionForDistance> {
+class ControllerTurret
+    : public frc2::CommandHelper<frc2::CommandBase, ControllerTurret> {
  public:
-  SetArmPostitionForDistance(Arm& arm, Turret& turret, const NodeLevel& Level);
+  ControllerTurret(Turret& turret);
 
   void Initialize() override;
 
@@ -33,10 +29,7 @@ class SetArmPostitionForDistance
 
   bool IsFinished() override;
 
-private:
-Arm& mArm;
-Turret& mTurret;
-const NodeLevel& mLevel;
-frc2::PIDController mArmExtension;
-frc2::PIDController mArmPosition;
+  private:
+  Turret& mTurret;
+  frc::PIDController controllerTrrt;
 };

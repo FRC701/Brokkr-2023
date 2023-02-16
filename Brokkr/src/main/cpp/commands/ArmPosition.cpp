@@ -17,7 +17,7 @@ ArmPosition::ArmPosition(Arm& arm, double armHeight)
 void ArmPosition::Initialize() 
 {
   mArmControl.SetTolerance(1);
-  mArmControl.EnableContinuousInput(2, 270);
+  mArmControl.EnableContinuousInput(9, 86);
 }
 
 // Called repeatedly when this Command is scheduled to run

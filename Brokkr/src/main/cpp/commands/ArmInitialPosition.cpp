@@ -16,13 +16,14 @@ ArmInitialPosition::ArmInitialPosition(Arm& arm, double distance)
 void ArmInitialPosition::Initialize() 
 {
   mArmControl.SetTolerance(1);
+  mArmControl.EnableContinuousInput(0, 20.5);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ArmInitialPosition::Execute() 
 {
   double output = mArmControl.Calculate(mArm.GetExtendTicks(), mArm.DistanceToTicks(mDistance));
-  mArm.SetArmSpeed(output);
+  mArm.ArmExtend(output);
 }
 
 // Called once the command ends or is interrupted.

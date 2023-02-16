@@ -26,19 +26,29 @@
 #include "commands/RetractIntoFramePerimeter.h"
 #include "commands/TurnTurretAndExtendToNode.h"
 #include "commands/AutoForwardAndBackDrive.h"
-
+#include "commands/TurretPID.h"
+#include "commands/ControllerTurret.h"
+#include "commands/ControllerChassisRotationReal.h"
+#include "commands/ControllerChassisDrive.h"
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
  frc::SmartDashboard::PutData("ArmPosition Hybrid", new ArmPosition(mArm, 0)); //Placeholder values
  frc::SmartDashboard::PutData("InitClaw", new WristInitialPosition(mWrist, 0));
- frc::SmartDashboard::PutData("ArmPosition Mid", new ArmPosition(mArm, 0));
- frc::SmartDashboard::PutData("ArmPosition High", new ArmPosition(mArm, 0));
- frc::SmartDashboard::PutData("ArmPosition Shelf", new ArmPosition(mArm, 0));
+
+ frc::SmartDashboard::PutData("Turret pose 80 degree", new TurretPID(mTurret, 80));
+ frc::SmartDashboard::PutData("ArmPosition 20 degree", new ArmPosition(mArm, 20));
+ frc::SmartDashboard::PutData("ArmExtension", new ArmInitialPosition(mArm, 4));
+ frc::SmartDashboard::PutData("Wrist angle 20 degree", new WristInitialPosition(mWrist, 20));
+ 
  frc::SmartDashboard::PutData("SetArmPosition", new ArmInitialPosition(mArm, 0));
  frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, mTurret, NodeLevel::HybridLevel));
  frc::SmartDashboard::PutData("Auto Forward for 2.5 sec", new AutoForwardAndBackDrive(mChassis, 11.5, 11.5, 2.5));
  frc::SmartDashboard::PutData("Auto Back for 1.25 sec", new AutoForwardAndBackDrive(mChassis, -11.5, -11.5, 1.25));
+
+ frc::SmartDashboard::PutData("Turret Lock Onto Object", new ControllerTurret(mTurret));
+ frc::SmartDashboard::PutData("Chassis Lock with Turret Yaw", new ControllerChassisRotationReal(mChassis, mTurret));
+ frc::SmartDashboard::PutData("Chassis Drive to object", new ControllerChassisDrive(mChassis, mTurret));
 
 mChooser.AddOption("AutoBalDrive", &mAutoBalanceDrive);
 mChooser.AddOption("Auto2Piece", &mAutoTwoPieceTaxi);
@@ -81,8 +91,8 @@ void RobotContainer::ConfigureBindings()
   bButton.ToggleOnTrue(IntakeEjectObject(mClaw).ToPtr()); //Release Game Object
   lTrigger.WhileTrue(ManualArmAngle(mArm, 0.3).ToPtr()); // Raise Arm
   rTrigger.WhileTrue(ManualArmAngle(mArm, -0.3).ToPtr()); // Lower Arm
-  upDPAD.WhileTrue(PivotWrist(mWrist, 0.3).ToPtr()); // Raise Wrist
-  downDPAD.WhileTrue(PivotWrist(mWrist, -0.3).ToPtr()); // Lower Wrist 
+  /*upDPAD.WhileTrue(PivotWrist(mWrist, 0.3).ToPtr()); // Raise Wrist
+  downDPAD.WhileTrue(PivotWrist(mWrist, -0.3).ToPtr()); */// Lower Wrist 
   lBumperButton.WhileTrue(TurretManualControl(mTurret,0.3).ToPtr()); //Turn Turret Left
   rBumperButton.WhileTrue(TurretManualControl(mTurret, -0.3).ToPtr()); //Turn Turret Right
   Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist, mClaw, mTurret).ToPtr());

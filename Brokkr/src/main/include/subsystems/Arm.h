@@ -11,7 +11,7 @@
 class Arm : public frc2::SubsystemBase {
  public:
   Arm(
-      WPI_TalonFX& armM1, WPI_TalonFX& armM2,
+      WPI_TalonFX& armM2,
       WPI_TalonFX& teleArm, WPI_CANCoder& canCoder
       );
 
@@ -45,7 +45,6 @@ class Arm : public frc2::SubsystemBase {
 
  private:
 
- WPI_TalonFX& mArmMotor1;
  WPI_TalonFX& mArmMotor2;
  WPI_TalonFX& mTelescopingArm;
  WPI_CANCoder& mCanCoder;

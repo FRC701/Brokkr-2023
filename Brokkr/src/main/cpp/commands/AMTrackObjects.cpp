@@ -10,6 +10,9 @@ AMTrackObjects::AMTrackObjects(Turret& turret, Chassis& chassis, int pipelineInd
 , mPipelineIndex(pipelineIndex)
 , mTrackState(HasTarget)
 , mNoTargets(false)
+, controllerT{0.1, 0, 0}
+, controllerC{0.1, 0, 0}
+, controllerCD{0.1, 0, 0}
 {
   AddRequirements(&mChassis);// Use addRequirements() here to declare subsystem dependencies.
 }

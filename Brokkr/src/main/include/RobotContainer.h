@@ -36,7 +36,6 @@ class RobotContainer
  public:
   RobotContainer();
 
-  static constexpr  int kArmMotor1{1};
   static constexpr  int kArmMotor2{2};
   static constexpr  int kTelescope{3};
   static constexpr  int kArmCoder{13};
@@ -65,7 +64,7 @@ class RobotContainer
  //frc::XboxController driver1{0};
  frc2::CommandJoystick driver{0};
  frc2::CommandXboxController coDriver{1};
- frc2::CommandGenericHID coDriver2{1};
+ //frc2::CommandGenericHID coDriver2{1};
 
  frc2::Trigger trigger = driver.Trigger();
  frc2::Trigger button7 = driver.Button(7);
@@ -82,8 +81,8 @@ class RobotContainer
  frc2::Trigger lTrigger = coDriver.LeftTrigger();
  frc2::Trigger rTrigger = coDriver.RightTrigger();
  frc2::Trigger Middle = coDriver.Button(13);
- frc2::Trigger upDPAD = coDriver2.POVUp();
- frc2::Trigger downDPAD = coDriver2.POVDown();
+ /*frc2::Trigger upDPAD = coDriver2.POVUp();
+ frc2::Trigger downDPAD = coDriver2.POVDown(); */
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   frc2::CommandXboxController m_driverController{
@@ -91,11 +90,10 @@ class RobotContainer
 
   // The robot's subsystems are defined here...
   ExampleSubsystem m_subsystem;
-  WPI_TalonFX ArmMotor1{kArmMotor1};
   WPI_TalonFX ArmMotor2{kArmMotor2};
   WPI_TalonFX TelescopingArm{kTelescope};
   WPI_CANCoder CanCoder{kArmCoder};
-  Arm mArm{ArmMotor1, ArmMotor2, TelescopingArm, CanCoder};
+  Arm mArm{ArmMotor2, TelescopingArm, CanCoder};
 
   WPI_TalonFX leftFront{kLeftFrontChassis};
   WPI_TalonFX leftRear{kLeftRearChassis};
