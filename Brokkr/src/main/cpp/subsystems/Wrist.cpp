@@ -7,7 +7,7 @@
 
 namespace
 {
-  const double kWrist_P = 10.0;
+  const double kWrist_P = 1.0;
   const double kWrist_I = 0.0;
   const double kWrist_D = 0.0;
   const double kWrist_F = 0.0;

@@ -9,7 +9,7 @@
 
 class Claw : public frc2::SubsystemBase {
  public:
-  Claw(WPI_TalonFX& clawMotor, WPI_TalonFX& intakeMotor);
+  Claw(WPI_TalonFX& intakeMotor);
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -25,7 +25,6 @@ class Claw : public frc2::SubsystemBase {
   double IntakeSpin(double speed);
 
  private:
-  WPI_TalonFX& mClawMotor;
   WPI_TalonFX& mIntakeMotor;
 
 };

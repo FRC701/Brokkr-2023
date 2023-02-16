@@ -46,7 +46,6 @@ class RobotContainer
   static constexpr  int kRightFrontChassis{6};
   static constexpr  int kRightRearChassis{7};
   
-  static constexpr  int kClawMotor{8};
   static constexpr  int kIntakeMotor{9};
   static constexpr  int kWristCoder{14};
   
@@ -101,9 +100,8 @@ class RobotContainer
   WPI_TalonFX rightRear{kRightRearChassis};
   Chassis mChassis{leftFront, leftRear, rightFront, rightRear};
 
-  WPI_TalonFX mClawMotor{kClawMotor};
   WPI_TalonFX mIntakeMotor{kIntakeMotor};
-  Claw mClaw{mClawMotor, mIntakeMotor};
+  Claw mClaw{mIntakeMotor};
 
   WPI_TalonFX TurretMotor{kTurretMotor};
   WPI_PigeonIMU gyro{kGyroTurret};

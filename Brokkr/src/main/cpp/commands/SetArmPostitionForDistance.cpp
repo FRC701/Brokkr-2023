@@ -20,12 +20,11 @@ namespace{
   
   double GetDistance(double height, double distance)
   {
-    const double kIntakeLengthfromPivot = 18.2;
-    const double kTelescopeMechLength = 7.75;
-    const double kExcessArmLength = 3.5;
+    const double kIntakeLengthfromPivot = 24.6;
+    const double kTelescopeMechLength = 23.875;
 
     double armDistance = 0;
-    return armDistance = sqrt(pow(height, 2) + pow(distance - kIntakeLengthfromPivot, 2)) - kExcessArmLength - kTelescopeMechLength;
+    return armDistance = sqrt(pow(height, 2) + pow(distance - kIntakeLengthfromPivot, 2)) - kTelescopeMechLength;
   }//using pythagorean theorem to find ideal arm length
   double GetAngle(double height, double distance)
   {
@@ -47,7 +46,7 @@ namespace{
     {
     case NodeLevel::HybridLevel:
       distance = GetCameraDistance(kHybridHeight, AngleTargetOffset);
-      armDistance = GetDistance(kHybridHeight, distance);
+      armDistance = 0;
       break;
     
     case NodeLevel::MiddleNodeLevel:
@@ -57,7 +56,7 @@ namespace{
     
     case NodeLevel::UpperNodeLevel:
       distance = GetCameraDistance(kUpperNodeHeight, AngleTargetOffset);
-      armDistance =  GetDistance(kUpperNodeHeight, distance);
+      armDistance =  11.125;
       break;
     }
     return armDistance;
@@ -70,8 +69,8 @@ namespace{
     switch (NodeLevel)
     {
     case NodeLevel::HybridLevel:
-      distance = GetCameraDistance(kHybridHeight, AngleTargetOffset);
-      armAngle = GetAngle(kHybridHeight, distance);
+      distance = 0;
+      armAngle = 9;
       break;
       
     case NodeLevel::MiddleNodeLevel:
@@ -81,7 +80,7 @@ namespace{
     
     case NodeLevel::UpperNodeLevel:
       distance = GetCameraDistance(kUpperNodeHeight, AngleTargetOffset);
-      armAngle = GetAngle(kUpperNodeHeight, distance);
+      armAngle = 86;
       break;
     }
     return armAngle;

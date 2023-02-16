@@ -9,6 +9,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "subsystems/Wrist.h"
 #include "subsystems/Arm.h"
+#include <frc/controller/PIDController.h>
 
 /**
  * An example command.
@@ -33,4 +34,5 @@ class WristLevel
   private:
   Wrist& mWrist;
   Arm& mArm;
+  frc::PIDController mWristControl;
 };

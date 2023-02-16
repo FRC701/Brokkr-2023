@@ -5,27 +5,22 @@
 #include "subsystems/Claw.h"
 #include <frc/smartdashboard/SmartDashboard.h>
 
-Claw::Claw(WPI_TalonFX& clawMotor, WPI_TalonFX& intakeMotor)
-: mClawMotor(clawMotor)
-, mIntakeMotor(intakeMotor)
+Claw::Claw( WPI_TalonFX& intakeMotor)
+: mIntakeMotor(intakeMotor)
 {
-    mClawMotor.SetInverted(false);
-    mClawMotor.Config_kP(0, 0, 0);
-    mClawMotor.Config_kI(0, 0, 0);
-    mClawMotor.Config_kD(0, 0, 0);
-    mClawMotor.Config_kF(0, 0, 0);
     mIntakeMotor.SetNeutralMode(Brake);
 }
 
 void Claw::Periodic() 
 {
     frc::SmartDashboard::PutBoolean("Is Claw Open", IsClawOpen());
+    frc::SmartDashboard::PutNumber("IntakeStator", mIntakeMotor.GetStatorCurrent());
 }
 
 bool Claw::IsClawOpen() const
 {
     const double kClawOpenLimit = 100;
-    return mClawMotor.GetSelectedSensorPosition() >= kClawOpenLimit;
+    return mIntakeMotor.GetSelectedSensorPosition() >= kClawOpenLimit;
 }
 
 bool Claw::IsConeOrCubeIn() 
