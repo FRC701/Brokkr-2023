@@ -25,7 +25,7 @@ void WristLevel::Initialize() {
 void WristLevel::Execute() 
 {
   double armAngle = mArm.CANCoderArmStatus();
-  double wristAngle = mWrist.GetWristPosition();
+  //double wristAngle = mWrist.GetWristPosition();
   /*
   if(armAngle + 72 > wristAngle)
   {
