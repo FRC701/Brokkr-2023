@@ -79,7 +79,7 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
     (
       mChassis,
       [this] {return -1.0*driver.GetY(); },
-      [this] {return -0.7*driver.GetTwist(); }
+      [this] {return -0.5*driver.GetTwist(); }
     )
   );
   /*mWrist.SetDefaultCommand
