@@ -20,7 +20,7 @@
 class IntakeSpin
     : public frc2::CommandHelper<frc2::CommandBase, IntakeSpin> {
  public:
-  IntakeSpin(Claw& claw);
+  explicit IntakeSpin(Claw& claw);
 
   void Initialize() override;
 

@@ -18,7 +18,7 @@
 class IntakeSpinSimple
     : public frc2::CommandHelper<frc2::CommandBase, IntakeSpinSimple> {
  public:
-  IntakeSpinSimple(Claw& claw);
+  explicit IntakeSpinSimple(Claw& claw);
 
   void Initialize() override;
 
