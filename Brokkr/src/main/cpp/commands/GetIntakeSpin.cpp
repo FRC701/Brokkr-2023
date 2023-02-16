@@ -2,16 +2,18 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "commands/IntakeSpin.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
-IntakeSpin::IntakeSpin(Claw& claw)
+#include "commands/GetIntakeSpin.h"
+
+GetIntakeSpin::GetIntakeSpin(Claw& claw)
 : mClaw(claw) 
 {
   AddRequirements(&mClaw);
 }
 
 // Called when the command is initially scheduled.
-void IntakeSpin::Initialize() 
+void GetIntakeSpin::Initialize() 
 {
     static const units::second_t kInrushTimer{2};
 
@@ -25,15 +27,16 @@ void IntakeSpin::Initialize()
 }
 
 // Called repeatedly when this Command is scheduled to run
-void IntakeSpin::Execute() 
+void GetIntakeSpin::Execute() 
 {
+  double IntakeCurrentLimit = frc::SmartDashboard::GetNumber("IntakeCurrentLimit", 0);
   mClaw.IntakeSpin(1);
   if (mIsInRushOver)
   {
-    if(mClaw.IsConeOrCubeIn(100)) //placeholder
+    if(mClaw.IsConeOrCubeIn(IntakeCurrentLimit)) //placeholder
     {
       mTimer.Start();
-      if (mTimer.HasElapsed(units::millisecond_t(300)) && mClaw.IsConeOrCubeIn(100))
+      if (mTimer.HasElapsed(units::millisecond_t(300)) && mClaw.IsConeOrCubeIn(IntakeCurrentLimit))
       {
         mIsMotorStalling = true;
       }
@@ -52,7 +55,7 @@ void IntakeSpin::Execute()
 }
 
 // Called once the command ends or is interrupted.
-void IntakeSpin::End(bool interrupted) 
+void GetIntakeSpin::End(bool interrupted) 
 {
   mClaw.IntakeSpin(0);
   mTimer.Stop();
@@ -60,7 +63,7 @@ void IntakeSpin::End(bool interrupted)
 }
 
 // Returns true when the command should end.
-bool IntakeSpin::IsFinished() 
+bool GetIntakeSpin::IsFinished() 
 {
   return false || mIsMotorStalling;
 }

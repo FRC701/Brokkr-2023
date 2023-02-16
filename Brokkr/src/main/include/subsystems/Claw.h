@@ -18,7 +18,7 @@ class Claw : public frc2::SubsystemBase {
 
   bool IsClawOpen() const;
 
-  bool IsConeOrCubeIn();
+  bool IsConeOrCubeIn(double CurrentThreshold);
 
   double GetControllerCurrent();
 
