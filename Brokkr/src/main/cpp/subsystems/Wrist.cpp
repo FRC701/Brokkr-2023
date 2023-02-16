@@ -29,8 +29,8 @@ void Wrist::Periodic()
 {
     frc::SmartDashboard::PutNumber("WristCancoder", GetWristPosition());
     frc::SmartDashboard::PutBoolean("IsWristFlicked", IsWristFlicked());
-    frc::SmartDashboard::PutBoolean("MaxLimitSwitch", WristMaxLimitSwitch());
-    frc::SmartDashboard::PutBoolean("MinLimitSwitch", WristMinLimitSwitch());
+    frc::SmartDashboard::PutBoolean("WristMaxLimitSwitch", WristMaxLimitSwitch());
+    frc::SmartDashboard::PutBoolean("WristMinLimitSwitch", WristMinLimitSwitch());
 }
 
 double Wrist::TurnWrist(double pos) 

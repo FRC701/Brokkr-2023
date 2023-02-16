@@ -61,8 +61,13 @@ Arm::Arm(
 void Arm::Periodic()
 {
     frc::SmartDashboard::PutString("ArmHeightStatus", AsString(GetArmStatus()));
-    frc::SmartDashboard::PutNumber("ArmAngle", CANCoderArmStatus());
+    frc::SmartDashboard::PutNumber("ArmAngleStatus", CANCoderArmStatus());
     frc::SmartDashboard::PutNumber("ArmDistance", ticksToArmDistance(GetExtendTicks()));
+
+    frc::SmartDashboard::PutBoolean("ArmExtensionMaxLimitSwitch", ArmMaxLimitSwitch());
+    frc::SmartDashboard::PutBoolean("ArmExtensionMinLimitSwitch", ArmMinLimitSwitch());
+    frc::SmartDashboard::PutBoolean("ArmUpAndDownMaxLimitSwitch", PivotMaxLimitSwitch());
+    frc::SmartDashboard::PutBoolean("ArmUpAndDownMinLimitSwitch", PivotMinLimitSwitch());
 }
 double Arm::DistanceToTicks(double distance)
 {
