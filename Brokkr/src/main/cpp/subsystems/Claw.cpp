@@ -23,10 +23,9 @@ bool Claw::IsClawOpen() const
     return mIntakeMotor.GetSelectedSensorPosition() >= kClawOpenLimit;
 }
 
-bool Claw::IsConeOrCubeIn() 
+bool Claw::IsConeOrCubeIn(double CurrentThreshold) 
 {
-    const double kCurrentThreshold = 0;
-    return mIntakeMotor.GetStatorCurrent() >= kCurrentThreshold;
+    return mIntakeMotor.GetStatorCurrent() >= CurrentThreshold;
 }
 
 double Claw::IntakeSpin(double speed)

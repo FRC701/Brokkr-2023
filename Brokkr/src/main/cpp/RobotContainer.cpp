@@ -30,9 +30,23 @@
 #include "commands/ControllerTurret.h"
 #include "commands/ControllerChassisRotationReal.h"
 #include "commands/ControllerChassisDrive.h"
+#include "commands/GetArmPosition.h"
+#include "commands/GetArmInitialPosition.h"
+#include "commands/GetWristInitialPosition.h"
+#include "commands/GetIntakeSpin.h"
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
+ frc::SmartDashboard::SetDefaultNumber("ArmAngle", 0);
+ frc::SmartDashboard::SetDefaultNumber("ExtensionLength", 0);
+ frc::SmartDashboard::SetDefaultNumber("WristAngle", 0);
+ frc::SmartDashboard::SetDefaultNumber("IntakeCurrentLimit", 0);
+
+ frc::SmartDashboard::PutData("Get Arm Position", new GetArmPosition(mArm));
+ frc::SmartDashboard::PutData("Get Arm Extension", new GetArmInitialPosition(mArm));
+ frc::SmartDashboard::PutData("Get Wrist Position", new GetWristInitialPosition(mWrist));
+ frc::SmartDashboard::PutData("Get Intake Current Limit", new GetIntakeSpin(mClaw));
+
  frc::SmartDashboard::PutData("ArmPosition Hybrid", new ArmPosition(mArm, 0)); //Placeholder values
  frc::SmartDashboard::PutData("InitClaw", new WristInitialPosition(mWrist, 0));
 
