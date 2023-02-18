@@ -19,17 +19,29 @@ Turret::Turret(WPI_TalonFX& turret, WPI_PigeonIMU& gyro)
 , mGyro(gyro)
 {
     mGyro.SetYaw(0);
-    mTurretMotor.SetNeutralMode(Brake);
-}
+    mTurretMotor.SetNeutralMode(Brake);}
 
+ const double kTurretRotRestraint{20000};
 // This method will be called once per scheduler run
 void Turret::Periodic() {
+    
+ 
+  if (GetTurretPose() >= kTurretRotRestraint  && GetMotorSpeed() > 0)
+  {
+   SetTurretSpeed(0);
+  }
+  else if(GetTurretPose() <= -kTurretRotRestraint  && GetMotorSpeed() < 0)
+  {
+    SetTurretSpeed(0);
+  }
+
     frc::SmartDashboard::PutBoolean("HasTargets?", HasTargets());
     frc::SmartDashboard::PutNumber("GetYawVision", GetVisionYaw());
     frc::SmartDashboard::PutNumber("GetPitchVision", GetVisionPitch());
     frc::SmartDashboard::PutNumber("GetAreaision", GetVisionArea());
     frc::SmartDashboard::PutNumber("GetVision", mCamera.GetPipelineIndex());
     frc::SmartDashboard::PutNumber("GetYawIMU", GetYawIMU());
+    frc::SmartDashboard::PutNumber("GetTurretEncoderTicks", GetTurretPose());
 }
 
 double Turret::SetVelocity(double rpm)
@@ -84,3 +96,9 @@ int Turret::SetPipeline(int pipeIndex){
 double Turret::GetYawIMU(){
     return mGyro.GetYaw();
 }
+
+
+ double Turret::GetMotorSpeed(){
+    return mTurretMotor.Get();
+ }
+    

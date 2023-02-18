@@ -36,6 +36,10 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 , mOdometry{mGyroX.GetRotation2d(), units::meter_t{0}, units::meter_t{0}}
 , mDriveKinematics{units::meter_t{24}}
 {
+    mLeftFront.SetNeutralMode(Brake);
+    mLeftRear.SetNeutralMode(Brake);
+    mRightFront.SetNeutralMode(Brake);
+    mRightRear.SetNeutralMode(Brake);
 #if ! __APPLE__
     mGyroX.ZeroYaw();
 #endif

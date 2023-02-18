@@ -27,6 +27,8 @@ class Turret : public frc2::SubsystemBase {
   int SetPipeline(int pipeIndex);
   void Periodic() override;
   double GetYawIMU();
+  double GetMotorSpeed();
+
 
  private:
  WPI_TalonFX& mTurretMotor;

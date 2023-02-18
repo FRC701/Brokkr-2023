@@ -47,6 +47,9 @@ Arm::Arm(
 , mTelescopingArm(teleArm)
 , mCanCoder(canCoder)
 {
+    mArmMotor2.SetNeutralMode(Brake);
+    mTelescopingArm.SetNeutralMode(Brake);
+
     mArmMotor2.Config_kP(0, kArmAngle_P);
     mArmMotor2.Config_kI(0, kArmAngle_I);
     mArmMotor2.Config_kD(0, kArmAngle_D);
