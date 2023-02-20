@@ -16,7 +16,7 @@ void IntakeSpinSimple::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeSpinSimple::Execute() {
-  mClaw.IntakeSpin(-0.2);
+  mClaw.IntakeSpin(-0.3);
 }
 
 // Called once the command ends or is interrupted.
