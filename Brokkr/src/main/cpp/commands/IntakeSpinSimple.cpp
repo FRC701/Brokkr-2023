@@ -13,12 +13,12 @@ IntakeSpinSimple::IntakeSpinSimple(Claw& claw, double speed)
 }
 
 // Called when the command is initially scheduled.
-void IntakeSpinSimple::Initialize() {}
-
-// Called repeatedly when this Command is scheduled to run
-void IntakeSpinSimple::Execute() {
+void IntakeSpinSimple::Initialize() {
   mClaw.IntakeSpin(mSpeed);
 }
+
+// Called repeatedly when this Command is scheduled to run
+void IntakeSpinSimple::Execute() {}
 
 // Called once the command ends or is interrupted.
 void IntakeSpinSimple::End(bool interrupted) {}
