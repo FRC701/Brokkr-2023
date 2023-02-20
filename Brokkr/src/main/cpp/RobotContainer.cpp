@@ -19,6 +19,7 @@
 #include "commands/SetArmPostitionForDistance.h"
 #include "commands/TurretManualControl.h"
 #include "commands/MoveArmIntake.h"
+#include "commands/IntakeSpin.h"
 #include "commands/IntakeSpinSimple.h"
 #include "commands/IntakeEjectObject.h"
 #include "commands/PivotWrist.h"
@@ -84,6 +85,11 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
       [this] {return -0.5*driver.GetTwist(); }
     )
   );
+  
+  mTurret.SetDefaultCommand(TurretManualControl(mTurret, 0.0));
+
+  mArm.SetDefaultCommand(ArmPosition(mArm, 0.0));
+
   /*mWrist.SetDefaultCommand
   (
     PivotWrist
@@ -96,21 +102,25 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 void RobotContainer::ConfigureBindings() 
 {
   trigger.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 135).ToPtr()); //placeholder
+  button5.ToggleOnTrue(IntakeSpinSimple(mClaw, 6).ToPtr());
+  button6.ToggleOnTrue(IntakeSpinSimple(mClaw, -6).ToPtr());
   button7.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::UpperNodeLevel).ToPtr()); //placeholder
+  button8.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
   button9.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::MiddleNodeLevel).ToPtr()); //placeholder
+  button10.ToggleOnTrue(IntakeEjectObject(mClaw, 6).ToPtr());
   button11.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::HybridLevel).ToPtr()); //placeholder
   
 
   xButton.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 45).ToPtr()); //Select arm height and run intake
-  yButton.WhileTrue(ExtendArm(mArm, 0.3).ToPtr()); // Extend arm
-  aButton.WhileTrue(ExtendArm(mArm, -0.3).ToPtr()); // Retract arm
-  bButton.ToggleOnTrue(IntakeEjectObject(mClaw).ToPtr()); //Release Game Object
-  lTrigger.WhileTrue(ManualArmAngle(mArm, 0.3).ToPtr()); // Raise Arm
-  rTrigger.WhileTrue(ManualArmAngle(mArm, -0.3).ToPtr()); // Lower Arm
-  //lTrigger.WhileTrue(PivotWrist(mWrist, 0.3).ToPtr()); // Raise Wrist
-  //rTrigger.WhileTrue(PivotWrist(mWrist, -0.3).ToPtr()); // Lower Wrist 
-  lBumperButton.WhileTrue(TurretManualControl(mTurret,0.5).ToPtr()); //Turn Turret Left
-  rBumperButton.WhileTrue(TurretManualControl(mTurret, -0.5).ToPtr()); //Turn Turret Right
+  yButton.WhileTrue(ExtendArm(mArm, 4).ToPtr()); // Extend arm
+  aButton.WhileTrue(ExtendArm(mArm, -4).ToPtr()); // Retract arm
+  bButton.ToggleOnTrue(IntakeEjectObject(mClaw, -3).ToPtr()); //Release Game Object
+  //lTrigger.WhileTrue(ManualArmAngle(mArm, 0.3).ToPtr()); // Raise Arm
+  //rTrigger.WhileTrue(ManualArmAngle(mArm, -0.3).ToPtr()); // Lower Arm
+  upDPAD.WhileTrue(PivotWrist(mWrist, -3).ToPtr()); // Raise Wrist
+  downDPAD.WhileTrue(PivotWrist(mWrist, 3).ToPtr()); // Lower Wrist 
+  lBumperButton.WhileTrue(TurretManualControl(mTurret, 6).ToPtr()); //Turn Turret Left
+  rBumperButton.WhileTrue(TurretManualControl(mTurret, -6).ToPtr()); //Turn Turret Right
   Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist, mClaw, mTurret).ToPtr());
 
   // Configure your trigger bindings here

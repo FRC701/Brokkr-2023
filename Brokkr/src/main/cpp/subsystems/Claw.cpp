@@ -30,7 +30,7 @@ bool Claw::IsConeOrCubeIn(double CurrentThreshold)
 
 double Claw::IntakeSpin(double speed)
 {
-    mIntakeMotor.Set(ControlMode::PercentOutput, speed);
+    mIntakeMotor.SetVoltage(units::volt_t(speed));
     return speed;
 }
 

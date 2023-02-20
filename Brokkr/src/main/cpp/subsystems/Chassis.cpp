@@ -40,6 +40,7 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
     mLeftRear.SetNeutralMode(Brake);
     mRightFront.SetNeutralMode(Brake);
     mRightRear.SetNeutralMode(Brake);
+    
 #if ! __APPLE__
     mGyroX.ZeroYaw();
 #endif

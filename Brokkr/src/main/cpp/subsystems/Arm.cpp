@@ -10,7 +10,7 @@ namespace
 {
     constexpr double kArmGearRatioExtension(16/24);
     constexpr double kTicksInRotation(2048);
-    constexpr double kArmCircumfrence(3 * pi); //9.42
+    constexpr double kArmCircumfrence(1.5 * pi); //9.42
     constexpr double kDistancePerTick{(kArmCircumfrence * kArmGearRatioExtension) / kTicksInRotation};
 
     double ticksToArmDistance(double ticks)
@@ -89,13 +89,13 @@ double Arm::GetArmSpeed()
 
 double Arm::ArmExtend(double speed)
 {
-    mTelescopingArm.Set(speed);
+    mTelescopingArm.SetVoltage(units::volt_t(speed));
     return speed;
 }
 
 double Arm::SetArmSpeed(double speed)
 {
-    mArmMotor2.Set(ControlMode::PercentOutput, speed);
+    mArmMotor2.SetVoltage(units::volt_t(speed));
     return speed;
 }
 

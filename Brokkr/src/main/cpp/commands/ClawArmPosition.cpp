@@ -18,7 +18,7 @@ ClawArmPosition::ClawArmPosition(Arm& arm, Wrist& wrist, Claw& claw)
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
-    IntakeSpin(mClaw),
+    IntakeSpin(mClaw, 4),
     WristLevel(mWrist, mArm)
   );
 }

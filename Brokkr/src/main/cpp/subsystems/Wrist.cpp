@@ -54,7 +54,7 @@ double Wrist::GetWristPosition()
 
 double Wrist::TurnWristPO(double speed)
 {
-    mWristMotor.Set(ControlMode::PercentOutput, speed);
+    mWristMotor.SetVoltage(units::volt_t(speed));
     return speed;
 }
 

@@ -63,11 +63,15 @@ class RobotContainer
  //frc::XboxController driver1{0};
  frc2::CommandJoystick driver{0};
  frc2::CommandXboxController coDriver{1};
- //frc2::CommandGenericHID coDriver2{1};
+ frc2::CommandGenericHID coDriver2{1};
 
  frc2::Trigger trigger = driver.Trigger();
+ frc2::Trigger button5 = driver.Button(5);
+ frc2::Trigger button6 = driver.Button(6);
  frc2::Trigger button7 = driver.Button(7);
+ frc2::Trigger button8 = driver.Button(8);
  frc2::Trigger button9 = driver.Button(9);
+ frc2::Trigger button10 = driver.Button(10);
  frc2::Trigger button11 = driver.Button(11);
 
 
@@ -80,8 +84,8 @@ class RobotContainer
  frc2::Trigger lTrigger = coDriver.LeftTrigger();
  frc2::Trigger rTrigger = coDriver.RightTrigger();
  frc2::Trigger Middle = coDriver.Button(13);
- /*frc2::Trigger upDPAD = coDriver2.POVUp();
- frc2::Trigger downDPAD = coDriver2.POVDown(); */
+ frc2::Trigger upDPAD = coDriver2.POVUp();
+ frc2::Trigger downDPAD = coDriver2.POVDown();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   frc2::CommandXboxController m_driverController{

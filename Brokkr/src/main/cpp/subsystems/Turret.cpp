@@ -57,7 +57,7 @@ double Turret::SetTurretPose(double pose){
 }
 
 double Turret::SetTurretSpeed(double speed){
-    mTurretMotor.Set(speed);
+    mTurretMotor.SetVoltage(units::volt_t(speed));
         return speed;
 }
 

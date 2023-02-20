@@ -10,7 +10,7 @@
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 MoveArmIntake::MoveArmIntake(Arm& arm, Claw& claw, double armAngle) 
-: CommandHelper(IntakeSpin(claw))
+: CommandHelper(IntakeSpin(claw, 4))
 {
   AddCommands
   (

@@ -21,11 +21,11 @@ AutoTwoPieceTaxi::AutoTwoPieceTaxi(Arm& arm, Chassis& chassis, Claw& claw, Wrist
   AddCommands(
     ArmPosition(arm, 75),
     SetExtendtoNode(arm, wrist, turret, 45),
-    IntakeEjectObject(claw),
+    IntakeEjectObject(claw, -4),
     SetObjectPickUpWhileDrive(arm, chassis, claw, turret),
     WristLevel(wrist, arm),
-    IntakeSpin(claw),
+    IntakeSpin(claw, 4),
     SetExtendtoNodeDrive(arm, chassis, wrist, turret),
-    IntakeEjectObject(claw)
+    IntakeEjectObject(claw, -4)
   );
 }
