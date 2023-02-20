@@ -4,8 +4,9 @@
 
 #include "commands/IntakeSpinSimple.h"
 
-IntakeSpinSimple::IntakeSpinSimple(Claw& claw)
+IntakeSpinSimple::IntakeSpinSimple(Claw& claw, double speed)
 : mClaw(claw)
+, mSpeed(speed)
 {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(&mClaw);
@@ -16,7 +17,7 @@ void IntakeSpinSimple::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeSpinSimple::Execute() {
-  mClaw.IntakeSpin(-0.3);
+  mClaw.IntakeSpin(mSpeed);
 }
 
 // Called once the command ends or is interrupted.

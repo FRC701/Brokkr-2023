@@ -18,7 +18,9 @@
 class IntakeSpinSimple
     : public frc2::CommandHelper<frc2::CommandBase, IntakeSpinSimple> {
  public:
-  explicit IntakeSpinSimple(Claw& claw);
+  static constexpr double kDefaultSpeed = -0.3;
+
+  explicit IntakeSpinSimple(Claw& claw, double speed = kDefaultSpeed);
 
   void Initialize() override;
 
@@ -29,5 +31,6 @@ class IntakeSpinSimple
   bool IsFinished() override;
 
 private:
-Claw& mClaw;
+  Claw& mClaw;
+  double mSpeed;
 };

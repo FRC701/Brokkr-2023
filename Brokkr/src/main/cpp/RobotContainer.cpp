@@ -19,7 +19,7 @@
 #include "commands/SetArmPostitionForDistance.h"
 #include "commands/TurretManualControl.h"
 #include "commands/MoveArmIntake.h"
-#include "commands/IntakeSpin.h"
+#include "commands/IntakeSpinSimple.h"
 #include "commands/IntakeEjectObject.h"
 #include "commands/PivotWrist.h"
 #include "commands/ManualArmAngle.h"
@@ -69,6 +69,7 @@ mChooser.AddOption("Auto2Piece", &mAutoTwoPieceTaxi);
 frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
 
+  mClaw.SetDefaultCommand(IntakeSpinSimple(mClaw, 0.0));
   // Disable while testing.
   // mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
   // Configure the button bindings
