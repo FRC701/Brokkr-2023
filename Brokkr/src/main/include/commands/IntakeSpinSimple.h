@@ -20,7 +20,7 @@ class IntakeSpinSimple
  public:
   static constexpr double kDefaultSpeed = -0.3;
 
-  explicit IntakeSpinSimple(Claw& claw, double speed = kDefaultSpeed);
+  explicit IntakeSpinSimple(Claw& claw, double speed/* = kDefaultSpeed*/);
 
   void Initialize() override;
 
