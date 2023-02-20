@@ -12,7 +12,5 @@ class IntakeEjectObject
     : public frc2::CommandHelper<frc2::ParallelDeadlineGroup,
                                  IntakeEjectObject> {
  public:
-  explicit IntakeEjectObject(Claw& claw);
-
-private:
+  explicit IntakeEjectObject(Claw& claw, double speed);
 };

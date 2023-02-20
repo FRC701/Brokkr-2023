@@ -20,7 +20,7 @@
 class IntakeSpin
     : public frc2::CommandHelper<frc2::CommandBase, IntakeSpin> {
  public:
-  explicit IntakeSpin(Claw& claw);
+  explicit IntakeSpin(Claw& claw, double mSpeed);
 
   void Initialize() override;
 
@@ -36,4 +36,5 @@ class IntakeSpin
 
   bool mIsInRushOver;
   bool mIsMotorStalling;
+  double mSpeed;
 };

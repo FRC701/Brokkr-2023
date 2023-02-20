@@ -4,8 +4,9 @@
 
 #include "commands/IntakeSpin.h"
 
-IntakeSpin::IntakeSpin(Claw& claw)
+IntakeSpin::IntakeSpin(Claw& claw, double speed)
 : mClaw(claw) 
+, mSpeed(speed)
 {
   AddRequirements(&mClaw);
 }
@@ -27,7 +28,7 @@ void IntakeSpin::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void IntakeSpin::Execute() 
 {
-  mClaw.IntakeSpin(1);
+  mClaw.IntakeSpin(mSpeed);
   if (mIsInRushOver)
   {
     if(mClaw.IsConeOrCubeIn(100)) //placeholder
