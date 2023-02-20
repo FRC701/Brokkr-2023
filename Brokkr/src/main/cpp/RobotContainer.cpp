@@ -69,7 +69,8 @@ mChooser.AddOption("Auto2Piece", &mAutoTwoPieceTaxi);
 frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
 
-  mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
+  // Disable while testing.
+  // mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
   // Configure the button bindings
   ConfigureBindings();
 
@@ -105,10 +106,10 @@ void RobotContainer::ConfigureBindings()
   bButton.ToggleOnTrue(IntakeEjectObject(mClaw).ToPtr()); //Release Game Object
   lTrigger.WhileTrue(ManualArmAngle(mArm, 0.3).ToPtr()); // Raise Arm
   rTrigger.WhileTrue(ManualArmAngle(mArm, -0.3).ToPtr()); // Lower Arm
-  /*upDPAD.WhileTrue(PivotWrist(mWrist, 0.3).ToPtr()); // Raise Wrist
-  downDPAD.WhileTrue(PivotWrist(mWrist, -0.3).ToPtr()); */// Lower Wrist 
-  lBumperButton.WhileTrue(TurretManualControl(mTurret,0.3).ToPtr()); //Turn Turret Left
-  rBumperButton.WhileTrue(TurretManualControl(mTurret, -0.3).ToPtr()); //Turn Turret Right
+  //lTrigger.WhileTrue(PivotWrist(mWrist, 0.3).ToPtr()); // Raise Wrist
+  //rTrigger.WhileTrue(PivotWrist(mWrist, -0.3).ToPtr()); // Lower Wrist 
+  lBumperButton.WhileTrue(TurretManualControl(mTurret,0.5).ToPtr()); //Turn Turret Left
+  rBumperButton.WhileTrue(TurretManualControl(mTurret, -0.5).ToPtr()); //Turn Turret Right
   Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist, mClaw, mTurret).ToPtr());
 
   // Configure your trigger bindings here
