@@ -112,11 +112,10 @@ void RobotContainer::ConfigureBindings()
   
 
   xButton.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 45).ToPtr()); //Select arm height and run intake
-  yButton.WhileTrue(ExtendArm(mArm, 4).ToPtr()); // Extend arm
-  aButton.WhileTrue(ExtendArm(mArm, -4).ToPtr()); // Retract arm
-  bButton.ToggleOnTrue(IntakeEjectObject(mClaw, -3).ToPtr()); //Release Game Object
-  //lTrigger.WhileTrue(ManualArmAngle(mArm, 0.3).ToPtr()); // Raise Arm
-  //rTrigger.WhileTrue(ManualArmAngle(mArm, -0.3).ToPtr()); // Lower Arm
+  yButton.WhileTrue(ExtendArm(mArm, 8).ToPtr()); // Extend arm
+  aButton.WhileTrue(ExtendArm(mArm, -8).ToPtr()); // Retract arm
+  lTrigger.WhileTrue(ManualArmAngle(mArm, 9).ToPtr()); // Raise Arm
+  rTrigger.WhileTrue(ManualArmAngle(mArm, -9).ToPtr()); // Lower Arm
   upDPAD.WhileTrue(PivotWrist(mWrist, -3).ToPtr()); // Raise Wrist
   downDPAD.WhileTrue(PivotWrist(mWrist, 3).ToPtr()); // Lower Wrist 
   lBumperButton.WhileTrue(TurretManualControl(mTurret, 6).ToPtr()); //Turn Turret Left
