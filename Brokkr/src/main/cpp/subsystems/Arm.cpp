@@ -30,7 +30,8 @@ namespace
     {
         return (value >= lower && value < upper);
     }
-    const double kArmAngle_P = 10.0;
+    // Use 4 volts at 10 degrees. 4 = P*10, P=4/10
+    const double kArmAngle_P = 0.4;
     const double kArmAngle_I = 0;
     const double kArmAngle_D = 0;
     const double kArmExtend_P = 3.0;

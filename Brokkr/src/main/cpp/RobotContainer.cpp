@@ -53,6 +53,9 @@ RobotContainer::RobotContainer() {
 
  frc::SmartDashboard::PutData("Turret pose 80 degree", new TurretPID(mTurret, 80));
  frc::SmartDashboard::PutData("ArmPosition 20 degree", new ArmPosition(mArm, 20));
+ frc::SmartDashboard::PutData("ArmPosition 40 degree", new ArmPosition(mArm, 40));
+ frc::SmartDashboard::PutData("ArmPosition 60 degree", new ArmPosition(mArm, 60));
+ frc::SmartDashboard::PutData("ArmPosition 80 degree", new ArmPosition(mArm, 80));
  frc::SmartDashboard::PutData("ArmExtension", new ArmInitialPosition(mArm, 4));
  frc::SmartDashboard::PutData("Wrist angle 20 degree", new WristInitialPosition(mWrist, 20));
  
