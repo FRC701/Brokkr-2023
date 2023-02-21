@@ -58,7 +58,7 @@ Arm::Arm(
     mTelescopingArm.Config_kI(0, kArmExtend_I);
     mTelescopingArm.Config_kD(0, kArmExtend_D);
     mCanCoder.ConfigAbsoluteSensorRange(ctre::phoenix::sensors::AbsoluteSensorRange::Unsigned_0_to_360);
-    mCanCoder.ConfigMagnetOffset(9);
+    mCanCoder.ConfigMagnetOffset(-144.5);
 }
 // This method will be called once per scheduler run
 void Arm::Periodic()
