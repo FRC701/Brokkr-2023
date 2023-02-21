@@ -38,7 +38,7 @@ class RobotContainer
 
   static constexpr  int kArmMotor2{2};
   static constexpr  int kTelescope{3};
-  static constexpr  int kArmCoder{13};
+  static constexpr  int kArmCoder{14};
 
 
   static constexpr  int kLeftFrontChassis{4};
@@ -47,7 +47,7 @@ class RobotContainer
   static constexpr  int kRightRearChassis{7};
   
   static constexpr  int kIntakeMotor{9};
-  static constexpr  int kWristCoder{14};
+  static constexpr  int kWristCoder{13};
   
   static constexpr  int kTurretMotor{10};
   static constexpr  int kGyroTurret{11};
