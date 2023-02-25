@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "commands/WristInitialPosition.h"
+#include "frc/smartdashboard/SmartDashboard.h"
 
 WristInitialPosition::WristInitialPosition(Wrist& wrist, double pose) 
 :mWrist(wrist)
@@ -13,13 +14,14 @@ WristInitialPosition::WristInitialPosition(Wrist& wrist, double pose)
 
 // Called when the command is initially scheduled.
 void WristInitialPosition::Initialize() {
-  mWristControl.SetTolerance(1);
-  mWristControl.EnableContinuousInput(70, 194.25);
+  mWristControl.SetTolerance(0);
+ // mWristControl.EnableContinuousInput(180,358);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void WristInitialPosition::Execute() {
   double output = mWristControl.Calculate(mWrist.GetWristPosition(), mPose);
+  frc::SmartDashboard::PutNumber("output", output);
   mWrist.TurnWristPO(output);
 }
 
@@ -30,4 +32,4 @@ void WristInitialPosition::End(bool interrupted) {}
 bool WristInitialPosition::IsFinished() {
   return mWristControl.AtSetpoint();
 }
- 
+  

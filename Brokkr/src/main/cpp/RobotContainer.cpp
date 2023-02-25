@@ -51,13 +51,15 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("ArmPosition Hybrid", new ArmPosition(mArm, 0)); //Placeholder values
  frc::SmartDashboard::PutData("InitClaw", new WristInitialPosition(mWrist, 0));
 
+ frc::SmartDashboard::PutData("spin", new IntakeSpinSimple(mClaw, 7));
+
  frc::SmartDashboard::PutData("Turret pose 80 degree", new TurretPID(mTurret, 80));
  frc::SmartDashboard::PutData("ArmPosition 20 degree", new ArmPosition(mArm, 20));
  frc::SmartDashboard::PutData("ArmPosition 40 degree", new ArmPosition(mArm, 40));
  frc::SmartDashboard::PutData("ArmPosition 60 degree", new ArmPosition(mArm, 60));
  frc::SmartDashboard::PutData("ArmPosition 80 degree", new ArmPosition(mArm, 80));
  frc::SmartDashboard::PutData("ArmExtension", new ArmInitialPosition(mArm, 4));
- frc::SmartDashboard::PutData("Wrist angle 20 degree", new WristInitialPosition(mWrist, 20));
+ frc::SmartDashboard::PutData("Wrist angle 300 degree", new WristInitialPosition(mWrist, 300));
  
  frc::SmartDashboard::PutData("SetArmPosition", new ArmInitialPosition(mArm, 0));
  frc::SmartDashboard::PutData("Wow", new SetArmPostitionForDistance(mArm, mTurret, NodeLevel::HybridLevel));
@@ -75,7 +77,7 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
   //mClaw.SetDefaultCommand(IntakeSpinSimple(mClaw, 0.0));
   // Disable while testing.
-  // mWrist.SetDefaultCommand(WristLevel(mWrist, mArm));
+   mWrist.SetDefaultCommand(PivotWrist(mWrist, 0));
   // Configure the button bindings
   ConfigureBindings();
 
@@ -105,11 +107,11 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 void RobotContainer::ConfigureBindings() 
 {
   trigger.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 135).ToPtr()); //placeholder
-  button5.WhileTrue(IntakeSpinSimple(mClaw, 9).ToPtr());
-  //   button5.ToggleOnTrue(IntakeSpin(mClaw, 6).ToPtr());
- //  button6.ToggleOnTrue(IntakeSpin(mClaw, 6).ToPtr());
+  //button5.WhileTrue(IntakeSpinSimple(mClaw, 6).ToPtr());
+  button5.ToggleOnTrue(IntakeSpin(mClaw, 7.5).ToPtr());
+  button6.ToggleOnTrue(IntakeSpin(mClaw, -7.5).ToPtr());
 
-  button6.WhileTrue(IntakeSpinSimple(mClaw, -8).ToPtr());
+  //button6.WhileTrue(IntakeSpinSimple(mClaw, -6).ToPtr());
   button7.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::UpperNodeLevel).ToPtr()); //placeholder
   button8.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
   button9.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::MiddleNodeLevel).ToPtr()); //placeholder

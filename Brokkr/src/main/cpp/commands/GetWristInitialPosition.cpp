@@ -7,22 +7,23 @@
 #include "commands/GetWristInitialPosition.h"
 
 GetWristInitialPosition::GetWristInitialPosition(Wrist& wrist) 
-:mWrist(wrist)
+: mWrist(wrist)
+, mWristControl{0.17, 0, 0}
 {
   AddRequirements(&mWrist);
 }
 
 // Called when the command is initially scheduled.
 void GetWristInitialPosition::Initialize() {
-  mWristControl.SetTolerance(1);
-  mWristControl.EnableContinuousInput(70, 194.25);
+  mWristControl.SetTolerance(0);
+  mWristControl.EnableContinuousInput(180, 358);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void GetWristInitialPosition::Execute() {
   double WristAngle = frc::SmartDashboard::GetNumber("WristAngle", 0);
   double output = mWristControl.Calculate(mWrist.GetWristPosition(), WristAngle);
-  mWrist.TurnWristPO(output);
+  mWrist.TurnWristPO(-1 * output);
 }
 
 // Called once the command ends or is interrupted.

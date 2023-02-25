@@ -31,11 +31,12 @@ void IntakeSpin::Execute()
   mClaw.IntakeSpin(mSpeed);
   if (mIsInRushOver)
   {
-    if(mClaw.IsConeOrCubeIn(100)) //placeholder
+    if(mClaw.IsConeOrCubeIn(130)) //placeholder
     {
       mTimer.Start();
-      if (mTimer.HasElapsed(units::millisecond_t(300)) && mClaw.IsConeOrCubeIn(100))
+      if (mTimer.HasElapsed(units::millisecond_t(100)) && mClaw.IsConeOrCubeIn(130))
       {
+        
         mIsMotorStalling = true;
       }
       else

@@ -7,7 +7,7 @@
 
 namespace
 {
-  const double kWrist_P = 1.0;
+  const double kWrist_P = 0.0;
   const double kWrist_I = 0.0;
   const double kWrist_D = 0.0;
   const double kWrist_F = 0.0;
@@ -24,12 +24,13 @@ Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder)
     mWristMotor.Config_kD(0, kWrist_D);
     mWristMotor.Config_kF(0, kWrist_F);
     mWristCoder.ConfigAbsoluteSensorRange(ctre::phoenix::sensors::AbsoluteSensorRange::Unsigned_0_to_360);
-    mWristCoder.ConfigMagnetOffset(-109);
+    mWristCoder.ConfigMagnetOffset(-115);
 }
 // This method will be called once per scheduler run
 void Wrist::Periodic()  
 {
     frc::SmartDashboard::PutNumber("WristCancoder", GetWristPosition());
+    frc::SmartDashboard::PutNumber("WristCancoder1", GetWristPosition());
     frc::SmartDashboard::PutBoolean("IsWristFlicked", IsWristFlicked());
     frc::SmartDashboard::PutBoolean("WristMaxLimitSwitch", WristMaxLimitSwitch());
     frc::SmartDashboard::PutBoolean("WristMinLimitSwitch", WristMinLimitSwitch());

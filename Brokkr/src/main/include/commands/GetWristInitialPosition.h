@@ -32,6 +32,6 @@ class GetWristInitialPosition
 
   private:
   Wrist& mWrist;
-  frc2::PIDController mWristControl{0, 0, 0};
+  frc2::PIDController mWristControl;
 
 };
