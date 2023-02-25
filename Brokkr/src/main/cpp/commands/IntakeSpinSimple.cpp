@@ -22,7 +22,9 @@ void IntakeSpinSimple::Execute() {
 }
 
 // Called once the command ends or is interrupted.
-void IntakeSpinSimple::End(bool interrupted) {}
+void IntakeSpinSimple::End(bool interrupted) {
+  mClaw.IntakeSpin(0);
+}
 
 // Returns true when the command should end.
 bool IntakeSpinSimple::IsFinished() {

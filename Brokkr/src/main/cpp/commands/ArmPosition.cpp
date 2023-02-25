@@ -16,7 +16,7 @@ ArmPosition::ArmPosition(Arm& arm, double armHeight)
 // Called when the command is initially scheduled.
 void ArmPosition::Initialize() 
 {
-  mArmControl.SetTolerance(1);
+  mArmControl.SetTolerance(1.0);
   mArmControl.EnableContinuousInput(9, 86);
 }
 

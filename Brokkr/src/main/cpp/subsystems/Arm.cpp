@@ -34,7 +34,7 @@ namespace
     const double kArmAngle_P = 0.4;
     const double kArmAngle_I = 0;
     const double kArmAngle_D = 0;
-    const double kArmExtend_P = 3.0;
+    const double kArmExtend_P = 3.0;    
     const double kArmExtend_I = 0;
     const double kArmExtend_D = 0;
 }
@@ -59,7 +59,7 @@ Arm::Arm(
     mTelescopingArm.Config_kI(0, kArmExtend_I);
     mTelescopingArm.Config_kD(0, kArmExtend_D);
     mCanCoder.ConfigAbsoluteSensorRange(ctre::phoenix::sensors::AbsoluteSensorRange::Unsigned_0_to_360);
-    mCanCoder.ConfigMagnetOffset(-144.5);
+    mCanCoder.ConfigMagnetOffset(-150.5);
 }
 // This method will be called once per scheduler run
 void Arm::Periodic()
