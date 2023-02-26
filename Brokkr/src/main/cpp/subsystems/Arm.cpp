@@ -51,6 +51,7 @@ Arm::Arm(
     mArmMotor2.SetNeutralMode(Brake);
     mTelescopingArm.SetNeutralMode(Brake);
 
+    //mArmMotor2.ConfigOpenloopRamp(0.5);
     mArmMotor2.Config_kP(0, kArmAngle_P);
     mArmMotor2.Config_kI(0, kArmAngle_I);
     mArmMotor2.Config_kD(0, kArmAngle_D);
@@ -66,6 +67,7 @@ void Arm::Periodic()
 {
     frc::SmartDashboard::PutString("ArmHeightStatus", AsString(GetArmStatus()));
     frc::SmartDashboard::PutNumber("ArmAngleStatus", CANCoderArmStatus());
+    frc::SmartDashboard::PutNumber("ArmAngleStatus1", CANCoderArmStatus());
     frc::SmartDashboard::PutNumber("ArmDistance", ticksToArmDistance(GetExtendTicks()));
 
     frc::SmartDashboard::PutBoolean("ArmExtensionMaxLimitSwitch", ArmMaxLimitSwitch());

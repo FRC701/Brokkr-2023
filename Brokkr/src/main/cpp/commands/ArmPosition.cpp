@@ -7,6 +7,7 @@
 
 ArmPosition::ArmPosition(Arm& arm, double armHeight) 
 : mArm(arm)
+, mArmControl{0.8, 0, 0}
 , mArmHeight(armHeight)
 {
   AddRequirements(&mArm);
@@ -17,14 +18,14 @@ ArmPosition::ArmPosition(Arm& arm, double armHeight)
 void ArmPosition::Initialize() 
 {
   mArmControl.SetTolerance(1.0);
-  mArmControl.EnableContinuousInput(9, 86);
+  mArmControl.EnableContinuousInput(2, 80);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ArmPosition::Execute() 
 {
   double output = mArmControl.Calculate(mArm.CANCoderArmStatus(), mArmHeight);
-  mArm.SetArmSpeed(output);
+  mArm.SetArmSpeed(-1 * output);
 }
 
 // Called once the command ends or is interrupted.

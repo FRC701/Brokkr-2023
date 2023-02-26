@@ -35,14 +35,17 @@
 #include "commands/GetArmInitialPosition.h"
 #include "commands/GetWristInitialPosition.h"
 #include "commands/GetIntakeSpin.h"
+#include "commands/GetTurretPID.h"
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
- frc::SmartDashboard::SetDefaultNumber("ArmAngle", 0);
+ frc::SmartDashboard::SetDefaultNumber("ArmAngle", 5);
  frc::SmartDashboard::SetDefaultNumber("ExtensionLength", 0);
  frc::SmartDashboard::SetDefaultNumber("WristAngle", 0);
  frc::SmartDashboard::SetDefaultNumber("IntakeCurrentLimit", 0);
+ frc::SmartDashboard::SetDefaultNumber("TurretAngle", 0);
 
+ frc::SmartDashboard::PutData("Get Turret Positin", new GetTurretPID(mTurret));
  frc::SmartDashboard::PutData("Get Arm Position", new GetArmPosition(mArm));
  frc::SmartDashboard::PutData("Get Arm Extension", new GetArmInitialPosition(mArm));
  frc::SmartDashboard::PutData("Get Wrist Position", new GetWristInitialPosition(mWrist));
@@ -93,7 +96,7 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
   */
   //mTurret.SetDefaultCommand(TurretManualControl(mTurret, 0.0));
 
-  //mArm.SetDefaultCommand(ArmPosition(mArm, 0.0));
+  mArm.SetDefaultCommand(ManualArmAngle(mArm, 0.0));
 
   /*mWrist.SetDefaultCommand
   (
@@ -106,11 +109,11 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 }
 void RobotContainer::ConfigureBindings() 
 {
-  trigger.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 135).ToPtr()); //placeholder
+  trigger.ToggleOnTrue(MoveArmIntake(mArm, mWrist, mClaw, 225).ToPtr()); //placeholder
   //button5.WhileTrue(IntakeSpinSimple(mClaw, 6).ToPtr());
   button5.ToggleOnTrue(IntakeSpin(mClaw, 7.5).ToPtr());
   button6.ToggleOnTrue(IntakeSpin(mClaw, -7.5).ToPtr());
-
+  
   //button6.WhileTrue(IntakeSpinSimple(mClaw, -6).ToPtr());
   button7.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::UpperNodeLevel).ToPtr()); //placeholder
   button8.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
@@ -119,7 +122,7 @@ void RobotContainer::ConfigureBindings()
   button11.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::HybridLevel).ToPtr()); //placeholder
   
 
-  xButton.ToggleOnTrue(MoveArmIntake(mArm, mClaw, 45).ToPtr()); //Select arm height and run intake
+  xButton.ToggleOnTrue(MoveArmIntake(mArm,mWrist, mClaw, 225).ToPtr()); //Select arm height and run intake
   yButton.WhileTrue(ExtendArm(mArm, 8).ToPtr()); // Extend arm
   aButton.WhileTrue(ExtendArm(mArm, -8).ToPtr()); // Retract arm
   lTrigger.WhileTrue(ManualArmAngle(mArm, 3).ToPtr()); // Raise Arm

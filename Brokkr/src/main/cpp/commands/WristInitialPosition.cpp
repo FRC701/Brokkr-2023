@@ -7,6 +7,7 @@
 
 WristInitialPosition::WristInitialPosition(Wrist& wrist, double pose) 
 :mWrist(wrist)
+, mWristControl{0.17, 0, 0}
 ,mPose(pose)
 {
   AddRequirements(&mWrist);
@@ -15,14 +16,14 @@ WristInitialPosition::WristInitialPosition(Wrist& wrist, double pose)
 // Called when the command is initially scheduled.
 void WristInitialPosition::Initialize() {
   mWristControl.SetTolerance(0);
- // mWristControl.EnableContinuousInput(180,358);
+  mWristControl.EnableContinuousInput(180,358);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void WristInitialPosition::Execute() {
   double output = mWristControl.Calculate(mWrist.GetWristPosition(), mPose);
   frc::SmartDashboard::PutNumber("output", output);
-  mWrist.TurnWristPO(output);
+  mWrist.TurnWristPO(-1 * output);
 }
 
 // Called once the command ends or is interrupted.

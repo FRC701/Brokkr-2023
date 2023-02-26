@@ -9,11 +9,12 @@
 
 #include "subsystems/Arm.h"
 #include "subsystems/Claw.h"
+#include "subsystems/Wrist.h"
 
 class MoveArmIntake
     : public frc2::CommandHelper<frc2::ParallelDeadlineGroup,
                                  MoveArmIntake> {
  public:
-  MoveArmIntake(Arm& arm, Claw& claw, double armAngle);
+  MoveArmIntake(Arm& arm, Wrist& wrist, Claw& claw, double armAngle);
 
 };

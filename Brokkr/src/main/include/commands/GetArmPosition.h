@@ -32,5 +32,5 @@ class GetArmPosition
 
   private:
   Arm& mArm;
-  frc2::PIDController mArmControl{0, 0, 0};
+  frc2::PIDController mArmControl;
 };

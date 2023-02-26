@@ -6,6 +6,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
+ //using namespace std::abs;
 namespace{
     constexpr double RPMToTicks(double rpm)
   {
@@ -19,7 +20,8 @@ Turret::Turret(WPI_TalonFX& turret, WPI_PigeonIMU& gyro)
 , mGyro(gyro)
 {
     mGyro.SetYaw(0);
-    mTurretMotor.SetNeutralMode(Brake);}
+    mTurretMotor.SetNeutralMode(Brake);
+    }
 
  const double kTurretRotRestraint{20000};
 // This method will be called once per scheduler run
@@ -41,6 +43,7 @@ void Turret::Periodic() {
     frc::SmartDashboard::PutNumber("GetAreaision", GetVisionArea());
     frc::SmartDashboard::PutNumber("GetVision", mCamera.GetPipelineIndex());
     frc::SmartDashboard::PutNumber("GetYawIMU", GetYawIMU());
+    frc::SmartDashboard::PutNumber("GetYawIMU2", GetYawIMU());
     frc::SmartDashboard::PutNumber("GetTurretEncoderTicks", GetTurretPose());
 }
 
@@ -96,7 +99,6 @@ int Turret::SetPipeline(int pipeIndex){
 double Turret::GetYawIMU(){
     return mGyro.GetYaw();
 }
-
 
  double Turret::GetMotorSpeed(){
     return mTurretMotor.Get();

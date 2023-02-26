@@ -28,7 +28,7 @@ TurretPID::TurretPID(Turret& turret, double yawSetPoint)
       mTurret(turret)
 {
   GetController().EnableContinuousInput(0, 359.5);
-  GetController().SetTolerance(3.0);
+  GetController().SetTolerance(1.0);
   AddRequirements(&mTurret);
 }
  double TurretPID::setPoint()

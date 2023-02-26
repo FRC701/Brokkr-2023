@@ -5,10 +5,11 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 #include "commands/GetArmPosition.h"
-
+//  using namespace std;
 
 GetArmPosition::GetArmPosition(Arm& arm) 
 : mArm(arm)
+, mArmControl{0.15  , 0, 0} //Once 0.9 kP i belive too high
 {
   AddRequirements(&mArm);
   // Use addRequirements() here to declare subsystem dependencies.
@@ -18,7 +19,7 @@ GetArmPosition::GetArmPosition(Arm& arm)
 void GetArmPosition::Initialize() 
 {
   mArmControl.SetTolerance(1);
-  mArmControl.EnableContinuousInput(9, 86);
+  mArmControl.EnableContinuousInput(2, 80);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -26,7 +27,8 @@ void GetArmPosition::Execute()
 {
   double ArmAngle = frc::SmartDashboard::GetNumber("ArmAngle", 0);
   double output = mArmControl.Calculate(mArm.CANCoderArmStatus(), ArmAngle);
-  mArm.SetArmSpeed(output);
+  //output = std::clamp(output, 4, 80);
+  mArm.SetArmSpeed(output * -1.0);
 }
 
 // Called once the command ends or is interrupted.
