@@ -5,10 +5,15 @@
 #include "frc/smartdashboard/SmartDashboard.h"
 
 #include "commands/GetWristInitialPosition.h"
-
+namespace
+{
+  const double kWrist_P = 0.17;
+  const double kWrist_I = 0.0;
+  const double kWrist_D = 0.0;
+}
 GetWristInitialPosition::GetWristInitialPosition(Wrist& wrist) 
 : mWrist(wrist)
-, mWristControl{0.17, 0, 0}
+, mWristControl{kWrist_P, kWrist_I, kWrist_D}
 {
   AddRequirements(&mWrist);
 }

@@ -4,10 +4,15 @@
 
 #include "commands/GetTurretPID.h"
 #include "frc/smartdashboard/SmartDashboard.h"
-
+namespace
+{
+  const double kTurret_P = 0.1;
+  const double kTurret_I = 0.0;
+  const double kTurret_D = 0.0;
+}
 GetTurretPID::GetTurretPID(Turret& turret)
 : mTurret(turret)
-, TurretControl{0.1, 0, 0} 
+, TurretControl{kTurret_P, kTurret_I, kTurret_D} 
  {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(&mTurret);
