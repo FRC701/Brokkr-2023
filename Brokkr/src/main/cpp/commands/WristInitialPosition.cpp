@@ -5,9 +5,14 @@
 #include "commands/WristInitialPosition.h"
 #include "frc/smartdashboard/SmartDashboard.h"
 
+constexpr double kP = 0.25;
+constexpr double kI = 0.0;
+constexpr double kD = 0.0;
+
+
 WristInitialPosition::WristInitialPosition(Wrist& wrist, double pose) 
 :mWrist(wrist)
-, mWristControl{0.17, 0, 0}
+, mWristControl{kP, kI, kD}
 ,mPose(pose)
 {
   AddRequirements(&mWrist);

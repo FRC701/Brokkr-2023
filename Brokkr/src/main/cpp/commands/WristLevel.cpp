@@ -6,10 +6,15 @@
 
 #include "commands/WristLevel.h"
 
+constexpr double kP = 0.17;
+constexpr double kI = 0.0;
+constexpr double kD = 0.0;
+
+
 WristLevel::WristLevel(Wrist& wrist, Arm& arm)
 : mWrist(wrist)
 , mArm(arm)
-, mWristControl{0.1, 0, 0}
+, mWristControl{kP, kI, kD}
 {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(&mWrist);

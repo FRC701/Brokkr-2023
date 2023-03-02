@@ -6,9 +6,13 @@
 
 #include "commands/GetWristInitialPosition.h"
 
+constexpr double kP = 0.25;
+constexpr double kI = 0.0;
+constexpr double kD = 0.0;
+
 GetWristInitialPosition::GetWristInitialPosition(Wrist& wrist) 
 : mWrist(wrist)
-, mWristControl{0.17, 0, 0}
+, mWristControl{kP, kI, kD}
 {
   AddRequirements(&mWrist);
 }
@@ -23,6 +27,7 @@ void GetWristInitialPosition::Initialize() {
 void GetWristInitialPosition::Execute() {
   double WristAngle = frc::SmartDashboard::GetNumber("WristAngle", 0);
   double output = mWristControl.Calculate(mWrist.GetWristPosition(), WristAngle);
+  // TODO: Reverse the motor rather than multiply by -1
   mWrist.TurnWristPO(-1 * output);
 }
 
@@ -33,4 +38,3 @@ void GetWristInitialPosition::End(bool interrupted) {}
 bool GetWristInitialPosition::IsFinished() {
   return mWristControl.AtSetpoint();
 }
- 
