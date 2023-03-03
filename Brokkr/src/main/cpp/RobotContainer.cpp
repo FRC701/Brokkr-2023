@@ -36,6 +36,7 @@
 #include "commands/GetWristInitialPosition.h"
 #include "commands/GetIntakeSpin.h"
 #include "commands/GetTurretPID.h"
+#include "commands/SetNeutralModeToBrake.h"
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
