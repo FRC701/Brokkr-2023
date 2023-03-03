@@ -124,8 +124,8 @@ void RobotContainer::ConfigureBindings()
   
 
   xButton.ToggleOnTrue(MoveArmIntake(mArm,mWrist, mClaw, 225).ToPtr()); //Select arm height and run intake
-  yButton.WhileTrue(ExtendArm(mArm, 8).ToPtr()); // Extend arm
-  aButton.WhileTrue(ExtendArm(mArm, -8).ToPtr()); // Retract arm
+  //yButton.WhileTrue(ExtendArm(mArm, 8).ToPtr()); // Extend arm
+  //aButton.WhileTrue(ExtendArm(mArm, -8).ToPtr()); // Retract arm
   lTrigger.WhileTrue(ManualArmAngle(mArm, 3).ToPtr()); // Raise Arm
   rTrigger.WhileTrue(ManualArmAngle(mArm, -3).ToPtr()); // Lower Arm
   upDPAD.WhileTrue(PivotWrist(mWrist, -3).ToPtr()); // Raise Wrist
