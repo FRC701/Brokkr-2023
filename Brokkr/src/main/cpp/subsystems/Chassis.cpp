@@ -8,15 +8,18 @@
 namespace{
     constexpr double kGearRatio{7.35/1};
     constexpr double kTicksInRotation{2048};
-    constexpr double kWheelCircumfrence{37.7};
-    constexpr double kWheelDiameter{6};
-    constexpr double kDistancePerTick{(kWheelCircumfrence / kGearRatio) / kTicksInRotation};
+    constexpr double kWheelCircumfrence{18.85};
+    constexpr double kWheelDiameter{6.};
+//    constexpr double kDistancePerTick{(kWheelCircumfrence / kGearRatio) / kTicksInRotation};
+    constexpr double kDistancePerTick{0.0012522881};
+    constexpr double kTicksPerDistance{798.538};
     
     [[maybe_unused]] 
     double ticksToDistance(double ticks)
     {
         double distance = 0;
         return distance = kDistancePerTick * ticks;
+        // .0012522881
     }
     
     double RPMtoMetersPerSec(double rpm)
@@ -26,6 +29,13 @@ namespace{
 }
 using ControlMode = ctre::phoenix::motorcontrol::ControlMode;
 using WPI_TalonFX = ctre::phoenix::motorcontrol::can::WPI_TalonFX;
+
+double Chassis::DistanceToTicks(double distance)
+    {
+        double ticks = 0;
+        return ticks = kTicksPerDistance * distance;
+        // .0012522881
+    }
 
 Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rightFront, WPI_TalonFX& rightRear)
 : mLeftFront(leftFront)
@@ -70,6 +80,13 @@ void Chassis::Periodic() {
     frc::SmartDashboard::PutNumber("Yaxis", driver.GetY());
     frc::SmartDashboard::PutNumber("Left Front Motor Voltage", mLeftFront.GetMotorOutputVoltage());
     frc::SmartDashboard::PutNumber("Right Front Motor Voltage", mRightFront.GetMotorOutputVoltage());
+
+    double rightTicks = EncoderTicksLeft();
+    double leftTicks = EncoderTicksLeft();
+    frc::SmartDashboard::PutNumber("Right Distance Ticks", rightTicks);
+    frc::SmartDashboard::PutNumber("Right Distance Inches", ticksToDistance(rightTicks));
+    frc::SmartDashboard::PutNumber("Left Distance Ticks", leftTicks);
+    frc::SmartDashboard::PutNumber("Left Distance Inches", ticksToDistance(leftTicks));
 }
 
 void Chassis::TankDriveVoltage(double left, double right)

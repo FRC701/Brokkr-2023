@@ -44,6 +44,7 @@ class Chassis : public frc2::SubsystemBase {
   frc::Pose2d GetPose();
   void ResetOdometry(frc::Pose2d pose);
   void SetNeutralMode(NeutralMode mode);
+  static double DistanceToTicks(double distance);
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be

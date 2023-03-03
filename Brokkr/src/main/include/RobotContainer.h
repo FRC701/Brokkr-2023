@@ -120,7 +120,7 @@ class RobotContainer
 
   AutoBalanceDrive mAutoBalanceDrive{mChassis, mArm, mClaw, mTurret, mWrist};
 
-  AutoDriveOntoRamp mAutoDriveOntoRamp{mChassis, 0.35, 2000};
+  AutoDriveOntoRamp mAutoDriveOntoRamp{mChassis, 0.4, Chassis::DistanceToTicks(99 - 16)};
 
   void ConfigureBindings();
 };
