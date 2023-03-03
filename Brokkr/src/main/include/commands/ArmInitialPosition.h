@@ -4,10 +4,8 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
-#include <frc2/command/CommandHelper.h>
-#include <frc/controller/PIDController.h>
-#include "subsystems/Arm.h"
+#include "GetArmInitialPosition.h"
+
 /**
  * An example command.
  *
@@ -16,20 +14,13 @@
  * Command will *not* work!
  */
 class ArmInitialPosition
-    : public frc2::CommandHelper<frc2::CommandBase, ArmInitialPosition> {
+    : public GetArmInitialPosition 
+{
  public:
   ArmInitialPosition(Arm& arm, double distance);
 
-  void Initialize() override;
+  protected:
+  double GetExtensionLength() override;
 
-  void Execute() override;
-
-  void End(bool interrupted) override;
-
-  bool IsFinished() override;
-
-  private:
-  Arm& mArm;
   double mDistance;
-  frc2::PIDController mArmControl;
 };

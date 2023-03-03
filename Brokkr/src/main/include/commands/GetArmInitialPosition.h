@@ -30,7 +30,9 @@ class GetArmInitialPosition
 
   bool IsFinished() override;
 
-  private:
+  protected:
+  virtual double GetExtensionLength();
+
   Arm& mArm;
   frc2::PIDController mArmControl;
 };

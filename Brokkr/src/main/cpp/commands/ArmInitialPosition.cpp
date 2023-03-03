@@ -5,33 +5,12 @@
 #include "commands/ArmInitialPosition.h"
 
 ArmInitialPosition::ArmInitialPosition(Arm& arm, double distance)
-:mArm(arm)
+:GetArmInitialPosition(arm)
 ,mDistance(distance)
-, mArmControl{0, 0, 0} 
 {
-  // Use addRequirements() here to declare subsystem dependencies.
 }
 
-// Called when the command is initially scheduled.
-void ArmInitialPosition::Initialize() 
+double ArmInitialPosition::GetExtensionLength()
 {
-  mArmControl.SetTolerance(1);
-  mArmControl.EnableContinuousInput(0, 20.5);
-}
-
-// Called repeatedly when this Command is scheduled to run
-void ArmInitialPosition::Execute() 
-{
-  double output = mArmControl.Calculate(mArm.GetExtendTicks(), mArm.DistanceToTicks(mDistance));
-  mArm.ArmExtend(output);
-}
-
-// Called once the command ends or is interrupted.
-void ArmInitialPosition::End(bool interrupted) 
-{}
-
-// Returns true when the command should end.
-bool ArmInitialPosition::IsFinished() 
-{
-  return mArmControl.AtSetpoint();
+  return mDistance;
 }

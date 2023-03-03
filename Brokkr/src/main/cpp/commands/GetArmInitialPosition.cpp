@@ -23,7 +23,7 @@ void GetArmInitialPosition::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void GetArmInitialPosition::Execute() 
 {
-  double ExtensionLength = frc::SmartDashboard::GetNumber("ExtensionLength", 0);
+  double ExtensionLength = GetExtensionLength();
   double output = mArmControl.Calculate(mArm.GetExtendTicks(), mArm.DistanceToTicks(ExtensionLength));
   mArm.ArmExtend(output);
 }
@@ -36,4 +36,9 @@ void GetArmInitialPosition::End(bool interrupted)
 bool GetArmInitialPosition::IsFinished() 
 {
   return mArmControl.AtSetpoint();
+}
+
+double GetArmInitialPosition::GetExtensionLength()
+{
+  return frc::SmartDashboard::GetNumber("ExtensionLength", 0);
 }
