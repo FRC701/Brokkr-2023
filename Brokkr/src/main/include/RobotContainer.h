@@ -67,6 +67,7 @@ class RobotContainer
  frc2::CommandGenericHID coDriver2{1};
 
  frc2::Trigger trigger = driver.Trigger();
+ frc2::Trigger button4 = driver.Button(4);
  frc2::Trigger button5 = driver.Button(5);
  frc2::Trigger button6 = driver.Button(6);
  frc2::Trigger button7 = driver.Button(7);
@@ -120,7 +121,7 @@ class RobotContainer
 
   AutoBalanceDrive mAutoBalanceDrive{mChassis, mArm, mClaw, mTurret, mWrist};
 
-  AutoDriveOntoRamp mAutoDriveOntoRamp{mChassis, 0.4, Chassis::DistanceToTicks(99 - 16)};
+  AutoDriveOntoRamp mAutoDriveOntoRamp{mChassis, 0.4, Chassis::DistanceToTicks(99.0 - 16.0)};
 
   void ConfigureBindings();
 };
