@@ -7,9 +7,13 @@
 #include "commands/GetArmPosition.h"
 //  using namespace std;
 
+constexpr double kP = 0.15;
+constexpr double kI = 0;
+constexpr double kD = 0;
+
 GetArmPosition::GetArmPosition(Arm& arm) 
 : mArm(arm)
-, mArmControl{0.15  , 0, 0} //Once 0.9 kP i belive too high
+, mArmControl{kP, kI, kD} //Once 0.9 kP i belive too high
 {
   AddRequirements(&mArm);
   // Use addRequirements() here to declare subsystem dependencies.
