@@ -7,77 +7,31 @@
 #include "commands/GetIntakeSpin.h"
 
 GetIntakeSpin::GetIntakeSpin(Claw& claw)
-: mClaw(claw)
-, mIsInRushOver(false) 
-, mCouldBeStalled(false)
-, mIsMotorStalling(false)
-
+: mHelper(claw)
 {
-  AddRequirements(&mClaw);
+  AddRequirements(&claw);
 }
 
 // Called when the command is initially scheduled.
 void GetIntakeSpin::Initialize() 
 {
-  mIsInRushOver = false;
-  mCouldBeStalled = false;
-  mIsMotorStalling = false;
-  mTimer.Reset();
-  mTimer.Start();
+  mHelper.Initialize();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void GetIntakeSpin::Execute() 
 {
-  static const units::second_t kInrushTimer{1};
-
-  double IntakeCurrentLimit = frc::SmartDashboard::GetNumber("IntakeCurrentLimit", 0);
-  mClaw.IntakeSpin(3);
-  if (mIsInRushOver)
-  {
-    if(mClaw.IsConeOrCubeIn(IntakeCurrentLimit))
-    {
-      if (mCouldBeStalled)
-      {
-        if (mTimer.HasElapsed(units::millisecond_t(300)))
-        {
-          mIsMotorStalling = true;
-          mTimer.Stop();
-          mTimer.Reset();
-        }
-      }
-      else
-      {
-        mTimer.Start();
-        mCouldBeStalled = true;
-      }
-    }
-    else
-    {
-      mCouldBeStalled = false;
-    }
-  }
-  else
-  {
-    if (mTimer.HasElapsed(kInrushTimer))
-    {
-      mIsInRushOver = true;
-      mTimer.Stop();
-      mTimer.Reset();
-    }
-  }
+  mHelper.Execute();
 }
 
 // Called once the command ends or is interrupted.
 void GetIntakeSpin::End(bool interrupted) 
 {
-  mClaw.IntakeSpin(0);
-  mTimer.Stop();
-  mTimer.Reset();
+  mHelper.End(interrupted);
 }
 
 // Returns true when the command should end.
 bool GetIntakeSpin::IsFinished() 
 {
-  return mIsMotorStalling;
+  return mHelper.IsFinished();
 }

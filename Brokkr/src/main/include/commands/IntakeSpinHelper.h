@@ -4,12 +4,7 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
-#include <frc2/command/CommandHelper.h>
-#include <frc/Timer.h>
-
 #include "subsystems/Claw.h"
-#include "commands/IntakeSpinHelper.h"
 
 /**
  * An example command.
@@ -18,19 +13,30 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class GetIntakeSpin
-    : public frc2::CommandHelper<frc2::CommandBase, GetIntakeSpin> {
+class IntakeSpinHelper
+ {
  public:
-  GetIntakeSpin(Claw& claw);
+  IntakeSpinHelper(Claw& claw);
 
-  void Initialize() override;
+  void Initialize();
 
-  void Execute() override;
+  void Execute();
 
-  void End(bool interrupted) override;
+  void End(bool interrupted);
 
-  bool IsFinished() override;
+  bool IsFinished();
 
-private:
-  IntakeSpinHelper mHelper;
+  protected:
+
+  virtual double GetCurrentLimit();
+
+  virtual double GetMotorSpeed();
+
+  Claw& mClaw;
+  frc::Timer mTimer;
+  double mSpeed;
+
+  bool mIsInRushOver;
+  bool mCouldBeStalled;
+  bool mIsMotorStalling;
 };

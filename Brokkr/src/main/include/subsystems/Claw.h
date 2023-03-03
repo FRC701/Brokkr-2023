@@ -24,6 +24,8 @@ class Claw : public frc2::SubsystemBase {
 
   double IntakeSpin(double speed);
 
+  static constexpr double kCurrentLimit{80.};
+
  private:
   WPI_TalonFX& mIntakeMotor;
 

@@ -3,12 +3,12 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc/Timer.h>
 
 #include "subsystems/Claw.h"
+#include "commands/IntakeSpinHelperBasic.h"
 
 /**
  * An example command.
@@ -19,6 +19,7 @@
  */
 class IntakeSpin
     : public frc2::CommandHelper<frc2::CommandBase, IntakeSpin> {
+ 
  public:
   explicit IntakeSpin(Claw& claw, double mSpeed);
 
@@ -30,11 +31,6 @@ class IntakeSpin
 
   bool IsFinished() override;
 
-  private:
-  Claw& mClaw;
-  frc::Timer mTimer;
-
-  bool mIsInRushOver;
-  bool mIsMotorStalling;
-  double mSpeed;
+private:
+  IntakeSpinHelperBasic mHelper;
 };
