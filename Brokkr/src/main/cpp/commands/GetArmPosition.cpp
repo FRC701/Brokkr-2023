@@ -34,7 +34,7 @@ void GetArmPosition::Execute()
   double ArmAngleSetPoint = GetArmAngle();
   int kMinStartAngle = 10;
   int kMaxStartAngle = 41;
-  if (CurrentArmAngle <= kMinStartAngle) // WORKAROUND to hitting turrent wehn at small angles:if current angle is less than ten and setpoint is >41 move to 10 first
+  if (CurrentArmAngle <= kMinStartAngle) // WORKAROUND to hitting turret when at small angles:if current angle is less than ten and setpoint is >41 move to 10 first
   {
     if (ArmAngleSetPoint >= kMaxStartAngle)
     {
