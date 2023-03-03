@@ -75,6 +75,7 @@ RobotContainer::RobotContainer() {
 
 mChooser.AddOption("AutoBalDrive", &mAutoBalanceDrive);
 mChooser.AddOption("Auto2Piece", &mAutoTwoPieceTaxi);
+mChooser.AddOption("AutoRampDrive", &mAutoDriveOntoRamp);
 frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
 

@@ -43,6 +43,7 @@ class Chassis : public frc2::SubsystemBase {
   frc::DifferentialDriveWheelSpeeds GetWheelSpeeds();
   frc::Pose2d GetPose();
   void ResetOdometry(frc::Pose2d pose);
+  void SetNeutralMode(NeutralMode mode);
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
