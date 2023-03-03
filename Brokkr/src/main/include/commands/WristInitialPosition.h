@@ -4,11 +4,7 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
-#include <frc2/command/CommandHelper.h>
-#include <frc/controller/PIDController.h>
-
-#include "subsystems/Wrist.h"
+#include "GetWristInitialPosition.h"
 
 /**
  * An example command.
@@ -18,21 +14,14 @@
  * Command will *not* work!
  */
 class WristInitialPosition
-    : public frc2::CommandHelper<frc2::CommandBase, WristInitialPosition> {
+    : public GetWristInitialPosition {
  public:
   WristInitialPosition(Wrist& wrist, double pose);
 
-  void Initialize() override;
-
-  void Execute() override;
-
-  void End(bool interrupted) override;
-
-  bool IsFinished() override;
+  protected:
+  double GetWristAngle() override;
 
   private:
-  Wrist& mWrist;
-  frc2::PIDController mWristControl;
   double mPose;
 
 };
