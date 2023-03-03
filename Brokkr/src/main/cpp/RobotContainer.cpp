@@ -86,15 +86,18 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
   // Configure the button bindings
   ConfigureBindings();
 
+  #define CHASSIS_ENABLE
+  #ifdef CHASSIS_ENABLE
   mChassis.SetDefaultCommand
   (
-    ArcadeDrive 
+    ArcadeDrive
     (
       mChassis,
-      [this] {return -1.0*driver.GetY(); },
-      [this] {return -0.45*driver.GetTwist(); }
+      [this] {return -0.90*driver.GetY(); },
+      [this] {return -0.65*driver.GetTwist(); }
     )
   );
+#endif
 
   //mTurret.SetDefaultCommand(TurretManualControl(mTurret, 0.0));
 
