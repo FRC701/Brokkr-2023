@@ -7,7 +7,11 @@
 #include "commands/GetIntakeSpin.h"
 
 GetIntakeSpin::GetIntakeSpin(Claw& claw)
-: mClaw(claw) 
+: mClaw(claw)
+, mIsInRushOver(false) 
+, mCouldBeStalled(false)
+, mIsMotorStalling(false)
+
 {
   AddRequirements(&mClaw);
 }
@@ -15,39 +19,49 @@ GetIntakeSpin::GetIntakeSpin(Claw& claw)
 // Called when the command is initially scheduled.
 void GetIntakeSpin::Initialize() 
 {
-    static const units::second_t kInrushTimer{2};
-
+  mIsInRushOver = false;
+  mCouldBeStalled = false;
+  mIsMotorStalling = false;
+  mTimer.Reset();
   mTimer.Start();
-  if (mTimer.HasElapsed(kInrushTimer))
-  {
-    mIsInRushOver = true;
-    mTimer.Stop();
-    mTimer.Reset();
-  }
 }
 
 // Called repeatedly when this Command is scheduled to run
 void GetIntakeSpin::Execute() 
 {
+  static const units::second_t kInrushTimer{1};
+
   double IntakeCurrentLimit = frc::SmartDashboard::GetNumber("IntakeCurrentLimit", 0);
-  mClaw.IntakeSpin(1);
+  mClaw.IntakeSpin(3);
   if (mIsInRushOver)
   {
-    if(mClaw.IsConeOrCubeIn(IntakeCurrentLimit)) //placeholder
+    if(mClaw.IsConeOrCubeIn(IntakeCurrentLimit))
     {
-      mTimer.Start();
-      if (mTimer.HasElapsed(units::millisecond_t(300)) && mClaw.IsConeOrCubeIn(IntakeCurrentLimit))
+      if (mCouldBeStalled)
       {
-        mIsMotorStalling = true;
+        if (mTimer.HasElapsed(units::millisecond_t(300)))
+        {
+          mIsMotorStalling = true;
+          mTimer.Stop();
+          mTimer.Reset();
+        }
       }
       else
       {
-        mTimer.Stop();
-        mTimer.Reset();
+        mTimer.Start();
+        mCouldBeStalled = true;
       }
     }
     else
     {
+      mCouldBeStalled = false;
+    }
+  }
+  else
+  {
+    if (mTimer.HasElapsed(kInrushTimer))
+    {
+      mIsInRushOver = true;
       mTimer.Stop();
       mTimer.Reset();
     }
@@ -65,5 +79,5 @@ void GetIntakeSpin::End(bool interrupted)
 // Returns true when the command should end.
 bool GetIntakeSpin::IsFinished() 
 {
-  return false || mIsMotorStalling;
+  return mIsMotorStalling;
 }

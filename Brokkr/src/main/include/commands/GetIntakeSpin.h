@@ -35,5 +35,6 @@ class GetIntakeSpin
   frc::Timer mTimer;
 
   bool mIsInRushOver;
+  bool mCouldBeStalled;
   bool mIsMotorStalling;
 };
