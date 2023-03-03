@@ -19,7 +19,7 @@
 class AutoDriveOntoRamp
     : public frc2::CommandHelper<frc2::CommandBase, AutoDriveOntoRamp> {
  public:
-  AutoDriveOntoRamp(Chassis& chassis, double motorPower, int ticks);
+  AutoDriveOntoRamp(Chassis& chassis, double motorPower, double ticks);
 
   void Initialize() override;
 
@@ -31,5 +31,5 @@ class AutoDriveOntoRamp
   private:
   Chassis& mChassis;
   double mMotorPower;
-  int mTicks;
+  double mTicks;
 };

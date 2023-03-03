@@ -4,7 +4,7 @@
 
 #include "commands/AutoDriveOntoRamp.h"
 
-AutoDriveOntoRamp::AutoDriveOntoRamp(Chassis& chassis, double motorPower, int ticks) 
+AutoDriveOntoRamp::AutoDriveOntoRamp(Chassis& chassis, double motorPower, double ticks) 
 : mChassis(chassis)
 , mMotorPower(motorPower)
 , mTicks(ticks)
@@ -36,3 +36,4 @@ bool AutoDriveOntoRamp::IsFinished()
 {
   return mChassis.EncoderTicksLeft() >= mTicks;
 }
+
