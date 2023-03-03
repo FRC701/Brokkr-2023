@@ -6,13 +6,16 @@
 
 #include "commands/GetWristInitialPosition.h"
 
-constexpr double kP = 0.045;
-constexpr double kI = 0.0;
-constexpr double kD = 0.0;
+namespace
+{
+  const double kWrist_P = 0.045;
+  const double kWrist_I = 0.0;
+  const double kWrist_D = 0.0;
+}
 
 GetWristInitialPosition::GetWristInitialPosition(Wrist& wrist) 
 : mWrist(wrist)
-, mWristControl{kP, kI, kD}
+, mWristControl{kWrist_P, kWrist_I, kWrist_D}
 {
   AddRequirements(&mWrist);
 }
