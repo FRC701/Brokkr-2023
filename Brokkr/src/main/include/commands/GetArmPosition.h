@@ -30,7 +30,10 @@ class GetArmPosition
 
   bool IsFinished() override;
 
-  private:
+  protected:
+
+  virtual double GetArmAngle();
+
   Arm& mArm;
   frc2::PIDController mArmControl;
 };

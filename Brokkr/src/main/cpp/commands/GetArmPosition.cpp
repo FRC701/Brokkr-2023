@@ -31,7 +31,7 @@ void GetArmPosition::Execute()
   double ArmAngleAdjusted = 0;
   double outputArmAngle = 0;
   double CurrentArmAngle = mArm.CANCoderArmStatus();
-  double ArmAngleSetPoint = frc::SmartDashboard::GetNumber("ArmAngle", 0);
+  double ArmAngleSetPoint = GetArmAngle();
   int kMinStartAngle = 10;
   int kMaxStartAngle = 41;
   if (CurrentArmAngle <= kMinStartAngle) // WORKAROUND to hitting turrent wehn at small angles:if current angle is less than ten and setpoint is >41 move to 10 first
@@ -54,6 +54,11 @@ void GetArmPosition::Execute()
   // output = std::clamp(outputArmAngle, 2., 80.);//alternative to enableContinuousOutput
 
   mArm.SetArmSpeed(outputArmAngle * -1.0);
+}
+
+double GetArmPosition::GetArmAngle()
+{
+  return frc::SmartDashboard::GetNumber("ArmAngle", 0);
 }
 
 // Called once the command ends or is interrupted.

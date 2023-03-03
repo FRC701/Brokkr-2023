@@ -4,11 +4,7 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
-#include <frc2/command/CommandHelper.h>
-#include <frc/controller/PIDController.h>
-
-#include "subsystems/Arm.h"
+#include "GetArmPosition.h"
 
 /**
  * An example command.
@@ -18,20 +14,12 @@
  * Command will *not* work!
  */
 class ArmPosition
-    : public frc2::CommandHelper<frc2::CommandBase, ArmPosition> {
+    : public GetArmPosition {
  public:
   ArmPosition(Arm& arm, double armHeight);
 
-  void Initialize() override;
+ protected:
+  virtual double GetArmAngle() override;
 
-  void Execute() override;
-
-  void End(bool interrupted) override;
-
-  bool IsFinished() override;
-
-  private:
-  Arm& mArm;
-  frc2::PIDController mArmControl;
   double mArmHeight;
 };
