@@ -5,7 +5,7 @@
 #include "commands/WristInitialPosition.h"
 #include "frc/smartdashboard/SmartDashboard.h"
 
-constexpr double kP = 0.25;
+constexpr double kP = 0.1;
 constexpr double kI = 0.0;
 constexpr double kD = 0.0;
 
