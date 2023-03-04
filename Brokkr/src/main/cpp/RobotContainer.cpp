@@ -38,6 +38,16 @@
 #include "commands/GetTurretPID.h"
 #include "commands/SetNeutralModeToBrake.h"
 
+namespace
+{
+
+double GetCurrentLimit()
+{
+  return frc::SmartDashboard::GetNumber("IntakeCurrentLimit", 0);
+}
+
+}
+
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
  frc::SmartDashboard::SetDefaultNumber("ArmAngle", 5);
@@ -50,7 +60,7 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("Get Arm Position", new GetArmPosition(mArm));
  frc::SmartDashboard::PutData("Get Arm Extension", new GetArmInitialPosition(mArm));
  frc::SmartDashboard::PutData("Get Wrist Position", new GetWristInitialPosition(mWrist));
- frc::SmartDashboard::PutData("Get Intake Current Limit", new GetIntakeSpin(mClaw));
+ frc::SmartDashboard::PutData("Get Intake Current Limit", new GetIntakeSpin(mClaw, GetCurrentLimit, [](){return 3.0;}));
 
  frc::SmartDashboard::PutData("ArmPosition Hybrid", new ArmPosition(mArm, 0)); //Placeholder values
  frc::SmartDashboard::PutData("InitClaw", new WristInitialPosition(mWrist, 0));

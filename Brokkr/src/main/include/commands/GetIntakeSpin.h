@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <functional>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc/Timer.h>
@@ -21,7 +22,7 @@
 class GetIntakeSpin
     : public frc2::CommandHelper<frc2::CommandBase, GetIntakeSpin> {
  public:
-  GetIntakeSpin(Claw& claw);
+  GetIntakeSpin(Claw& claw, std::function<double()> currentLimit, std::function<double()> motorSpeed);
 
   void Initialize() override;
 
@@ -32,5 +33,13 @@ class GetIntakeSpin
   bool IsFinished() override;
 
 private:
-  IntakeSpinHelper mHelper;
+  Claw& mClaw;
+  std::function<double()> mCurrentLimit;
+  std::function<double()> mMotorSpeed;
+  
+  frc::Timer mTimer;
+  bool mIsInRushOver;
+  bool mCouldBeStalled;
+  bool mIsMotorStalling;
+
 };
