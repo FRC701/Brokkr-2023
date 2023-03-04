@@ -126,8 +126,8 @@ void RobotContainer::ConfigureBindings()
 {
   trigger.ToggleOnTrue(MoveArmIntake(mArm, mWrist, mClaw, 225).ToPtr()); //placeholder
   //button5.WhileTrue(IntakeSpinSimple(mClaw, 6).ToPtr());
-  button5.ToggleOnTrue(IntakeSpin(mClaw, 7.5).ToPtr());
-  button6.ToggleOnTrue(IntakeSpin(mClaw, -7.5).ToPtr());
+  button5.ToggleOnTrue(IntakeSpin(mClaw, [](){return Claw::kCurrentLimit;}, [](){return Claw::kMotorSpeed;}).ToPtr());
+  button6.ToggleOnTrue(IntakeSpin(mClaw, [](){return Claw::kCurrentLimit;}, [](){return -Claw::kMotorSpeed;}).ToPtr());
   
   //button6.WhileTrue(IntakeSpinSimple(mClaw, -6).ToPtr());
   button7.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::UpperNodeLevel).ToPtr()); //placeholder

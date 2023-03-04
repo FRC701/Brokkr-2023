@@ -11,7 +11,9 @@
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 MoveArmIntake::MoveArmIntake(Arm& arm, Wrist& wrist, Claw& claw, double armAngle) 
-: CommandHelper(IntakeSpin(claw, -7.5))
+// Positive motor speed is cube
+// TODO Need another command for cone
+: CommandHelper(IntakeSpin(claw, [](){return Claw::kCurrentLimit;}, [](){return Claw::kMotorSpeed;}))
 {
   AddCommands
   (

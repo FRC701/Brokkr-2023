@@ -10,7 +10,6 @@
 #include <frc/Timer.h>
 
 #include "subsystems/Claw.h"
-#include "commands/IntakeSpinHelper.h"
 
 /**
  * An example command.
@@ -36,7 +35,7 @@ private:
   Claw& mClaw;
   std::function<double()> mCurrentLimit;
   std::function<double()> mMotorSpeed;
-  
+
   frc::Timer mTimer;
   bool mIsInRushOver;
   bool mCouldBeStalled;

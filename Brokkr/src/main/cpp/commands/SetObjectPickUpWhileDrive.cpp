@@ -16,7 +16,9 @@ SetObjectPickUpWhileDrive::SetObjectPickUpWhileDrive(Arm& arm, Chassis& chassis,
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});s
   AddCommands(
-    IntakeSpin(claw, 4),
+    // Positive Motor speed is cube. 
+    // TODO Need another command for cone
+    IntakeSpin(claw, [](){return Claw::kCurrentLimit;}, [](){return Claw::kMotorSpeed;}),
     ArmInitialPosition(arm, 3),
     ArmPosition(arm, 20),
     TurretPID(turret, 15),

@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <frc2/command/CommandHelper.h>
 #include "GetArmPosition.h"
 
 /**
@@ -14,7 +15,8 @@
  * Command will *not* work!
  */
 class ArmPosition
-    : public GetArmPosition {
+    : public GetArmPosition 
+{
  public:
   ArmPosition(Arm& arm, double armHeight);
 

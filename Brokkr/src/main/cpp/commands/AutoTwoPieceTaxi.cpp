@@ -24,7 +24,8 @@ AutoTwoPieceTaxi::AutoTwoPieceTaxi(Arm& arm, Chassis& chassis, Claw& claw, Wrist
     IntakeEjectObject(claw, -4),
     SetObjectPickUpWhileDrive(arm, chassis, claw, turret),
     WristLevel(wrist, arm),
-    IntakeSpin(claw, 4),
+    // Positive Motor Speed is Cube
+    IntakeSpin(claw, [](){ return Claw::kCurrentLimit;}, [](){return Claw::kMotorSpeed;}),
     SetExtendtoNodeDrive(arm, chassis, wrist, turret),
     IntakeEjectObject(claw, -4)
   );

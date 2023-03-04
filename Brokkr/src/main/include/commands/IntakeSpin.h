@@ -3,34 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-#include <frc2/command/CommandBase.h>
-#include <frc2/command/CommandHelper.h>
-#include <frc/Timer.h>
 
-#include "subsystems/Claw.h"
-#include "commands/IntakeSpinHelperBasic.h"
+#include "commands/GetIntakeSpin.h"
 
-/**
- * An example command.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
- */
-class IntakeSpin
-    : public frc2::CommandHelper<frc2::CommandBase, IntakeSpin> {
- 
- public:
-  explicit IntakeSpin(Claw& claw, double mSpeed);
-
-  void Initialize() override;
-
-  void Execute() override;
-
-  void End(bool interrupted) override;
-
-  bool IsFinished() override;
-
-private:
-  IntakeSpinHelperBasic mHelper;
-};
+typedef GetIntakeSpin IntakeSpin;

@@ -18,7 +18,7 @@ ClawArmPosition::ClawArmPosition(Arm& arm, Wrist& wrist, Claw& claw)
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
-    IntakeSpin(mClaw, 4),
+    IntakeSpin(mClaw, [](){return Claw::kCurrentLimit;},[](){ return Claw::kMotorSpeed;}),
     WristLevel(mWrist, mArm)
   );
 }
