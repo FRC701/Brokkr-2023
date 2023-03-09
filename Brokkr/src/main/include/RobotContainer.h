@@ -24,6 +24,7 @@
 #include "commands/AutoTwoPieceTaxi.h"
 #include "commands/AutoBalanceDrive.h"
 #include "commands/AutoDriveOntoRamp.h"
+#include "commands/AutoHighMidNodeTaxi.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -122,6 +123,8 @@ class RobotContainer
   AutoBalanceDrive mAutoBalanceDrive{mChassis, mArm, mClaw, mTurret, mWrist};
 
   AutoDriveOntoRamp mAutoDriveOntoRamp{mChassis, 0.4, Chassis::DistanceToTicks(99.0 - 16.0)};
+  
+  AutoHighMidNodeTaxi mAutoHighMidNodeTaxi{mArm, mTurret, mWrist, mChassis, mClaw};
 
   void ConfigureBindings();
 };
