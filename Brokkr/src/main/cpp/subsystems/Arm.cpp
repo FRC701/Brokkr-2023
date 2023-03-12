@@ -4,13 +4,14 @@
 
 #include "subsystems/Arm.h"
 #include "frc/smartdashboard/SmartDashboard.h"
+#include <numbers>
 
-using namespace std::numbers;
+using namespace std;
 namespace
 {
     constexpr double kArmGearRatioExtension(16/24);
     constexpr double kTicksInRotation(2048);
-    constexpr double kArmCircumfrence(1.5 * pi); //9.42
+    constexpr double kArmCircumfrence(1.5 * std::numbers::pi); //9.42
     constexpr double kDistancePerTick{(kArmCircumfrence * kArmGearRatioExtension) / kTicksInRotation};
 
     double ticksToArmDistance(double ticks)

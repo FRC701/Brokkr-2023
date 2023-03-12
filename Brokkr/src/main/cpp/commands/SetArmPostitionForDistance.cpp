@@ -3,10 +3,10 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "commands/SetArmPostitionForDistance.h"
-#include <cmath>
+#include <numbers>
+
 
  
-  using namespace std::numbers;
 namespace{
 
   double GetCameraDistance(double NodeHeight, double AngleTargetOffset)
@@ -15,7 +15,7 @@ namespace{
     const double kCameraHeight = 45;
   
     double robotDistance = 0;
-    return robotDistance = (abs(NodeHeight - kCameraHeight))/tan(/*conversion to radians*/(pi/180)*(kCameraAngle + AngleTargetOffset));
+    return robotDistance = (abs(NodeHeight - kCameraHeight))/tan(/*conversion to radians*/(std::numbers::pi /180)*(kCameraAngle + AngleTargetOffset));
   } //Trig math to find disance using angle of camera and height of chosen game object
   
   double GetDistance(double height, double distance)
