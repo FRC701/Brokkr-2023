@@ -19,7 +19,13 @@ class ArmInitialPosition
  public:
   ArmInitialPosition(Arm& arm, double distance);
 
-  protected:
+  frc2::CommandPtr ToPtr() && override;
+
+ protected:
+  std::unique_ptr<Command> TransferOwnership() && override;
+
+  virtual std::unique_ptr<ArmInitialPosition> make_unique();
+
   double GetExtensionLength() override;
 
   double mDistance;
