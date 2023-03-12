@@ -4,45 +4,28 @@
 
 #include "commands/TurretPID.h"
 
-namespace
-{
-  const double kTurretPosition_P = 10.0;
-  const double kTurretPosition_I = 0.0;
-  const double kTurretPosition_D = 0.0;
-}
-
-
-// NOTE:  Consider using this command inline, rather than writing a subclass.
-// For more information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 TurretPID::TurretPID(Turret& turret, double yawSetPoint)
-    : CommandHelper{frc2::PIDController{kTurretPosition_P, kTurretPosition_I, kTurretPosition_D},
-                    // This should return the measurement
-                    [this] { return setPoint(); },
-                    // This should return the setpoint (can also be a constant)
-                    [yawSetPoint] { return yawSetPoint; },
-                    // This uses the output
-                    [this](double output) {
-                      setSpeed(output);
-                    }},
-      mTurret(turret)
+: GetTurretPID(turret)
+, mSetPoint(yawSetPoint)
 {
-  GetController().EnableContinuousInput(0, 359.5);
-  GetController().SetTolerance(1.0);
-  AddRequirements(&mTurret);
 }
- double TurretPID::setPoint()
- {
-   return mTurret.GetYawIMU();
- }
- 
- void TurretPID::setSpeed(double speed)
- {
-   mTurret.SetTurretSpeed(speed);
- }
 
+frc2::CommandPtr TurretPID::ToPtr() &&
+{
+  return frc2::CommandPtr(make_unique());
+}
 
-// Returns true when the command should end.
-bool TurretPID::IsFinished() {
-  return GetController().AtSetpoint();
+double TurretPID::GetPosition()
+{
+  return mSetPoint;
+}
+
+std::unique_ptr<frc2::Command> TurretPID::TransferOwnership() &&
+{
+  return make_unique();
+}
+
+std::unique_ptr<TurretPID> TurretPID::make_unique()
+{
+  return std::make_unique<TurretPID>(*std::move(this));
 }

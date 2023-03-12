@@ -30,7 +30,9 @@ class GetTurretPID
 
   bool IsFinished() override;
 
-private:
+protected:
+  virtual double GetPosition();
+
 Turret& mTurret;
 frc::PIDController TurretControl;
 };

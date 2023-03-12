@@ -26,7 +26,7 @@ void GetTurretPID::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void GetTurretPID::Execute() {
-  double Pose = frc::SmartDashboard::GetNumber("TurretAngle", 0);
+  double Pose = GetPosition();
   double output = TurretControl.Calculate(mTurret.GetYawIMU(), Pose);
   mTurret.SetTurretSpeed(-1.0 * output);
 }
@@ -37,4 +37,9 @@ void GetTurretPID::End(bool interrupted) {}
 // Returns true when the command should end.
 bool GetTurretPID::IsFinished() {
   return TurretControl.AtSetpoint();
+}
+
+double GetTurretPID::GetPosition() {
+  double Pose = frc::SmartDashboard::GetNumber("TurretAngle", 0);
+  return Pose;
 }

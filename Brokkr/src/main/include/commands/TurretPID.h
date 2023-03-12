@@ -4,20 +4,20 @@
 
 #pragma once
 
-#include <frc2/command/CommandHelper.h>
-#include <frc2/command/PIDCommand.h>
+#include "GetTurretPID.h"
 
-#include "subsystems/Turret.h"
-
-class TurretPID
-    : public frc2::CommandHelper<frc2::PIDCommand, TurretPID> {
+class TurretPID : public GetTurretPID
+{
  public:
   TurretPID(Turret& turret, double setPoint);
 
-  bool IsFinished() override;
-  double setPoint();
-  void setSpeed(double speed);
+  frc2::CommandPtr ToPtr() && override;
 
-  private:
-  Turret& mTurret;
+protected:
+  virtual double GetPosition();
+
+  std::unique_ptr<Command> TransferOwnership() && override;
+  virtual std::unique_ptr<TurretPID> make_unique();
+
+  double mSetPoint;
 };
