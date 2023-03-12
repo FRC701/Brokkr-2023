@@ -1,0 +1,30 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/ArmExtension": "Command",
+      "/SmartDashboard/ArmPosition 20 degree": "Command",
+      "/SmartDashboard/ArmPosition 40 degree": "Command",
+      "/SmartDashboard/ArmPosition 60 degree": "Command",
+      "/SmartDashboard/ArmPosition 80 degree": "Command",
+      "/SmartDashboard/ArmPosition Hybrid": "Command",
+      "/SmartDashboard/Auto Back for 1.25 sec": "Command",
+      "/SmartDashboard/Auto Forward for 2.5 sec": "Command",
+      "/SmartDashboard/Autonomous Chooser": "String Chooser",
+      "/SmartDashboard/Chassis Drive to object": "Command",
+      "/SmartDashboard/Chassis Lock with Turret Yaw": "Command",
+      "/SmartDashboard/Get Arm Extension": "Command",
+      "/SmartDashboard/Get Arm Position": "Command",
+      "/SmartDashboard/Get Intake Current Limit": "Command",
+      "/SmartDashboard/Get Turret Positin": "Command",
+      "/SmartDashboard/Get Wrist Position": "Command",
+      "/SmartDashboard/InitClaw": "Command",
+      "/SmartDashboard/SetArmPosition": "Command",
+      "/SmartDashboard/Turret Lock Onto Object": "Command",
+      "/SmartDashboard/Turret pose 80 degree": "Command",
+      "/SmartDashboard/Wow": "Command",
+      "/SmartDashboard/Wrist angle 300 degree": "Command",
+      "/SmartDashboard/spin": "Command"
+    }
+  }
+}
