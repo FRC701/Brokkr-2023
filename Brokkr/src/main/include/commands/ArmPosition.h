@@ -18,8 +18,14 @@ class ArmPosition
  public:
   ArmPosition(Arm& arm, double armHeight);
 
+  frc2::CommandPtr ToPtr() && override;
+
  protected:
   virtual double GetArmAngle() override;
 
   double mArmHeight;
+
+  std::unique_ptr<Command> TransferOwnership() && override;
+
+  virtual std::unique_ptr<ArmPosition> make_unique();
 };

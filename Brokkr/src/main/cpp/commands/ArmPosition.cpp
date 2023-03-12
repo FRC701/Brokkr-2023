@@ -3,7 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "commands/ArmPosition.h"
-#include <frc/smartdashboard/SmartDashboard.h>
 
 ArmPosition::ArmPosition(Arm& arm, double armHeight) 
 : GetArmPosition(arm)
@@ -16,3 +15,17 @@ double ArmPosition::GetArmAngle()
   return mArmHeight;
 }
 
+frc2::CommandPtr ArmPosition::ToPtr() && 
+{
+return frc2::CommandPtr(make_unique());
+}
+
+std::unique_ptr<frc2::Command> ArmPosition::TransferOwnership() &&
+{
+  return make_unique();
+}
+
+std::unique_ptr<ArmPosition> ArmPosition::make_unique()
+{
+  return std::make_unique<ArmPosition>(*std::move(this));
+}
