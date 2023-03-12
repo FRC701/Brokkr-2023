@@ -5,6 +5,7 @@
 #include "frc/smartdashboard/SmartDashboard.h"
 
 #include "commands/GetWristInitialPosition.h"
+#include <iostream>
 
 namespace
 {
@@ -13,21 +14,22 @@ namespace
   const double kWrist_D = 0.0;
 }
 
-GetWristInitialPosition::GetWristInitialPosition(Wrist& wrist) 
-: mWrist(wrist)
-, mWristControl{kWrist_P, kWrist_I, kWrist_D}
+GetWristInitialPosition::GetWristInitialPosition(Wrist &wrist)
+    : mWrist(wrist), mWristControl{kWrist_P, kWrist_I, kWrist_D}
 {
   AddRequirements(&mWrist);
 }
 
 // Called when the command is initially scheduled.
-void GetWristInitialPosition::Initialize() {
+void GetWristInitialPosition::Initialize()
+{
   mWristControl.SetTolerance(0);
   mWristControl.EnableContinuousInput(180, 358);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void GetWristInitialPosition::Execute() {
+void GetWristInitialPosition::Execute()
+{
   double WristAngle = GetWristAngle();
   frc::SmartDashboard::PutNumber("Read Wrist Angle", WristAngle);
   double output = mWristControl.Calculate(mWrist.GetWristPosition(), WristAngle);
@@ -42,9 +44,12 @@ double GetWristInitialPosition::GetWristAngle()
 }
 
 // Called once the command ends or is interrupted.
-void GetWristInitialPosition::End(bool interrupted) {}
+void GetWristInitialPosition::End(bool interrupted)
+{
+}
 
 // Returns true when the command should end.
-bool GetWristInitialPosition::IsFinished() {
+bool GetWristInitialPosition::IsFinished()
+{
   return mWristControl.AtSetpoint();
 }

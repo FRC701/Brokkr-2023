@@ -14,14 +14,18 @@
  * Command will *not* work!
  */
 class WristInitialPosition
-    : public GetWristInitialPosition {
- public:
-  WristInitialPosition(Wrist& wrist, double pose);
+    : public GetWristInitialPosition
+{
+public:
+  WristInitialPosition(Wrist &wrist, double pose);
+  frc2::CommandPtr ToPtr() && override;
 
-  protected:
+protected:
   double GetWristAngle() override;
+  std::unique_ptr<Command> TransferOwnership() && override;
 
-  private:
+  virtual std::unique_ptr<WristInitialPosition> make_unique();
+
+private:
   double mPose;
-
 };

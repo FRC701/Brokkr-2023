@@ -30,9 +30,8 @@ class GetWristInitialPosition
 
   bool IsFinished() override;
 
-  protected:
+protected:
   virtual double GetWristAngle();
-
   Wrist& mWrist;
   frc2::PIDController mWristControl;
 };
