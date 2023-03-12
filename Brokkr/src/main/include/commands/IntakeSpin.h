@@ -4,10 +4,7 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
-#include <frc2/command/CommandHelper.h>
-#include <frc/Timer.h>
-
+#include "GetIntakeSpin.h"
 #include "subsystems/Claw.h"
 
 /**
@@ -18,23 +15,19 @@
  * Command will *not* work!
  */
 class IntakeSpin
-    : public frc2::CommandHelper<frc2::CommandBase, IntakeSpin> {
+    : public GetIntakeSpin {
  public:
   explicit IntakeSpin(Claw& claw, double mSpeed);
 
-  void Initialize() override;
+  frc2::CommandPtr ToPtr() && override;
 
-  void Execute() override;
+  protected:
 
-  void End(bool interrupted) override;
+  double GetCurrentLimit() override;
+  double GetSpeed() override;
 
-  bool IsFinished() override;
+  std::unique_ptr<Command> TransferOwnership() && override;
+  virtual std::unique_ptr<IntakeSpin> make_unique();
 
-  private:
-  Claw& mClaw;
-  frc::Timer mTimer;
-
-  bool mIsInRushOver;
-  bool mIsMotorStalling;
   double mSpeed;
 };

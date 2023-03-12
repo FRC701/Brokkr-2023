@@ -30,7 +30,11 @@ class GetIntakeSpin
 
   bool IsFinished() override;
 
-  private:
+  protected:
+
+  virtual double GetCurrentLimit();
+  virtual double GetSpeed();
+
   Claw& mClaw;
   frc::Timer mTimer;
 

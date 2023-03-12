@@ -5,64 +5,30 @@
 #include "commands/IntakeSpin.h"
 
 IntakeSpin::IntakeSpin(Claw& claw, double speed)
-: mClaw(claw) 
+: GetIntakeSpin(claw) 
 , mSpeed(speed)
 {
-  AddRequirements(&mClaw);
 }
 
-// Called when the command is initially scheduled.
-void IntakeSpin::Initialize() 
+double IntakeSpin::GetCurrentLimit()
 {
-    static const units::second_t kInrushTimer{2};
-
-  mTimer.Start();
-  if (mTimer.HasElapsed(kInrushTimer))
-  {
-    mIsInRushOver = true;
-    mTimer.Stop();
-    mTimer.Reset();
-  }
+  double intakeCurrentLimit = 80.0;
+  return intakeCurrentLimit;
 }
 
-// Called repeatedly when this Command is scheduled to run
-void IntakeSpin::Execute() 
+double IntakeSpin::GetSpeed()
 {
-  mClaw.IntakeSpin(mSpeed);
-  if (mIsInRushOver)
-  {
-    if(mClaw.IsConeOrCubeIn(130)) //placeholder
-    {
-      mTimer.Start();
-      if (mTimer.HasElapsed(units::millisecond_t(100)) && mClaw.IsConeOrCubeIn(130))
-      {
-        
-        mIsMotorStalling = true;
-      }
-      else
-      {
-        mTimer.Stop();
-        mTimer.Reset();
-      }
-    }
-    else
-    {
-      mTimer.Stop();
-      mTimer.Reset();
-    }
-  }
+  return mSpeed;
 }
 
-// Called once the command ends or is interrupted.
-void IntakeSpin::End(bool interrupted) 
-{
-  mClaw.IntakeSpin(0);
-  mTimer.Stop();
-  mTimer.Reset();
+frc2::CommandPtr IntakeSpin::ToPtr() && {
+  return frc2::CommandPtr(make_unique());
 }
 
-// Returns true when the command should end.
-bool IntakeSpin::IsFinished() 
-{
-  return false || mIsMotorStalling;
+std::unique_ptr<frc2::Command> IntakeSpin::TransferOwnership() && {
+  return make_unique();
+}
+
+std::unique_ptr<IntakeSpin> IntakeSpin::make_unique() {
+  return std::make_unique<IntakeSpin>(*std::move(this));
 }

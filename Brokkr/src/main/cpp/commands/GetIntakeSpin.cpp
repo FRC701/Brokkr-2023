@@ -31,8 +31,8 @@ void GetIntakeSpin::Execute()
 {
   static const units::second_t kInrushTimer{1};
 
-  double IntakeCurrentLimit = frc::SmartDashboard::GetNumber("IntakeCurrentLimit", 0);
-  mClaw.IntakeSpin(3);
+  double IntakeCurrentLimit = GetCurrentLimit();
+  mClaw.IntakeSpin(GetSpeed());
   if (mIsInRushOver)
   {
     if(mClaw.IsConeOrCubeIn(IntakeCurrentLimit))
@@ -80,4 +80,15 @@ void GetIntakeSpin::End(bool interrupted)
 bool GetIntakeSpin::IsFinished() 
 {
   return mIsMotorStalling;
+}
+
+double GetIntakeSpin::GetCurrentLimit()
+{
+  double intakeCurrentLimit = frc::SmartDashboard::GetNumber("IntakeCurrentLimit", 0);
+  return intakeCurrentLimit;
+}
+
+double GetIntakeSpin::GetSpeed()
+{
+  return 3.0;
 }
