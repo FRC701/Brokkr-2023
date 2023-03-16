@@ -7,6 +7,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc/controller/PIDController.h>
+#include<frc/controller/ArmFeedforward.h>
 
 #include "subsystems/Arm.h"
 
@@ -31,9 +32,9 @@ class GetArmPosition
   bool IsFinished() override;
 
   protected:
-
   virtual double GetArmAngle();
-
   Arm& mArm;
   frc2::PIDController mArmControl;
+  frc::ArmFeedforward mFeedForward;
+
 };

@@ -10,9 +10,24 @@ namespace
   const double kArm_P = 0.15;
   const double kArm_I = 0.0;
   const double kArm_D = 0.0;
+  const double kArm_S = 0.0;
+  const double kArm_G = 0.0;
+  const double kArm_V = 0.0;
+  const double kArm_A = 0.0;
 }
+
+using Angle = units::radians;
+
+using Acceleration = units::compound_unit<units::radians_per_second,
+                                            units::inverse<units::second>>;
+  using kv_unit =
+      units::compound_unit<units::volts,
+                           units::inverse<units::radians_per_second>>;
+  using ka_unit =
+      units::compound_unit<units::volts, units::inverse<Acceleration>>;
+
 GetArmPosition::GetArmPosition(Arm &arm)
-    : mArm(arm), mArmControl{kArm_P, kArm_I, kArm_D} // Once 0.9 kP i belive too high
+    : mArm(arm), mArmControl{kArm_P, kArm_I, kArm_D}, mFeedForward{units::volt_t(kArm_S), units::volt_t(kArm_G), units::unit_t<kv_unit>(kArm_V),  units::unit_t<ka_unit>(kArm_A)} // Once 0.9 kP i belive too high
 {
   AddRequirements(&mArm);
   // Use addRequirements() here to declare subsystem dependencies.
@@ -34,22 +49,24 @@ void GetArmPosition::Execute()
   double ArmAngleSetPoint = GetArmAngle();
   int kMinStartAngle = 10;
   int kMaxStartAngle = 41;
+  double feedforward =  mFeedForward.Calculate(units::unit_t<Angle>(ArmAngleSetPoint* 0.0174533) , 2_rad_per_s).value();
+  double feedforwardAdjusted =  mFeedForward.Calculate(units::unit_t<Angle>(ArmAngleAdjusted* 0.0174533) , 2_rad_per_s).value();
   if (CurrentArmAngle <= kMinStartAngle) // WORKAROUND to hitting turret when at small angles:if current angle is less than ten and setpoint is >41 move to 10 first
   {
     if (ArmAngleSetPoint >= kMaxStartAngle)
     {
       double DeltaArmAngle = (kMinStartAngle - CurrentArmAngle);
       ArmAngleAdjusted = DeltaArmAngle + CurrentArmAngle;
-      outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleAdjusted);
+      outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleAdjusted) + feedforwardAdjusted;
     }
     else
     {
-      outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleSetPoint);
+      outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleSetPoint) + feedforward;
     }
   }
   else
   {
-    outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleSetPoint);
+    outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleSetPoint) + feedforward;
   }
   // output = std::clamp(outputArmAngle, 2., 80.);//alternative to enableContinuousOutput
 
