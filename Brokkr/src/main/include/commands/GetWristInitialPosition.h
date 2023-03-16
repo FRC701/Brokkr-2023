@@ -7,7 +7,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc/controller/PIDController.h>
-
+#include <frc/controller/ArmFeedforward.h>
 #include "subsystems/Wrist.h"
 
 /**
@@ -18,9 +18,10 @@
  * Command will *not* work!
  */
 class GetWristInitialPosition
-    : public frc2::CommandHelper<frc2::CommandBase, GetWristInitialPosition> {
- public:
-  GetWristInitialPosition(Wrist& wrist);
+    : public frc2::CommandHelper<frc2::CommandBase, GetWristInitialPosition>
+{
+public:
+  GetWristInitialPosition(Wrist &wrist);
 
   void Initialize() override;
 
@@ -32,6 +33,7 @@ class GetWristInitialPosition
 
 protected:
   virtual double GetWristAngle();
-  Wrist& mWrist;
+  Wrist &mWrist;
   frc2::PIDController mWristControl;
+  frc::ArmFeedforward mFeedForward;
 };
