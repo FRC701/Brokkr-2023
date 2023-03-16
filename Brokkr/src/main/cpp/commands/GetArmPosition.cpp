@@ -11,9 +11,9 @@ namespace
   const double kArm_I = 0.0;
   const double kArm_D = 0.0;
   const double kArm_S = 0.0;
-  const double kArm_G = 0.0;
-  const double kArm_V = 0.0;
-  const double kArm_A = 0.0;
+  const double kArm_G = 0.7;
+  const double kArm_V = 2.28;
+  const double kArm_A = 0.08;
 }
 
 using Angle = units::radians;
