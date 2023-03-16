@@ -13,9 +13,9 @@ namespace
   const double kWrist_I = 0.0;
   const double kWrist_D = 0.0;
   const double kWrist_S = 0.0;
-  const double kWrist_G = 0.0;
-  const double kWrist_V = 0.0;
-  const double kWrist_A = 0.0;
+  const double kWrist_G = 0.58;
+  const double kWrist_V = 0.32;
+  const double kWrist_A = 0.02;
 }
 
 using Angle = units::radians;
