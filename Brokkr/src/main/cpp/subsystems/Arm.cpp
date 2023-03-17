@@ -50,6 +50,7 @@ Arm::Arm(
 {
     mArmMotor2.SetNeutralMode(Brake);
     mTelescopingArm.SetNeutralMode(Brake);
+    mArmMotor2.SetInverted(false);
 
     //mArmMotor2.ConfigOpenloopRamp(0.5);
     mArmMotor2.Config_kP(0, kArmAngle_P);
