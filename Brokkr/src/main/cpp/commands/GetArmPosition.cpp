@@ -49,7 +49,9 @@ void GetArmPosition::Execute()
   double ArmAngleSetPoint = GetArmAngle();
   int kMinStartAngle = -60;
   int kMaxStartAngle = -35;
+      [[maybe_unused]] 
   double feedforward = mFeedForward.Calculate(units::unit_t<Angle>(ArmAngleSetPoint * 0.0174533), 2_rad_per_s).value();
+      [[maybe_unused]] 
   double feedforwardAdjusted = mFeedForward.Calculate(units::unit_t<Angle>(ArmAngleAdjusted * 0.0174533), 2_rad_per_s).value();
   // if (CurrentArmAngle <= kMinStartAngle) // WORKAROUND to hitting turret when at small angles:if current angle is less than ten and setpoint is >41 move to 10 first
   //{

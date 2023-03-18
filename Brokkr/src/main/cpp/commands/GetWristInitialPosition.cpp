@@ -9,9 +9,9 @@
 
 namespace
 {
-  const double kWrist_P = 0.045;
+  const double kWrist_P = 0.18;
   const double kWrist_I = 0.0;
-  const double kWrist_D = 0.0;
+  const double kWrist_D = 0.01;
   const double kWrist_S = 0.0;
   const double kWrist_G = 0.58;
   const double kWrist_V = 0.32;
@@ -39,18 +39,26 @@ GetWristInitialPosition::GetWristInitialPosition(Wrist &wrist)
 void GetWristInitialPosition::Initialize()
 {
   mWristControl.SetTolerance(0);
-  mWristControl.EnableContinuousInput(180, 358);
+  mWristControl.EnableContinuousInput(-20, 171);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void GetWristInitialPosition::Execute()
 {
-
+  double CurrentWristAngle = mWrist.GetWristPosition();
+  double output = 0;
   double WristAngle = GetWristAngle();
+    [[maybe_unused]] 
   double feedforward = mFeedForward.Calculate(units::unit_t<Angle>(WristAngle * 0.0174533), 2_rad_per_s).value();
   frc::SmartDashboard::PutNumber("Read Wrist Angle", WristAngle);
-  double output = mWristControl.Calculate(mWrist.GetWristPosition(), WristAngle) + feedforward;
-  frc::SmartDashboard::PutNumber("output", output);
+  if (abs(CurrentWristAngle - WristAngle) >= 95)
+  {
+    output = -mWristControl.Calculate(CurrentWristAngle, WristAngle); //+ feedforward;
+  }
+  else
+  {
+    output = mWristControl.Calculate(CurrentWristAngle, WristAngle);
+  }
   // TODO: Reverse the motor rather than multiply by -1
   mWrist.TurnWristPO(-1 * output);
 }
