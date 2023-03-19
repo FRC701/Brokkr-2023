@@ -10,6 +10,7 @@ AutoDriveOntoRamp::AutoDriveOntoRamp(Chassis& chassis, double motorPower, double
 : mChassis(chassis)
 , mMotorPower(motorPower)
 , mTicks(ticks)
+, mTargetTicks(0)
 {
   AddRequirements(&mChassis);
 }
@@ -17,15 +18,18 @@ AutoDriveOntoRamp::AutoDriveOntoRamp(Chassis& chassis, double motorPower, double
 // Called when the command is initially scheduled.
 void AutoDriveOntoRamp::Initialize() {
   mChassis.SetNeutralMode(NeutralMode::Brake);
-  mTicks = mChassis.EncoderTicksLeft() + mTicks;
+  mTargetTicks = mChassis.EncoderTicksLeft() + mTicks;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoDriveOntoRamp::Execute() 
 {
+  frc::SmartDashboard::PutNumber("AutoDrive Ticks", mTicks);
+  frc::SmartDashboard::PutNumber("AutoDrive Target Ticks", mTargetTicks);
+
   // mChassis.ArcadeDrive(mMotorPower, 0.0);
   double motorPowerVoltage = mMotorPower * 12.;
-  constexpr double kLeftAdjust = 1.1;
+  constexpr double kLeftAdjust = 1.15;
   constexpr double kRightAdjust = 1.0;
   mChassis.TankDriveVoltage(motorPowerVoltage * kLeftAdjust , motorPowerVoltage * kRightAdjust);
 }
@@ -40,8 +44,15 @@ void AutoDriveOntoRamp::End(bool interrupted)
 // Returns true when the command should end.
 bool AutoDriveOntoRamp::IsFinished() 
 {
-  double tickDiff = fabs(mChassis.EncoderTicksLeft() - mTicks);
+  double tickDiff = mChassis.EncoderTicksLeft() - mTargetTicks;
   frc::SmartDashboard::PutNumber("AutoDrive Ticks Difference", tickDiff);
-  return tickDiff <= 0;
+  if (mTicks >= 0)
+  {
+    return tickDiff >= 0;
+  }
+  else
+  {
+    return tickDiff <= 0;
+  }
 }
 

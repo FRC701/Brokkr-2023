@@ -32,4 +32,5 @@ class AutoDriveOntoRamp
   Chassis& mChassis;
   double mMotorPower;
   double mTicks;
+  double mTargetTicks;
 };

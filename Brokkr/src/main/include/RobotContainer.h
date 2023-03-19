@@ -122,7 +122,7 @@ class RobotContainer
 
   AutoBalanceDrive mAutoBalanceDrive{mChassis, mArm, mClaw, mTurret, mWrist};
 
-  AutoDriveOntoRamp mAutoDriveOntoRamp{mChassis, -0.25, -Chassis::DistanceToTicks(50.0 /* 99.0 - 16.0 */)};
+  AutoDriveOntoRamp mAutoDriveOntoRamp{mChassis, -0.25, -Chassis::DistanceToTicks(110.0 /* 99.0 - 16.0 */)};
   
   AutoHighMidNodeTaxi mAutoHighMidNodeTaxi{mArm, mTurret, mWrist, mChassis, mClaw};
 
