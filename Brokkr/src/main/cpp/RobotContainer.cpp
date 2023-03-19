@@ -97,7 +97,7 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
     (
       mChassis,
       [this] {return -(-driver.GetThrottle()+1)/2 * driver.GetY(); },
-      [this] {return -0.95*((-driver.GetThrottle()+1)/2) * driver.GetTwist(); }
+      [this] {return -0.8*((-driver.GetThrottle()+1)/2) * driver.GetTwist(); }
     )
   );
 #endif
