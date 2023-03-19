@@ -20,8 +20,8 @@ RetractPartOne::RetractPartOne(Arm& arm, Claw& claw, Turret& turret, Wrist& wris
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands
   (
-    ArmInitialPosition(arm, 0),
-    WristInitialPosition(wrist, 10),
-    TurretPID(turret, 0)
+    //ArmInitialPosition(arm, 0),
+    WristInitialPosition(wrist, 170)
+    //TurretPID(turret, 0)
   );
 }

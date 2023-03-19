@@ -85,7 +85,7 @@ class RobotContainer
  frc2::Trigger rBumperButton = coDriver.RightBumper();
  frc2::Trigger lTrigger = coDriver.LeftTrigger();
  frc2::Trigger rTrigger = coDriver.RightTrigger();
- frc2::Trigger Middle = coDriver.Button(13);
+ frc2::Trigger Middle = coDriver.Button(6);
  frc2::Trigger upDPAD = coDriver2.POVUp();
  frc2::Trigger downDPAD = coDriver2.POVDown();
 

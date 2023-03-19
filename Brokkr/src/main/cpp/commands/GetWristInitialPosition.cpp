@@ -9,9 +9,9 @@
 
 namespace
 {
-  const double kWrist_P = 0.18;
-  const double kWrist_I = 0.0;
-  const double kWrist_D = 0.01;
+  const double kWrist_P = 0.0325;
+  const double kWrist_I = 0.0115;
+  const double kWrist_D = 0.005;
   const double kWrist_S = 0.0;
   const double kWrist_G = 0.58;
   const double kWrist_V = 0.32;
@@ -76,5 +76,5 @@ void GetWristInitialPosition::End(bool interrupted)
 // Returns true when the command should end.
 bool GetWristInitialPosition::IsFinished()
 {
-  return mWristControl.AtSetpoint();
+  return false;
 }

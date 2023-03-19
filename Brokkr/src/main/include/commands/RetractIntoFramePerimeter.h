@@ -5,7 +5,7 @@
 #pragma once
 
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/ParallelCommandGroup.h>
 
 #include "subsystems/Arm.h"
 #include "subsystems/Wrist.h"
@@ -13,8 +13,8 @@
 #include "subsystems/Turret.h"
 
 class RetractIntoFramePerimeter
-    : public frc2::CommandHelper<frc2::SequentialCommandGroup,
+    : public frc2::CommandHelper<frc2::ParallelCommandGroup,
                                  RetractIntoFramePerimeter> {
  public:
-  RetractIntoFramePerimeter(Arm& arm, Wrist& wrist, Claw& claw, Turret& turret);
+  RetractIntoFramePerimeter(Arm& arm, Wrist& wrist);
 };

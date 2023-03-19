@@ -18,7 +18,7 @@ Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder)
 , mWristCoder(wristCoder)
 {
     mWristMotor.SetNeutralMode(Brake);
-    mWristMotor.ConfigOpenloopRamp(3);
+    mWristMotor.ConfigOpenloopRamp(0.5);
     mWristMotor.Config_kP(0, kWrist_P);
     mWristMotor.Config_kI(0, kWrist_I);
     mWristMotor.Config_kD(0, kWrist_D);

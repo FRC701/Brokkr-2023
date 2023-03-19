@@ -73,6 +73,7 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("Turret Lock Onto Object", new ControllerTurret(mTurret));
  frc::SmartDashboard::PutData("Chassis Lock with Turret Yaw", new ControllerChassisRotationReal(mChassis, mTurret));
  frc::SmartDashboard::PutData("Chassis Drive to object", new ControllerChassisDrive(mChassis, mTurret));
+ frc::SmartDashboard::PutData("Transsform", new RetractIntoFramePerimeter(mArm, mWrist));
 
 mChooser.AddOption("AutoBalDrive", &mAutoBalanceDrive);
 mChooser.AddOption("Auto2Piece", &mAutoTwoPieceTaxi);
@@ -114,29 +115,33 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 }
 void RobotContainer::ConfigureBindings() 
 {
-  trigger.ToggleOnTrue(MoveArmIntake(mArm, mWrist, mClaw, 225).ToPtr()); //placeholder
+  trigger.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist).ToPtr()); //placeholder
   //button5.WhileTrue(IntakeSpinSimple(mClaw, 6).ToPtr());
   button5.ToggleOnTrue(IntakeSpin(mClaw, 7.5).ToPtr());
   button6.ToggleOnTrue(IntakeSpin(mClaw, -7.5).ToPtr());
   
   //button6.WhileTrue(IntakeSpinSimple(mClaw, -6).ToPtr());
-  button7.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::UpperNodeLevel).ToPtr()); //placeholder
+  button7.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::UpperNodeLevel, 45).ToPtr()); //placeholder
   button8.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
-  button9.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::MiddleNodeLevel).ToPtr()); //placeholder
+  button9.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::MiddleNodeLevel, 100).ToPtr()); //placeholder
   button10.ToggleOnTrue(IntakeEjectObject(mClaw, 6).ToPtr());
-  button11.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mTurret, NodeLevel::HybridLevel).ToPtr()); //placeholder
+  button11.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::HybridLevel, 120).ToPtr()); //placeholder
   
 
-  xButton.ToggleOnTrue(MoveArmIntake(mArm,mWrist, mClaw, 225).ToPtr()); //Select arm height and run intake
-  //yButton.WhileTrue(ExtendArm(mArm, 8).ToPtr()); // Extend arm
-  //aButton.WhileTrue(ExtendArm(mArm, -8).ToPtr()); // Retract arm
+  xButton.ToggleOnTrue(MoveArmIntake(-5.5, mArm,mWrist, mClaw, -7, 45).ToPtr()); // sky cone
+  yButton.ToggleOnTrue(MoveArmIntake(-6.5, mArm, mWrist, mClaw, -60, 80).ToPtr()); // floor cone
+  bButton.ToggleOnTrue(MoveArmIntake(5.5, mArm, mWrist, mClaw, -70, 120).ToPtr()); // sky cube
+  aButton.ToggleOnTrue(MoveArmIntake(5.5, mArm, mWrist, mClaw, -70, 120).ToPtr()); // floor cube
+  //xButton.ToggleOnFalse(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
+  //yButton.ToggleOnFalse(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
+  //aButton.WhileTrue(ExtendArm(mArm, -8).ToPtr())[]\; // Retract arm
   lTrigger.WhileTrue(ManualArmAngle(mArm, 3).ToPtr()); // Raise Arm
   rTrigger.WhileTrue(ManualArmAngle(mArm, -3).ToPtr()); // Lower Arm
   upDPAD.WhileTrue(PivotWrist(mWrist, -3).ToPtr()); // Raise Wrist
   downDPAD.WhileTrue(PivotWrist(mWrist, 3).ToPtr()); // Lower Wrist 
   lBumperButton.WhileTrue(TurretManualControl(mTurret, 6).ToPtr()); //Turn Turret Left
   rBumperButton.WhileTrue(TurretManualControl(mTurret, -6).ToPtr()); //Turn Turret Right
-  Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist, mClaw, mTurret).ToPtr());
+  Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
 
   // Configure your trigger bindings here
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`

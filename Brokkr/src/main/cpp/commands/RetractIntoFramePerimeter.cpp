@@ -5,15 +5,16 @@
 #include "commands/RetractIntoFramePerimeter.h"
 #include "commands/ArmPosition.h"
 #include "commands/RetractPartOne.h"
+#include "commands/WristInitialPosition.h"
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-RetractIntoFramePerimeter::RetractIntoFramePerimeter(Arm& arm, Wrist& wrist, Claw& claw, Turret& turret) 
+RetractIntoFramePerimeter::RetractIntoFramePerimeter(Arm& arm, Wrist& wrist) 
 {
   AddCommands
   (
-    RetractPartOne(arm, claw, turret, wrist),
-    ArmPosition(arm, 10)
+    WristInitialPosition(wrist, 170),
+    ArmPosition(arm, -80)
   );
 }

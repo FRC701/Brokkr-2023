@@ -5,16 +5,17 @@
 #pragma once
 
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/ParallelCommandGroup.h>
 #include "subsystems/Arm.h"
+#include "subsystems/Wrist.h"
 #include "subsystems/Turret.h"
 
 #include "commands/SetArmPostitionForDistance.h"
 
 
 class TurnTurretAndExtendToNode
-    : public frc2::CommandHelper<frc2::SequentialCommandGroup,
+    : public frc2::CommandHelper<frc2::ParallelCommandGroup,
                                  TurnTurretAndExtendToNode> {
  public:
-  TurnTurretAndExtendToNode(Arm& arm, Turret& turret, const NodeLevel& level);
+  TurnTurretAndExtendToNode(Arm& arm, Wrist& wrist, Turret& turret, const NodeLevel& level, double ang);
 };

@@ -8,7 +8,7 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandPtr.h>
-
+#include <cameraserver/CameraServer.h>
 #include "RobotContainer.h"
 
 class Robot : public frc::TimedRobot {

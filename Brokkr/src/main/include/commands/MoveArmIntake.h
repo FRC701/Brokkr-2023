@@ -15,6 +15,6 @@ class MoveArmIntake
     : public frc2::CommandHelper<frc2::ParallelDeadlineGroup,
                                  MoveArmIntake> {
  public:
-  MoveArmIntake(Arm& arm, Wrist& wrist, Claw& claw, double armAngle);
+  MoveArmIntake(double intdir, Arm& arm, Wrist& wrist, Claw& claw, double armAngle, double wrisang);
 
 };

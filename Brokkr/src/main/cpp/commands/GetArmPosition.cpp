@@ -47,7 +47,9 @@ void GetArmPosition::Execute()
   double outputArmAngle = 0;
   double CurrentArmAngle = mArm.CANCoderArmStatus();
   double ArmAngleSetPoint = GetArmAngle();
+      [[maybe_unused]]
   int kMinStartAngle = -60;
+      [[maybe_unused]]
   int kMaxStartAngle = -35;
       [[maybe_unused]] 
   double feedforward = mFeedForward.Calculate(units::unit_t<Angle>(ArmAngleSetPoint * 0.0174533), 2_rad_per_s).value();

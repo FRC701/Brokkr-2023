@@ -38,6 +38,7 @@ namespace{
     const double kMiddleNodeHeight = 34 + kPlaceOffset - ReflexTapeOffsetMiddle;
     const double kUpperNodeHeight = 46 + kPlaceOffset - ReflexTapeOffsetUpper;
 
+  [[maybe_unused]]
   double GetNodeDistance(const NodeLevel& NodeLevel, double AngleTargetOffset)
   {
     double distance = 0;
@@ -91,8 +92,7 @@ SetArmPostitionForDistance::SetArmPostitionForDistance(Arm& arm, Turret& turret,
 : mArm(arm)
 , mTurret(turret)
 , mLevel(Level)
-, mArmExtension{0, 0, 0}
-, mArmPosition{0, 0, 0}
+, mArmPosition{0.2, 0, 0}
  {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements(&mArm);
@@ -101,21 +101,29 @@ SetArmPostitionForDistance::SetArmPostitionForDistance(Arm& arm, Turret& turret,
 // Called when the command is initially scheduled.
 void SetArmPostitionForDistance::Initialize() 
 {
-  mArmExtension.SetTolerance(1);
-  mArmExtension.EnableContinuousInput(0, 20.5);
-  mArmPosition.SetTolerance(1);
-  mArmPosition.EnableContinuousInput(9, 86);
+  mArmPosition.SetTolerance(0);
+  mArmPosition.EnableContinuousInput(-76, -4);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void SetArmPostitionForDistance::Execute() {
-  double AngleTargetOffset = mTurret.GetVisionPitch();
-  double desiredAngle = GetNodeAngle(mLevel, AngleTargetOffset);
-  double desiredExtension = GetNodeDistance(mLevel, AngleTargetOffset);
-  double outputE = mArmExtension.Calculate(mArm.GetExtendTicks(), mArm.DistanceToTicks(desiredExtension));
-  double outputP = mArmPosition.Calculate(mArm.CANCoderArmStatus(), desiredAngle);
-  mArm.SetArmSpeed(outputP);
-  mArm.ArmExtend(outputE);
+  //double AngleTargetOffset = mTurret.GetVisionPitch();
+  double ArmAngleSetPoint = GetNodeAngle(mLevel, 0);
+  double outputArmAngle = 0;
+  double CurrentArmAngle = mArm.CANCoderArmStatus();
+  if (abs(ArmAngleSetPoint - CurrentArmAngle) >= 35)
+  { /*
+     double DeltaArmAngle = (kMinStartAngle + CurrentArmAngle);
+     ArmAngleAdjusted = -DeltaArmAngle + CurrentArmAngle;
+     outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleAdjusted); */
+    //+ feedforwardAdjusted;
+    outputArmAngle = -mArmPosition.Calculate(CurrentArmAngle, ArmAngleSetPoint + 3);
+  }
+  else
+  {
+    outputArmAngle = mArmPosition.Calculate(CurrentArmAngle, ArmAngleSetPoint + 3); //+ feedforward;
+  }
+  mArm.SetArmSpeed(outputArmAngle * -1.0);
   // NEEDS TO BE FINISHED HAVING MOTORS SET TO DESIRED ANGLE
 }
 
@@ -124,5 +132,5 @@ void SetArmPostitionForDistance::End(bool interrupted) {}
 
 // Returns true when the command should end.
 bool SetArmPostitionForDistance::IsFinished() {
-  return mArmExtension.AtSetpoint() && mArmPosition.AtSetpoint();
+  return mArmPosition.AtSetpoint();
 }

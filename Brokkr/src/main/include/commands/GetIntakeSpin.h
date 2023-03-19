@@ -37,7 +37,7 @@ class GetIntakeSpin
 
   Claw& mClaw;
   frc::Timer mTimer;
-
+  
   bool mIsInRushOver;
   bool mCouldBeStalled;
   bool mIsMotorStalling;

@@ -37,6 +37,5 @@ private:
 Arm& mArm;
 Turret& mTurret;
 const NodeLevel& mLevel;
-frc2::PIDController mArmExtension;
 frc2::PIDController mArmPosition;
 };

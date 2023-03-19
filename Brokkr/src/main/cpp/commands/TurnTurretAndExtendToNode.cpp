@@ -4,14 +4,15 @@
 
 #include "commands/TurnTurretAndExtendToNode.h"
 #include "commands/VisionTurretPID.h"
+#include "commands/WristInitialPosition.h"
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-TurnTurretAndExtendToNode::TurnTurretAndExtendToNode(Arm& arm, Turret& turret, const NodeLevel& level) {
+TurnTurretAndExtendToNode::TurnTurretAndExtendToNode(Arm& arm, Wrist& wrist, Turret& turret, const NodeLevel& level, double ang) {
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
-    VisionTurretPID(turret, 0),
+    WristInitialPosition(wrist, ang),
     SetArmPostitionForDistance(arm, turret, level)
   );
 }
