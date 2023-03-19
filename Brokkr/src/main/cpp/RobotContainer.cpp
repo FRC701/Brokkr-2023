@@ -84,7 +84,7 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
 
   //mClaw.SetDefaultCommand(IntakeSpinSimple(mClaw, 0.0));
-  // Disable while testing.
+  // Disable while testing. 18
    mWrist.SetDefaultCommand(PivotWrist(mWrist, 0));
   // Configure the button bindings
   ConfigureBindings();

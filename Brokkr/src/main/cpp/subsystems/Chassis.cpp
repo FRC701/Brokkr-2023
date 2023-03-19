@@ -12,7 +12,7 @@ namespace{
     constexpr double kWheelDiameter{6.};
 //    constexpr double kDistancePerTick{(kWheelCircumfrence / kGearRatio) / kTicksInRotation};
     constexpr double kDistancePerTick{0.0012522881};
-    constexpr double kTicksPerDistance{798.538};
+    constexpr double kTicksPerDistance{1.0/kDistancePerTick};
     
     [[maybe_unused]] 
     double ticksToDistance(double ticks)
@@ -82,7 +82,7 @@ void Chassis::Periodic() {
     frc::SmartDashboard::PutNumber("Left Front Motor Voltage", mLeftFront.GetMotorOutputVoltage());
     frc::SmartDashboard::PutNumber("Right Front Motor Voltage", mRightFront.GetMotorOutputVoltage());
 
-    double rightTicks = EncoderTicksLeft();
+    double rightTicks = EncoderTicksRight();
     double leftTicks = EncoderTicksLeft();
     frc::SmartDashboard::PutNumber("Right Distance Ticks", rightTicks);
     frc::SmartDashboard::PutNumber("Right Distance Inches", ticksToDistance(rightTicks));
