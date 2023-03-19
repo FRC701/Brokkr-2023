@@ -7,6 +7,10 @@
 #include "commands/AutoDriveOntoRamp.h"
 #include "commands/IntakeEjectObject.h"
 
+constexpr double kCommunityZoneDepth = 16.0 * 12.0;
+constexpr double kAllianceGridDepth = (4.0 * 12.0) + 6.25;
+constexpr double kCommunityZoneDriveDepth = kCommunityZoneDepth - kAllianceGridDepth;
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -16,6 +20,6 @@ AutoHighMidNodeTaxi::AutoHighMidNodeTaxi(Arm& arm, Turret& turret, Wrist& wrist,
   AddCommands(
     AutoFeatureTurnToNode(wrist, turret, arm, 50, 180, 10), // turret is not used
     IntakeEjectObject(claw, -6),
-    AutoDriveOntoRamp(chassis, .8, Chassis::DistanceToTicks(99.0 - 16.0)) // 99 inches - half the length of the robot
+    AutoDriveOntoRamp(chassis, .8, Chassis::DistanceToTicks(kCommunityZoneDriveDepth))
   );
 }
