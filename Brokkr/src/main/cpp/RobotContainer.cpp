@@ -75,10 +75,10 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("Chassis Drive to object", new ControllerChassisDrive(mChassis, mTurret));
  frc::SmartDashboard::PutData("Transsform", new RetractIntoFramePerimeter(mArm, mWrist));
 
-mChooser.AddOption("AutoBalDrive", &mAutoBalanceDrive);
-mChooser.AddOption("Auto2Piece", &mAutoTwoPieceTaxi);
-mChooser.AddOption("AutoRampDrive", &mAutoDriveOntoRamp);
-mChooser.AddOption("AutoRampDrive", &mAutoHighMidNodeTaxi);
+mChooser.AddOption("Auto Balance Drive", &mAutoBalanceDrive);
+mChooser.AddOption("Auto 2 Piece", &mAutoTwoPieceTaxi);
+mChooser.AddOption("Auto (Ramp) Drive", &mAutoDriveOntoRamp);
+mChooser.AddOption("Auto Score and Drive", &mAutoHighMidNodeTaxi);
 
 frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 

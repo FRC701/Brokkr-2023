@@ -4,7 +4,6 @@
 
 #include "commands/AutoFeatureTurnToNode.h"
 #include "commands/ArmPosition.h"
-#include "commands/TurretPID.h"
 #include "commands/WristInitialPosition.h"
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
@@ -15,7 +14,6 @@ AutoFeatureTurnToNode::AutoFeatureTurnToNode(Wrist& wrist, Turret& turret, Arm& 
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
     ArmPosition(arm, armangle),
-    TurretPID(turret, turretangle),
     WristInitialPosition(wrist, wristangle)
   );
 }

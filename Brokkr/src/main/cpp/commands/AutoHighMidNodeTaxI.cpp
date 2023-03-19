@@ -6,9 +6,7 @@
 #include "commands/AutoFeatureTurnToNode.h"
 #include "commands/AutoDriveOntoRamp.h"
 #include "commands/IntakeEjectObject.h"
-#include "commands/AutoDriveAndTurn.h"
-#include "commands/IntakeSpin.h"
-#include "commands/AutoFeatureIntakePickup.h"
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -16,11 +14,8 @@ AutoHighMidNodeTaxi::AutoHighMidNodeTaxi(Arm& arm, Turret& turret, Wrist& wrist,
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
-    AutoFeatureTurnToNode(wrist, turret, arm, 50, 180, 10),
+    AutoFeatureTurnToNode(wrist, turret, arm, 50, 180, 10), // turret is not used
     IntakeEjectObject(claw, -6),
-    AutoDriveAndTurn(chassis, turret, wrist, arm, claw, 0, 83, 50, 10),
-    AutoFeatureIntakePickup(chassis, claw),
-    AutoDriveAndTurn(chassis, turret, wrist, arm, claw, 180, -83, 35, 15),
-    IntakeEjectObject(claw, -6)
+    AutoDriveOntoRamp(chassis, .8, Chassis::DistanceToTicks(99.0 - 16.0)) // 99 inches - half the length of the robot
   );
 }
