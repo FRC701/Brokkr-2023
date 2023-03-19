@@ -96,8 +96,8 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
     ArcadeDrive
     (
       mChassis,
-      [this] {return -0.90*driver.GetY(); },
-      [this] {return -0.65*driver.GetTwist(); }
+      [this] {return -(-driver.GetThrottle()+1)/2 * driver.GetY(); },
+      [this] {return -0.95*((-driver.GetThrottle()+1)/2) * driver.GetTwist(); }
     )
   );
 #endif

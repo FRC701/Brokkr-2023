@@ -46,6 +46,7 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 , mOdometry{mGyroX.GetRotation2d(), units::meter_t{0}, units::meter_t{0}}
 , mDriveKinematics{units::meter_t{24}}
 {
+    driver.SetThrottleChannel(3);
     SetNeutralMode(NeutralMode::Coast);
     
 #if ! __APPLE__
@@ -87,6 +88,7 @@ void Chassis::Periodic() {
     frc::SmartDashboard::PutNumber("Right Distance Inches", ticksToDistance(rightTicks));
     frc::SmartDashboard::PutNumber("Left Distance Ticks", leftTicks);
     frc::SmartDashboard::PutNumber("Left Distance Inches", ticksToDistance(leftTicks));
+    frc::SmartDashboard::PutNumber("SliderValue", driver.GetThrottle());
 }
 
 void Chassis::TankDriveVoltage(double left, double right)
