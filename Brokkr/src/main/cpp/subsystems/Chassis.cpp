@@ -89,6 +89,7 @@ void Chassis::Periodic() {
     frc::SmartDashboard::PutNumber("Left Distance Ticks", leftTicks);
     frc::SmartDashboard::PutNumber("Left Distance Inches", ticksToDistance(leftTicks));
     frc::SmartDashboard::PutNumber("SliderValue", driver.GetThrottle());
+    //frc::SmartDashboard::PutNumber("GetChassisControlMode", mLeftFront.GetControlMode());
 }
 
 void Chassis::TankDriveVoltage(double left, double right)

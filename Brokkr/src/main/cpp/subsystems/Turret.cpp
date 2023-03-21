@@ -21,6 +21,10 @@ Turret::Turret(WPI_TalonFX& turret, WPI_PigeonIMU& gyro)
 {
     mGyro.SetYaw(0);
     mTurretMotor.SetNeutralMode(Brake);
+    mTurretMotor.SetInverted(false);
+    mTurretMotor.ConfigPeakOutputForward(0.2);
+    mTurretMotor.ConfigPeakOutputReverse(-0.2);
+    mTurretMotor.ConfigNeutralDeadband(0.001);
     }
 
  const double kTurretRotRestraint{20000};
@@ -45,6 +49,7 @@ void Turret::Periodic() {
     frc::SmartDashboard::PutNumber("GetYawIMU", GetYawIMU());
     frc::SmartDashboard::PutNumber("GetYawIMU2", GetYawIMU());
     frc::SmartDashboard::PutNumber("GetTurretEncoderTicks", GetTurretPose());
+    
 }
 
 double Turret::SetVelocity(double rpm)

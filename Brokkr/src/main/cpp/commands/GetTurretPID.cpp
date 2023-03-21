@@ -6,7 +6,7 @@
 #include "frc/smartdashboard/SmartDashboard.h"
 namespace
 {
-  const double kTurret_P = 0.1;
+  const double kTurret_P = 0.05;
   const double kTurret_I = 0.0;
   const double kTurret_D = 0.0;
 }
@@ -21,14 +21,14 @@ GetTurretPID::GetTurretPID(Turret& turret)
 // Called when the command is initially scheduled.
 void GetTurretPID::Initialize() {
   TurretControl.SetTolerance(0);
-  TurretControl.EnableContinuousInput(-359, 359);
+  TurretControl.EnableContinuousInput(-360, 360);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void GetTurretPID::Execute() {
   double Pose = GetPosition();
   double output = TurretControl.Calculate(mTurret.GetYawIMU(), Pose);
-  mTurret.SetTurretSpeed(-1.0 * output);
+  mTurret.SetTurretSpeed(output);
 }
 
 // Called once the command ends or is interrupted.

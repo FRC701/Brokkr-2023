@@ -10,7 +10,7 @@ void Robot::RobotInit() {
       frc::CameraServer::StartAutomaticCapture(); 
 }
 
-/**
+/**x
  * This function is called every 20 ms, no matter the mode. Use
  * this for items like diagnostics that you want to run during disabled,
  * autonomous, teleoperated and test.
