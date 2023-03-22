@@ -37,6 +37,7 @@
 #include "commands/GetIntakeSpin.h"
 #include "commands/GetTurretPID.h"
 #include "commands/SetNeutralModeToBrake.h"
+#include "commands/RetractAndPivot.h"
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
@@ -73,7 +74,7 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::PutData("Turret Lock Onto Object", new ControllerTurret(mTurret));
  frc::SmartDashboard::PutData("Chassis Lock with Turret Yaw", new ControllerChassisRotationReal(mChassis, mTurret));
  frc::SmartDashboard::PutData("Chassis Drive to object", new ControllerChassisDrive(mChassis, mTurret));
- frc::SmartDashboard::PutData("Transsform", new RetractIntoFramePerimeter(mArm, mWrist));
+ //frc::SmartDashboard::PutData("Transsform", new RetractIntoFramePerimeter(mArm, mWrist));
 
 mChooser.AddOption("Auto Balance Drive", &mAutoBalanceDrive);
 mChooser.AddOption("Auto 2 Piece", &mAutoTwoPieceTaxi);
@@ -85,7 +86,7 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
   //mClaw.SetDefaultCommand(IntakeSpinSimple(mClaw, 0.0));
   // Disable while testing. 18
-   mWrist.SetDefaultCommand(PivotWrist(mWrist, 0));
+   //mWrist.SetDefaultCommand(PivotWrist(mWrist, 0));
   // Configure the button bindings
   ConfigureBindings();
 
@@ -117,12 +118,22 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 }
 void RobotContainer::ConfigureBindings() 
 {
-  trigger.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist).ToPtr()); //placeholder
+  //trigger.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist).ToPtr()); //placeholder
   //button5.WhileTrue(IntakeSpinSimple(mClaw, 6).ToPtr());
   button5.ToggleOnTrue(IntakeSpin(mClaw, 7.5).ToPtr());
   button6.ToggleOnTrue(IntakeSpin(mClaw, -7.5).ToPtr());
   
   //button6.WhileTrue(IntakeSpinSimple(mClaw, -6).ToPtr());
+  button3.ToggleOnTrue(
+    ArcadeDrive
+    (
+      mChassis,
+      [this] {return (-driver.GetThrottle()+1)/2 * driver.GetY(); },
+      [this] {return -0.65*(((-driver.GetThrottle()+1)/2) + 0.2) * driver.GetTwist(); }
+    ).ToPtr()
+  );
+
+  button4.ToggleOnTrue(SetNeutralModeToBrake(mChassis).ToPtr());
   button7.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::UpperNodeLevel, 45).ToPtr()); //placeholder
   button8.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
   button9.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::MiddleNodeLevel, 100).ToPtr()); //placeholder
@@ -139,11 +150,11 @@ void RobotContainer::ConfigureBindings()
   //aButton.WhileTrue(ExtendArm(mArm, -8).ToPtr())[]\; // Retract arm
   lTrigger.WhileTrue(ManualArmAngle(mArm, 3).ToPtr()); // Raise Arm
   rTrigger.WhileTrue(ManualArmAngle(mArm, -3).ToPtr()); // Lower Arm
-  upDPAD.WhileTrue(PivotWrist(mWrist, -3).ToPtr()); // Raise Wrist
-  downDPAD.WhileTrue(PivotWrist(mWrist, 3).ToPtr()); // Lower Wrist 
+  upDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mTurret, 0).ToPtr());
+  downDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mTurret, 180).ToPtr());
   lBumperButton.WhileTrue(TurretManualControl(mTurret, 1).ToPtr()); //Turn Turret Left
   rBumperButton.WhileTrue(TurretManualControl(mTurret, -1).ToPtr()); //Turn Turret Right
-  Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
+  //Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist, 170, -60).ToPtr());
 
   // Configure your trigger bindings here
   // Schedule `ExampleCommand` when `exampleCondition` changes to `true`

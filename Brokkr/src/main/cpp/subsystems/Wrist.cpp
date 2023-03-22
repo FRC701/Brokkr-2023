@@ -17,6 +17,9 @@ Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder)
 : mWristMotor(wristMotor)
 , mWristCoder(wristCoder)
 {
+    mWristMotor.SetInverted(true);
+    mWristMotor.ConfigPeakOutputForward(0.4);
+    mWristMotor.ConfigPeakOutputReverse(-0.4);
     mWristMotor.SetNeutralMode(Brake);
     mWristMotor.ConfigOpenloopRamp(0.5);
     mWristMotor.Config_kP(0, kWrist_P);

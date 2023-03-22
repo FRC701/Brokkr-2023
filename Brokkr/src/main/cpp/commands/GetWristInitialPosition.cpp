@@ -39,7 +39,7 @@ GetWristInitialPosition::GetWristInitialPosition(Wrist &wrist)
 void GetWristInitialPosition::Initialize()
 {
   mWristControl.SetTolerance(0);
-  mWristControl.EnableContinuousInput(-20, 171);
+  //mWristControl.EnableContinuousInput(-20, 171);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -51,16 +51,16 @@ void GetWristInitialPosition::Execute()
     [[maybe_unused]] 
   double feedforward = mFeedForward.Calculate(units::unit_t<Angle>(WristAngle * 0.0174533), 2_rad_per_s).value();
   frc::SmartDashboard::PutNumber("Read Wrist Angle", WristAngle);
-  if (abs(CurrentWristAngle - WristAngle) >= 95)
+  /*if (abs(CurrentWristAngle - WristAngle) >= 95)
   {
     output = -mWristControl.Calculate(CurrentWristAngle, WristAngle); //+ feedforward;
   }
   else
   {
     output = mWristControl.Calculate(CurrentWristAngle, WristAngle);
-  }
+  }*/
   // TODO: Reverse the motor rather than multiply by -1
-  mWrist.TurnWristPO(-1 * output);
+  mWrist.TurnWristPO(output);
 }
 
 double GetWristInitialPosition::GetWristAngle()

@@ -21,7 +21,7 @@ GetTurretPID::GetTurretPID(Turret& turret)
 // Called when the command is initially scheduled.
 void GetTurretPID::Initialize() {
   TurretControl.SetTolerance(0);
-  TurretControl.EnableContinuousInput(-360, 360);
+  //TurretControl.EnableContinuousInput(-360, 360);
 }
 
 // Called repeatedly when this Command is scheduled to run

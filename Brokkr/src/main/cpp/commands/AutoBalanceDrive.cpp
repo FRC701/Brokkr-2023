@@ -20,7 +20,7 @@ AutoBalanceDrive::AutoBalanceDrive(Chassis& mChassis, Arm& mArm, Claw& mClaw, Tu
  AddCommands(ArmPosition(mArm, 75),
              SetExtendtoNode(mArm, mWrist, mTurret, 45),
              IntakeEjectObject(mClaw, -4),
-             RetractIntoFramePerimeter(mArm, mWrist),
+             RetractIntoFramePerimeter(mArm, mWrist, 170, -60),
              AutoForwardAndBackDrive(mChassis, 11.5, 11.5, 2.5),
              AutoForwardAndBackDrive(mChassis, -11.5, -11.5, 1.25),
              AutoBalance(mChassis)
