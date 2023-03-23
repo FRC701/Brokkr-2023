@@ -11,10 +11,10 @@
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 MoveArmIntake::MoveArmIntake(double intdir, Arm& arm, Wrist& wrist, Claw& claw, double armAngle, double wrisang) 
-: CommandHelper(IntakeSpin(claw, intdir))
 {
   AddCommands
   (
+    IntakeSpin(claw, intdir),
     WristInitialPosition(wrist, wrisang),
     ArmPosition(arm, armAngle)
   );

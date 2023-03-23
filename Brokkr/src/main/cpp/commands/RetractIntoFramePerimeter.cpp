@@ -6,11 +6,13 @@
 #include "commands/ArmPosition.h"
 #include "commands/RetractPartOne.h"
 #include "commands/WristInitialPosition.h"
+#include <frc2/command/WaitCommand.h>
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 RetractIntoFramePerimeter::RetractIntoFramePerimeter(Arm& arm, Wrist& wrist, double armAngle, double wristAngle) 
+:CommandHelper{frc2::WaitCommand(units::second_t(0.75))}
 {
   AddCommands
   (

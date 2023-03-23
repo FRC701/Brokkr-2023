@@ -11,7 +11,7 @@
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 IntakeEjectObject::IntakeEjectObject(Claw& claw, double speed)
     // The deadline command
-    : CommandHelper{frc2::WaitCommand(units::second_t(0.25))}
+    : CommandHelper{frc2::WaitCommand(units::second_t(0.4))}
      {
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});

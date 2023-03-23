@@ -84,9 +84,9 @@ mChooser.AddOption("Auto Score and Drive", &mAutoHighMidNodeTaxi);
 frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
 
-  //mClaw.SetDefaultCommand(IntakeSpinSimple(mClaw, 0.0));
+  mClaw.SetDefaultCommand(IntakeSpinSimple(mClaw, 0.0));
   // Disable while testing. 18
-   //mWrist.SetDefaultCommand(PivotWrist(mWrist, 0));
+   mWrist.SetDefaultCommand(PivotWrist(mWrist, 0));
   // Configure the button bindings
   ConfigureBindings();
 
@@ -103,7 +103,9 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
   );
 #endif
 
-  //mTurret.SetDefaultCommand(TurretManualControl(mTurret, 0.0));
+  //mTurret.SetDefaultCommand(TurretPID(mTurret, mTurret.GetYawIMU()));
+
+  mTurret.SetDefaultCommand(TurretManualControl(mTurret, 0.0));
 
   mArm.SetDefaultCommand(ManualArmAngle(mArm, 0.0));
 
@@ -118,10 +120,10 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 }
 void RobotContainer::ConfigureBindings() 
 {
-  //trigger.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist).ToPtr()); //placeholder
+  //trigger.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mTurret, 0).ToPtr()); //placeholder
   //button5.WhileTrue(IntakeSpinSimple(mClaw, 6).ToPtr());
-  button5.ToggleOnTrue(IntakeSpin(mClaw, 7.5).ToPtr());
-  button6.ToggleOnTrue(IntakeSpin(mClaw, -7.5).ToPtr());
+  //button5.ToggleOnTrue(IntakeSpin(mClaw, 7.5).ToPtr());
+  //button6.ToggleOnTrue(IntakeSpin(mClaw, -7.5).ToPtr());
   
   //button6.WhileTrue(IntakeSpinSimple(mClaw, -6).ToPtr());
   button3.ToggleOnTrue(
@@ -134,22 +136,24 @@ void RobotContainer::ConfigureBindings()
   );
 
   button4.ToggleOnTrue(SetNeutralModeToBrake(mChassis).ToPtr());
-  button7.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::UpperNodeLevel, 45).ToPtr()); //placeholder
-  button8.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
-  button9.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::MiddleNodeLevel, 100).ToPtr()); //placeholder
+  button7.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -16, 45).ToPtr()); //Hybrid Drop
+  button9.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
+  //button9.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::MiddleNodeLevel, 100).ToPtr()); //placeholder
   button10.ToggleOnTrue(IntakeEjectObject(mClaw, 6).ToPtr());
-  button11.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::HybridLevel, 120).ToPtr()); //placeholder
+  button8.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -60, 80).ToPtr()); //Mid Drop
   
 
-  xButton.ToggleOnTrue(MoveArmIntake(-5.5, mArm,mWrist, mClaw, -7, 45).ToPtr()); // sky cone
-  yButton.ToggleOnTrue(MoveArmIntake(-6.5, mArm, mWrist, mClaw, -60, 80).ToPtr()); // floor cone
-  bButton.ToggleOnTrue(MoveArmIntake(5.5, mArm, mWrist, mClaw, -70, 120).ToPtr()); // sky cube
-  aButton.ToggleOnTrue(MoveArmIntake(5.5, mArm, mWrist, mClaw, -70, 120).ToPtr()); // floor cube
+  xButton.ToggleOnTrue(MoveArmIntake(-5.5, mArm,mWrist, mClaw, -0.7, 45).ToPtr()); // floor cube
+  yButton.WhileTrue(IntakeSpinSimple(mClaw, 7.5).ToPtr()); // cube eject
+  bButton.ToggleOnTrue(MoveArmIntake(7.0, mArm, mWrist, mClaw, -0.7, 45).ToPtr()); // sky cone
+  aButton.WhileTrue(IntakeSpinSimple(mClaw, -7.5).ToPtr()); // cone eject
   //xButton.ToggleOnFalse(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
   //yButton.ToggleOnFalse(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
   //aButton.WhileTrue(ExtendArm(mArm, -8).ToPtr())[]\; // Retract arm
-  lTrigger.WhileTrue(ManualArmAngle(mArm, 3).ToPtr()); // Raise Arm
-  rTrigger.WhileTrue(ManualArmAngle(mArm, -3).ToPtr()); // Lower Arm
+  //lTrigger.WhileTrue(ManualArmAngle(mArm, 3).ToPtr()); // Raise Arm
+  //rTrigger.WhileTrue([]\
+  
+  //ManualArmAngle(mArm, -3).ToPtr()); // Lower Arm
   upDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mTurret, 0).ToPtr());
   downDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mTurret, 180).ToPtr());
   lBumperButton.WhileTrue(TurretManualControl(mTurret, 1).ToPtr()); //Turn Turret Left
@@ -161,7 +165,6 @@ void RobotContainer::ConfigureBindings()
   frc2::Trigger([this] {
     return m_subsystem.ExampleCondition();
   }).OnTrue(ExampleCommand(&m_subsystem).ToPtr());
-
   // Schedule `ExampleMethodCommand` when the Xbox controller's B button is
   // pressed, cancelling on release.
   m_driverController.B().WhileTrue(m_subsystem.ExampleMethodCommand());

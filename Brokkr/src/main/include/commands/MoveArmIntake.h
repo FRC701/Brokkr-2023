@@ -5,14 +5,14 @@
 #pragma once
 
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/ParallelDeadlineGroup.h>
+#include <frc2/command/ParallelCommandGroup.h>
 
 #include "subsystems/Arm.h"
 #include "subsystems/Claw.h"
 #include "subsystems/Wrist.h"
 
 class MoveArmIntake
-    : public frc2::CommandHelper<frc2::ParallelDeadlineGroup,
+    : public frc2::CommandHelper<frc2::ParallelCommandGroup,
                                  MoveArmIntake> {
  public:
   MoveArmIntake(double intdir, Arm& arm, Wrist& wrist, Claw& claw, double armAngle, double wrisang);

@@ -17,9 +17,9 @@ Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder)
 : mWristMotor(wristMotor)
 , mWristCoder(wristCoder)
 {
-    mWristMotor.SetInverted(true);
-    mWristMotor.ConfigPeakOutputForward(0.4);
-    mWristMotor.ConfigPeakOutputReverse(-0.4);
+    mWristMotor.SetInverted(false);
+    mWristMotor.ConfigPeakOutputForward(0.3);
+    mWristMotor.ConfigPeakOutputReverse(-0.3);
     mWristMotor.SetNeutralMode(Brake);
     mWristMotor.ConfigOpenloopRamp(0.5);
     mWristMotor.Config_kP(0, kWrist_P);
@@ -27,7 +27,7 @@ Wrist::Wrist(WPI_TalonFX& wristMotor, WPI_CANCoder& wristCoder)
     mWristMotor.Config_kD(0, kWrist_D);
     mWristMotor.Config_kF(0, kWrist_F);
     mWristCoder.ConfigAbsoluteSensorRange(ctre::phoenix::sensors::AbsoluteSensorRange::Signed_PlusMinus180);
-    mWristCoder.ConfigMagnetOffset(-9.2);
+    mWristCoder.ConfigMagnetOffset(-100);
     mWristCoder.ConfigSensorDirection(false);
 }
 // This method will be called once per scheduler run

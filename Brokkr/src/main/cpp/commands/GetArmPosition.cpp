@@ -37,7 +37,7 @@ GetArmPosition::GetArmPosition(Arm &arm)
 void GetArmPosition::Initialize()
 {
   mArmControl.SetTolerance(0);
-  mArmControl.EnableContinuousInput(-76, -4);
+  //mArmControl.EnableContinuousInput(-76, -4);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -57,18 +57,18 @@ void GetArmPosition::Execute()
   double feedforwardAdjusted = mFeedForward.Calculate(units::unit_t<Angle>(ArmAngleAdjusted * 0.0174533), 2_rad_per_s).value();
   // if (CurrentArmAngle <= kMinStartAngle) // WORKAROUND to hitting turret when at small angles:if current angle is less than ten and setpoint is >41 move to 10 first
   //{
-  if (abs(ArmAngleSetPoint - CurrentArmAngle) >= 35)
-  { /*
+  /*if (abs(ArmAngleSetPoint - CurrentArmAngle) >= 35)
+  { 
      double DeltaArmAngle = (kMinStartAngle + CurrentArmAngle);
      ArmAngleAdjusted = -DeltaArmAngle + CurrentArmAngle;
      outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleAdjusted); */
     //+ feedforwardAdjusted;
-    outputArmAngle = -mArmControl.Calculate(CurrentArmAngle, ArmAngleSetPoint + 3);
+   /* outputArmAngle = -mArmControl.Calculate(CurrentArmAngle, ArmAngleSetPoint + 3);
   }
   else
-  {
-    outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleSetPoint + 3); //+ feedforward;
-  }
+  {*/
+    outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleSetPoint); //+ feedforward;
+  //}
   mArm.SetArmSpeed(outputArmAngle * -1.0);
 }
 /*else

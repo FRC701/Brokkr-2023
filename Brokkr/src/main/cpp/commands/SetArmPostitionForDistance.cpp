@@ -71,12 +71,12 @@ namespace{
     {
     case NodeLevel::HybridLevel:
       distance = 0;
-      armAngle = 9;
+      armAngle = -60;
       break;
       
     case NodeLevel::MiddleNodeLevel:
       distance = GetCameraDistance(kMiddleNodeHeight, AngleTargetOffset);
-      armAngle = GetAngle(kMiddleNodeHeight, distance);
+      armAngle = -16;
       break;
     
     case NodeLevel::UpperNodeLevel:
@@ -102,7 +102,7 @@ SetArmPostitionForDistance::SetArmPostitionForDistance(Arm& arm, Turret& turret,
 void SetArmPostitionForDistance::Initialize() 
 {
   mArmPosition.SetTolerance(0);
-  mArmPosition.EnableContinuousInput(-76, -4);
+  //mArmPosition.EnableContinuousInput(-76, -4);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -111,18 +111,8 @@ void SetArmPostitionForDistance::Execute() {
   double ArmAngleSetPoint = GetNodeAngle(mLevel, 0);
   double outputArmAngle = 0;
   double CurrentArmAngle = mArm.CANCoderArmStatus();
-  if (abs(ArmAngleSetPoint - CurrentArmAngle) >= 35)
-  { /*
-     double DeltaArmAngle = (kMinStartAngle + CurrentArmAngle);
-     ArmAngleAdjusted = -DeltaArmAngle + CurrentArmAngle;
-     outputArmAngle = mArmControl.Calculate(CurrentArmAngle, ArmAngleAdjusted); */
-    //+ feedforwardAdjusted;
-    outputArmAngle = -mArmPosition.Calculate(CurrentArmAngle, ArmAngleSetPoint + 3);
-  }
-  else
-  {
+
     outputArmAngle = mArmPosition.Calculate(CurrentArmAngle, ArmAngleSetPoint + 3); //+ feedforward;
-  }
   mArm.SetArmSpeed(outputArmAngle * -1.0);
   // NEEDS TO BE FINISHED HAVING MOTORS SET TO DESIRED ANGLE
 }

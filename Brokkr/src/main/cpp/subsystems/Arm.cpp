@@ -53,6 +53,8 @@ Arm::Arm(
     mArmMotor2.SetInverted(false);
 
     //mArmMotor2.ConfigOpenloopRamp(0.5);
+    mArmMotor2.ConfigPeakOutputForward(0.7);
+    mArmMotor2.ConfigPeakOutputReverse(-0.7);
     mArmMotor2.Config_kP(0, kArmAngle_P);
     mArmMotor2.Config_kI(0, kArmAngle_I);
     mArmMotor2.Config_kD(0, kArmAngle_D);

@@ -13,6 +13,6 @@ RetractAndPivot::RetractAndPivot(Arm& arm, Wrist& wrist, Turret& turret, double 
 {
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
-  AddCommands(RetractIntoFramePerimeter(arm, wrist, 170, -60),
+  AddCommands(RetractIntoFramePerimeter(arm, wrist, -60, 143),
   TurretPID(turret, yaw));
 }
