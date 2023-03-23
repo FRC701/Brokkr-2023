@@ -136,22 +136,23 @@ void RobotContainer::ConfigureBindings()
   );
 
   button4.ToggleOnTrue(SetNeutralModeToBrake(mChassis).ToPtr());
-  button7.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -16, 45).ToPtr()); //Hybrid Drop
+  button11.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -16, 45).ToPtr()); //Hybrid Drop
   button9.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
   //button9.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::MiddleNodeLevel, 100).ToPtr()); //placeholder
   button10.ToggleOnTrue(IntakeEjectObject(mClaw, 6).ToPtr());
-  button8.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -60, 80).ToPtr()); //Mid Drop
+  button12.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -60, 80).ToPtr()); //Mid Drop
   
 
-  xButton.ToggleOnTrue(MoveArmIntake(7.0, mArm,mWrist, mClaw, -70, 35).ToPtr()); // floor cube
+  xButton.ToggleOnTrue(MoveArmIntake(-7.0, mArm,mWrist, mClaw, -70, 35).ToPtr()); // floor cube
   yButton.WhileTrue(IntakeSpinSimple(mClaw, 7.5).ToPtr()); // cube eject
   bButton.ToggleOnTrue(MoveArmIntake(7.0, mArm, mWrist, mClaw, -0.7, 45).ToPtr()); // sky cone
   aButton.WhileTrue(IntakeSpinSimple(mClaw, -7.5).ToPtr()); // cone eject
+
   //xButton.ToggleOnFalse(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
   //yButton.ToggleOnFalse(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
   //aButton.WhileTrue(ExtendArm(mArm, -8).ToPtr())[]\; // Retract arm
-  //lTrigger.WhileTrue(ManualArmAngle(mArm, 3).ToPtr()); // Raise Arm
-  //rTrigger.WhileTrue([]\
+  lTrigger.WhileTrue(PivotWrist(mWrist, 1).ToPtr()); // Raise Arm
+  rTrigger.WhileTrue(PivotWrist(mWrist, -1).ToPtr());
   
   //ManualArmAngle(mArm, -3).ToPtr()); // Lower Arm
   upDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mTurret, 0).ToPtr());

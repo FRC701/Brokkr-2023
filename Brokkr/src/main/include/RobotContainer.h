@@ -77,6 +77,7 @@ class RobotContainer
  frc2::Trigger button9 = driver.Button(9);
  frc2::Trigger button10 = driver.Button(10);
  frc2::Trigger button11 = driver.Button(11);
+ frc2::Trigger button12 = driver.Button(12);
 
 
  frc2::Trigger xButton = coDriver.X();
