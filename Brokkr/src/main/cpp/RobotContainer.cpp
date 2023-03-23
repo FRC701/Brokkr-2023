@@ -143,7 +143,7 @@ void RobotContainer::ConfigureBindings()
   button8.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -60, 80).ToPtr()); //Mid Drop
   
 
-  xButton.ToggleOnTrue(MoveArmIntake(-5.5, mArm,mWrist, mClaw, -0.7, 45).ToPtr()); // floor cube
+  xButton.ToggleOnTrue(MoveArmIntake(7.0, mArm,mWrist, mClaw, -70, 35).ToPtr()); // floor cube
   yButton.WhileTrue(IntakeSpinSimple(mClaw, 7.5).ToPtr()); // cube eject
   bButton.ToggleOnTrue(MoveArmIntake(7.0, mArm, mWrist, mClaw, -0.7, 45).ToPtr()); // sky cone
   aButton.WhileTrue(IntakeSpinSimple(mClaw, -7.5).ToPtr()); // cone eject
