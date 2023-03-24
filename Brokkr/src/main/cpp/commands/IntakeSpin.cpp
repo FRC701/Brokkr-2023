@@ -4,15 +4,16 @@
 
 #include "commands/IntakeSpin.h"
 
-IntakeSpin::IntakeSpin(Claw& claw, double speed)
+IntakeSpin::IntakeSpin(Claw& claw, double speed, double thresholdlimit)
 : GetIntakeSpin(claw) 
 , mSpeed(speed)
+, mThresholdlimit(thresholdlimit)
 {
 }
 
 double IntakeSpin::GetCurrentLimit()
 {
-  double intakeCurrentLimit = 80.0;
+  double intakeCurrentLimit = mThresholdlimit;
   return intakeCurrentLimit;
 }
 

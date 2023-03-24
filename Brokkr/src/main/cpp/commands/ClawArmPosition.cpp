@@ -10,7 +10,7 @@
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-ClawArmPosition::ClawArmPosition(Arm& arm, Wrist& wrist, Claw& claw) 
+ClawArmPosition::ClawArmPosition(Arm& arm, Wrist& wrist, Claw& claw, double limit) 
 : mArm(arm)
 , mWrist(wrist)
 , mClaw(claw)
@@ -18,7 +18,7 @@ ClawArmPosition::ClawArmPosition(Arm& arm, Wrist& wrist, Claw& claw)
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
-    IntakeSpin(mClaw, 4),
+    IntakeSpin(mClaw, 4, 0),
     WristLevel(mWrist, mArm)
   );
 }

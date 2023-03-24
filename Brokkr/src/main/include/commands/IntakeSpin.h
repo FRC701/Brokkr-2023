@@ -17,7 +17,7 @@
 class IntakeSpin
     : public GetIntakeSpin {
  public:
-  explicit IntakeSpin(Claw& claw, double mSpeed);
+  explicit IntakeSpin(Claw& claw, double mSpeed, double mThresholdlimit);
 
   frc2::CommandPtr ToPtr() && override;
 
@@ -30,4 +30,5 @@ class IntakeSpin
   virtual std::unique_ptr<IntakeSpin> make_unique();
 
   double mSpeed;
+  double mThresholdlimit;
 };

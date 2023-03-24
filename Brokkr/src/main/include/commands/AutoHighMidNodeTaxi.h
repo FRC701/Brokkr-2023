@@ -16,5 +16,5 @@ class AutoHighMidNodeTaxi
     : public frc2::CommandHelper<frc2::SequentialCommandGroup,
                                  AutoHighMidNodeTaxi> {
  public:
-  AutoHighMidNodeTaxi(Arm& mArm, Turret& mTurret, Wrist& mWrist, Chassis& mChassis, Claw& mClaw);
+  AutoHighMidNodeTaxi(Arm& mArm, Turret& mTurret, Wrist& mWrist, Chassis& mChassis, Claw& mClaw, double distance);
 };

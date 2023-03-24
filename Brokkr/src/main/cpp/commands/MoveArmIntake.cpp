@@ -10,11 +10,11 @@
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-MoveArmIntake::MoveArmIntake(double intdir, Arm& arm, Wrist& wrist, Claw& claw, double armAngle, double wrisang) 
+MoveArmIntake::MoveArmIntake(double intdir, Arm& arm, Wrist& wrist, Claw& claw, double armAngle, double wrisang, double limit) 
 {
   AddCommands
   (
-    IntakeSpin(claw, intdir),
+    IntakeSpin(claw, intdir, limit),
     WristInitialPosition(wrist, wrisang),
     ArmPosition(arm, armAngle)
   );

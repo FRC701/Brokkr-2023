@@ -56,6 +56,10 @@ class RobotContainer
   
   static constexpr  int kWristMotor{12};
 
+  double kCommunityZoneDepth = 16.0 * 12.0;
+  double kAllianceGridDepth = (4.0 * 12.0) + 6.25;
+  double kCommunityZoneDriveDepth = kCommunityZoneDepth - kAllianceGridDepth;
+
   frc2::Command* GetAutonomousCommand();
 
  private:
@@ -120,13 +124,17 @@ class RobotContainer
   WPI_CANCoder mWristCoder{kWristCoder};
   Wrist mWrist{mWristMotor, mWristCoder}; 
 
-  AutoTwoPieceTaxi mAutoTwoPieceTaxi{mArm, mChassis, mClaw, mWrist, mTurret};
+ //AutoTwoPieceTaxi mAutoTwoPieceTaxi{mArm, mChassis, mClaw, mWrist, mTurret};
 
-  AutoBalanceDrive mAutoBalanceDrive{mChassis, mArm, mClaw, mTurret, mWrist};
+  //AutoBalanceDrive mAutoBalanceDrive{mChassis, mArm, mClaw, mTurret, mWrist};
 
-  AutoDriveOntoRamp mAutoDriveOntoRamp{mChassis, -0.25, -Chassis::DistanceToTicks(110.0 /* 99.0 - 16.0 */)};
-  
-  AutoHighMidNodeTaxi mAutoHighMidNodeTaxi{mArm, mTurret, mWrist, mChassis, mClaw};
+  AutoDriveOntoRamp mAutoDriveOntoRamp{mChassis, 0.25, 86500};
+
+  AutoDriveOntoRamp mAutoTaxi{mChassis, -0.25, -Chassis::DistanceToTicks(110.0 /* 99.0 - 16.0 */)};
+
+  AutoHighMidNodeTaxi mAutoMidNodeTaxi{mArm, mTurret, mWrist, mChassis, mClaw, Chassis::DistanceToTicks(kCommunityZoneDepth)};
+
+  AutoHighMidNodeTaxi mAutoMidNodeBalance{mArm, mTurret,mWrist, mChassis, mClaw, 86500};
 
   void ConfigureBindings();
 };

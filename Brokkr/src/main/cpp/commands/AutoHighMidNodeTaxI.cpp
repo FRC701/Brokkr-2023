@@ -6,20 +6,18 @@
 #include "commands/AutoFeatureTurnToNode.h"
 #include "commands/AutoDriveOntoRamp.h"
 #include "commands/IntakeEjectObject.h"
-
-constexpr double kCommunityZoneDepth = 16.0 * 12.0;
-constexpr double kAllianceGridDepth = (4.0 * 12.0) + 6.25;
-constexpr double kCommunityZoneDriveDepth = kCommunityZoneDepth - kAllianceGridDepth;
+#include"commands/RetractAndPivot.h" 
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-AutoHighMidNodeTaxi::AutoHighMidNodeTaxi(Arm& arm, Turret& turret, Wrist& wrist, Chassis& chassis, Claw& claw) {
+AutoHighMidNodeTaxi::AutoHighMidNodeTaxi(Arm& arm, Turret& turret, Wrist& wrist, Chassis& chassis, Claw& claw, double distance) {
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
-    AutoFeatureTurnToNode(wrist, turret, arm, 50, 180, 10), // turret is not used
+    AutoFeatureTurnToNode(wrist, turret, arm, -10, 45, 180), // turret is not used
     IntakeEjectObject(claw, -6),
-    AutoDriveOntoRamp(chassis, .8, Chassis::DistanceToTicks(kCommunityZoneDriveDepth))
+    RetractAndPivot(arm, wrist, turret, 0),
+    AutoDriveOntoRamp(chassis, -0.25, distance)
   );
 }

@@ -26,6 +26,7 @@ namespace{
     double armDistance = 0;
     return armDistance = sqrt(pow(height, 2) + pow(distance - kIntakeLengthfromPivot, 2)) - kTelescopeMechLength;
   }//using pythagorean theorem to find ideal arm length
+  [[maybe_unused]]
   double GetAngle(double height, double distance)
   {
     double angle = 0;
@@ -65,6 +66,7 @@ namespace{
 
   double GetNodeAngle(const NodeLevel& NodeLevel, double AngleTargetOffset)
   {
+    [[maybe_unused]]
     double distance = 0;
     double armAngle = 0;
     switch (NodeLevel)

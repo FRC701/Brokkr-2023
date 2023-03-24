@@ -16,7 +16,7 @@ SetObjectPickUpWhileDrive::SetObjectPickUpWhileDrive(Arm& arm, Chassis& chassis,
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});s
   AddCommands(
-    IntakeSpin(claw, 4),
+    IntakeSpin(claw, 4, 0),
     ArmInitialPosition(arm, 3),
     ArmPosition(arm, 20),
     TurretPID(turret, 15),

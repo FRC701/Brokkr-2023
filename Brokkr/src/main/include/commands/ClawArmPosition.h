@@ -15,7 +15,7 @@ class ClawArmPosition
     : public frc2::CommandHelper<frc2::ParallelCommandGroup,
                                  ClawArmPosition> {
  public:
-  ClawArmPosition(Arm& arm, Wrist& wrist, Claw& claw);
+  ClawArmPosition(Arm& arm, Wrist& wrist, Claw& claw, double limit);
 
   private:
   Arm& mArm;
