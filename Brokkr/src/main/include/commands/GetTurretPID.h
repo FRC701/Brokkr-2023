@@ -9,6 +9,7 @@
 
 #include "subsystems/Turret.h"
 #include <frc/controller/PIDController.h>
+#include <frc/Timer.h>
 
 /**
  * An example command.
@@ -33,6 +34,7 @@ class GetTurretPID
 protected:
   virtual double GetPosition();
 
+frc::Timer timer;
 Turret& mTurret;
 frc::PIDController TurretControl;
 };

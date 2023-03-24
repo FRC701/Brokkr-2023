@@ -6,12 +6,15 @@
 #include "commands/ArmPosition.h"
 #include "commands/WristInitialPosition.h"
 #include "commands/TurretPID.h"
+#include "frc2/command/WaitCommand.h"
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-AutoFeatureTurnToNode::AutoFeatureTurnToNode(Wrist& wrist, Turret& turret, Arm& arm, double armangle, double wristangle, double turretangle) {
+AutoFeatureTurnToNode::AutoFeatureTurnToNode(Wrist& wrist, Turret& turret, Arm& arm, double armangle, double wristangle, double turretangle) 
   // Add your commands here, e.g.
+  : CommandHelper{frc2::WaitCommand(units::second_t(4))}
+  {
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
     ArmPosition(arm, armangle),

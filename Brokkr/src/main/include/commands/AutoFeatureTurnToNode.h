@@ -5,13 +5,13 @@
 #pragma once
 
 #include <frc2/command/CommandHelper.h>
-#include <frc2/command/SequentialCommandGroup.h>
+#include <frc2/command/ParallelDeadlineGroup.h>
 #include "subsystems/Wrist.h"
 #include "subsystems/Turret.h"
 #include "subsystems/Arm.h"
 
 class AutoFeatureTurnToNode
-    : public frc2::CommandHelper<frc2::SequentialCommandGroup,
+    : public frc2::CommandHelper<frc2::ParallelDeadlineGroup,
                                  AutoFeatureTurnToNode> {
  public:
   AutoFeatureTurnToNode(Wrist& mWrist, Turret& mTurret, Arm& mArm, double armangle, double wristangle, double turretangle);
