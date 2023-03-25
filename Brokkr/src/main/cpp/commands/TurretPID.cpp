@@ -4,8 +4,8 @@
 
 #include "commands/TurretPID.h"
 
-TurretPID::TurretPID(Turret& turret, double yawSetPoint)
-: GetTurretPID(turret)
+TurretPID::TurretPID(Turret& turret, Chassis& chassis, double yawSetPoint)
+: GetTurretPID(turret, chassis)
 , mSetPoint(yawSetPoint)
 {
 }

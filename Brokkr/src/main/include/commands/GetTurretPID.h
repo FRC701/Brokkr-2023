@@ -10,6 +10,7 @@
 #include "subsystems/Turret.h"
 #include <frc/controller/PIDController.h>
 #include <frc/Timer.h>
+#include "subsystems/Chassis.h"
 
 /**
  * An example command.
@@ -21,7 +22,7 @@
 class GetTurretPID
     : public frc2::CommandHelper<frc2::CommandBase, GetTurretPID> {
  public:
-  GetTurretPID(Turret& turret);
+  GetTurretPID(Turret& turret, Chassis& chassis);
 
   void Initialize() override;
 
@@ -36,5 +37,7 @@ protected:
 
 frc::Timer timer;
 Turret& mTurret;
+Chassis& mChassis;
+
 frc::PIDController TurretControl;
 };

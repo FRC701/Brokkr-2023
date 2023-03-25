@@ -20,7 +20,7 @@ AutoTwoPieceTaxi::AutoTwoPieceTaxi(Arm& arm, Chassis& chassis, Claw& claw, Wrist
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
     ArmPosition(arm, 75),
-    SetExtendtoNode(arm, wrist, turret, 45),
+    SetExtendtoNode(arm, wrist, turret, chassis, 45),
     IntakeEjectObject(claw, -4),
     SetObjectPickUpWhileDrive(arm, chassis, claw, turret),
     WristLevel(wrist, arm),

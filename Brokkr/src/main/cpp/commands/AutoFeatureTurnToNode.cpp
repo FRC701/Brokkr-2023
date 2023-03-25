@@ -11,7 +11,7 @@
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-AutoFeatureTurnToNode::AutoFeatureTurnToNode(Wrist& wrist, Turret& turret, Arm& arm, double armangle, double wristangle, double turretangle) 
+AutoFeatureTurnToNode::AutoFeatureTurnToNode(Wrist& wrist, Turret& turret, Chassis& chassis, Arm& arm, double armangle, double wristangle, double turretangle) 
   // Add your commands here, e.g.
   : CommandHelper{frc2::WaitCommand(units::second_t(2))}
   {
@@ -19,6 +19,6 @@ AutoFeatureTurnToNode::AutoFeatureTurnToNode(Wrist& wrist, Turret& turret, Arm& 
   AddCommands(
     ArmPosition(arm, armangle),
     WristInitialPosition(wrist, wristangle),
-    TurretPID(turret, turretangle)
+    TurretPID(turret, chassis, turretangle)
   );
 }

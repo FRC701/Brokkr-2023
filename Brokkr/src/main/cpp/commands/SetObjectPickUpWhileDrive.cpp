@@ -19,7 +19,7 @@ SetObjectPickUpWhileDrive::SetObjectPickUpWhileDrive(Arm& arm, Chassis& chassis,
     IntakeSpin(claw, 4, 0),
     ArmInitialPosition(arm, 3),
     ArmPosition(arm, 20),
-    TurretPID(turret, 15),
+    TurretPID(turret, chassis, 15),
     AutoForwardAndBackDrive(chassis, 11.5, 11.5, 2.5) //2.5 is a placholder
   );
 }

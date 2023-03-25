@@ -56,6 +56,7 @@ class Chassis : public frc2::SubsystemBase {
   #if ! __APPLE__
   AHRS mGyroX{frc::SPI::kMXP};
   #endif
+  bool mZeroed;
   frc::DifferentialDrive mDrive;
   frc2::CommandJoystick driver{0};
   frc::XboxController coDriver{1};

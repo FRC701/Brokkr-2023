@@ -13,7 +13,7 @@ SetExtendtoNodeDrive::SetExtendtoNodeDrive(Arm& arm, Chassis& chassis, Wrist& wr
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
-    SetExtendtoNode(arm, wrist, turret, 315),
+    SetExtendtoNode(arm, wrist, turret, chassis, 315),
     AutoForwardAndBackDrive(chassis, -11.5, -11.5, 2.5) //2.5 is a placeholder
   );
 }

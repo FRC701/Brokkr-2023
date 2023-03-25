@@ -9,10 +9,11 @@
 #include "subsystems/Arm.h"
 #include "subsystems/Wrist.h"
 #include "subsystems/Turret.h"
+#include "subsystems/Chassis.h"
 
 class SetExtendtoNode
     : public frc2::CommandHelper<frc2::ParallelCommandGroup,
                                  SetExtendtoNode> {
  public:
-  SetExtendtoNode(Arm& arm, Wrist& wrist, Turret& turret, double setPoint);
+  SetExtendtoNode(Arm& arm, Wrist& wrist, Turret& turret, Chassis& chassis, double setPoint);
 };

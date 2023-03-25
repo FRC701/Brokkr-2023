@@ -7,14 +7,15 @@
 #include <frc2/command/CommandHelper.h>
 #include <frc2/command/SequentialCommandGroup.h>
 #include "subsystems/Arm.h"
-#include "subsystems/Wrist.h"
 #include "subsystems/Turret.h"
+#include "subsystems/Wrist.h"
+#include "subsystems/Claw.h"
+
 #include "subsystems/Chassis.h"
 
-
-class RetractAndPivot
+class PivotCompleteRetract
     : public frc2::CommandHelper<frc2::SequentialCommandGroup,
-                                 RetractAndPivot> {
+                                 PivotCompleteRetract> {
  public:
-  RetractAndPivot(Arm& mArm, Wrist& mWrist, Chassis& mChassis, Turret& mTurret, double yaw);
+  PivotCompleteRetract(Arm& mArm, Turret& mTurret, Chassis& mChassis, Wrist& mWrist, Claw& mClaw);
 };

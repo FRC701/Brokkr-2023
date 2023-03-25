@@ -10,8 +10,9 @@ namespace
   const double kTurret_I = 0.0;
   const double kTurret_D = 0.0;
 }
-GetTurretPID::GetTurretPID(Turret& turret)
+GetTurretPID::GetTurretPID(Turret& turret, Chassis& chassis)
 : mTurret(turret)
+, mChassis(chassis)
 , TurretControl{kTurret_P, kTurret_I, kTurret_D} 
  {
   // Use addRequirements() here to declare subsystem dependencies.
@@ -28,7 +29,9 @@ void GetTurretPID::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void GetTurretPID::Execute() {
   double Pose = GetPosition();
-  double output = TurretControl.Calculate(mTurret.GetYawIMU(), Pose);
+  double TurretYaw = mTurret.GetYawIMU(); //+ (mChassis.GetYawNavX() - mTurret.GetYawIMU());
+  frc::SmartDashboard::PutNumber("REALTurretYaw", TurretYaw);
+  double output = TurretControl.Calculate(TurretYaw, Pose);
   mTurret.SetTurretSpeed(output);
 }
 
@@ -40,7 +43,7 @@ void GetTurretPID::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool GetTurretPID::IsFinished() {
-  return timer.HasElapsed(units::second_t(3));
+  return timer.HasElapsed(units::second_t(2.5));
 }
 
 double GetTurretPID::GetPosition() {

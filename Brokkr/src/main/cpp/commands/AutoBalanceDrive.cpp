@@ -18,7 +18,7 @@ AutoBalanceDrive::AutoBalanceDrive(Chassis& mChassis, Arm& mArm, Claw& mClaw, Tu
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
  AddCommands(ArmPosition(mArm, 75),
-             SetExtendtoNode(mArm, mWrist, mTurret, 45),
+             SetExtendtoNode(mArm, mWrist, mTurret, mChassis, 45),
              IntakeEjectObject(mClaw, -4),
              RetractIntoFramePerimeter(mArm, mWrist, 170, -60),
              AutoForwardAndBackDrive(mChassis, 11.5, 11.5, 2.5),

@@ -42,6 +42,7 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
 , mLeftRear(leftRear)
 , mRightFront(rightFront)
 , mRightRear(rightRear)
+, mZeroed(false)
 , mDrive(leftFront, rightFront)
 , mOdometry{mGyroX.GetRotation2d(), units::meter_t{0}, units::meter_t{0}}
 , mDriveKinematics{units::meter_t{24}}
@@ -50,7 +51,8 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
     SetNeutralMode(NeutralMode::Coast);
     
 #if ! __APPLE__
-    mGyroX.ZeroYaw();
+    //mGyroX.ZeroYaw();
+    mGyroX.Reset();
 #endif
     mLeftFront.Config_kP(0, 0, 0);
     mLeftFront.Config_kI(0, 0, 0);
@@ -90,6 +92,11 @@ void Chassis::Periodic() {
     frc::SmartDashboard::PutNumber("Left Distance Inches", ticksToDistance(leftTicks));
     frc::SmartDashboard::PutNumber("SliderValue", driver.GetThrottle());
     //frc::SmartDashboard::PutNumber("GetChassisControlMode", mLeftFront.GetControlMode());
+    if (!mGyroX.IsCalibrating() && !mZeroed)
+    {
+        mZeroed = true;
+        mGyroX.ZeroYaw();
+    }
 }
 
 void Chassis::TankDriveVoltage(double left, double right)

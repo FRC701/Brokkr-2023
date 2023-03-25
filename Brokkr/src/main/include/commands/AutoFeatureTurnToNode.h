@@ -9,10 +9,11 @@
 #include "subsystems/Wrist.h"
 #include "subsystems/Turret.h"
 #include "subsystems/Arm.h"
+#include "subsystems/Chassis.h"
 
 class AutoFeatureTurnToNode
     : public frc2::CommandHelper<frc2::ParallelDeadlineGroup,
                                  AutoFeatureTurnToNode> {
  public:
-  AutoFeatureTurnToNode(Wrist& mWrist, Turret& mTurret, Arm& mArm, double armangle, double wristangle, double turretangle);
+  AutoFeatureTurnToNode(Wrist& mWrist, Turret& mTurret, Chassis& mChassis, Arm& mArm, double armangle, double wristangle, double turretangle);
 };

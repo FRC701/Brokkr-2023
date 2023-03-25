@@ -9,7 +9,7 @@
 class TurretPID : public GetTurretPID
 {
  public:
-  TurretPID(Turret& turret, double setPoint);
+  TurretPID(Turret& turret, Chassis & chassis, double setPoint);
 
   frc2::CommandPtr ToPtr() && override;
 

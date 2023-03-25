@@ -39,6 +39,7 @@
 #include "commands/SetNeutralModeToBrake.h"
 #include "commands/RetractAndPivot.h"
 #include "commands/WristCurrentPosition.h"
+#include "commands/PivotCompleteRetract.h"
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
@@ -48,7 +49,7 @@ RobotContainer::RobotContainer() {
  frc::SmartDashboard::SetDefaultNumber("IntakeCurrentLimit", 0);
  frc::SmartDashboard::SetDefaultNumber("TurretAngle", 0);
 
- frc::SmartDashboard::PutData("Get Turret Positin", new GetTurretPID(mTurret));
+ frc::SmartDashboard::PutData("Get Turret Positin", new GetTurretPID(mTurret, mChassis));
  frc::SmartDashboard::PutData("Get Arm Position", new GetArmPosition(mArm));
  frc::SmartDashboard::PutData("Get Arm Extension", new GetArmInitialPosition(mArm));
  frc::SmartDashboard::PutData("Get Wrist Position", new GetWristInitialPosition(mWrist));
@@ -59,7 +60,7 @@ RobotContainer::RobotContainer() {
 
  frc::SmartDashboard::PutData("spin", new IntakeSpinSimple(mClaw, 7));
 
- frc::SmartDashboard::PutData("Turret pose 80 degree", new TurretPID(mTurret, 80));
+ frc::SmartDashboard::PutData("Turret pose 80 degree", new TurretPID(mTurret, mChassis, 80));
  frc::SmartDashboard::PutData("ArmPosition 20 degree", new ArmPosition(mArm, 20));
  frc::SmartDashboard::PutData("ArmPosition 40 degree", new ArmPosition(mArm, 40));
  frc::SmartDashboard::PutData("ArmPosition 60 degree", new ArmPosition(mArm, 60));
@@ -87,11 +88,14 @@ mChooser.AddOption("Auto Score Left and Drive", &mAutoMidLeftNodeTaxi);
 mChooser.AddOption("Auto Score Right and Drive", &mAutoMidRightNodeTaxi);
 mChooser.AddOption("Auto Score and Balance", &mAutoMidNodeBalance);
 mChooser.AddOption("Auto Taxi", &mAutoTaxi);
+mChooser.AddOption("AutoPlaceMidNoDrive", &mAutoMidNodeNoDrive);
 
 frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
 
   mClaw.SetDefaultCommand(IntakeSpinSimple(mClaw, 0.0));
+  mWrist.SetDefaultCommand(WristInitialPosition(mWrist, 143));
+  //mArm.SetDefaultCommand(ArmPosition(mArm, -60));
   // Disable while testing. 18
    //mWrist.SetDefaultCommand(PivotWrist(mWrist, 0));
    //mWrist.SetDefaultCommand(WristCurrentPosition(mWrist));
@@ -142,7 +146,7 @@ void RobotContainer::ConfigureBindings()
       [this] {return -0.65*(((-driver.GetThrottle()+1)/2) + 0.2) * driver.GetTwist(); }
     ).ToPtr()
   );
-
+  trigger.ToggleOnTrue(PivotCompleteRetract(mArm, mTurret, mChassis, mWrist, mClaw).ToPtr());
   button4.ToggleOnTrue(SetNeutralModeToBrake(mChassis).ToPtr());
   button11.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -15, 45, 0).ToPtr()); //Mid Drop
   button9.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
@@ -151,10 +155,10 @@ void RobotContainer::ConfigureBindings()
   button12.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -60, 80, 0).ToPtr()); //Hybrid Drop
   
 
-  xButton.ToggleOnTrue(MoveArmIntake(-7.0, mArm,mWrist, mClaw, -70, 35, 40).ToPtr()); // floor cube
-  yButton.WhileTrue(IntakeSpinSimple(mClaw, 7.5).ToPtr()); // cube eject
-  bButton.ToggleOnTrue(MoveArmIntake(7.0, mArm, mWrist, mClaw, -0.1, 45, 80).ToPtr()); // sky cone
-  aButton.WhileTrue(IntakeSpinSimple(mClaw, -7.5).ToPtr()); // cone eject
+  xButton.ToggleOnTrue(MoveArmIntake(-12.0, mArm,mWrist, mClaw, -70, 35, 60).ToPtr()); // floor cube
+  yButton.WhileTrue(IntakeSpinSimple(mClaw, 12).ToPtr()); // cube eject
+  bButton.ToggleOnTrue(MoveArmIntake(12.0, mArm, mWrist, mClaw, -0.1, 45, 60).ToPtr()); // sky cone
+  aButton.WhileTrue(IntakeSpinSimple(mClaw, -12).ToPtr()); // cone eject
 
   //xButton.ToggleOnFalse(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
   //yButton.ToggleOnFalse(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
@@ -163,8 +167,8 @@ void RobotContainer::ConfigureBindings()
   rTrigger.WhileTrue(PivotWrist(mWrist, -3).ToPtr());
   
   //ManualArmAngle(mArm, -3).ToPtr()); // Lower Arm
-  upDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mTurret, 0).ToPtr());
-  downDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mTurret, 180).ToPtr());
+  upDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mChassis, mTurret, 0).ToPtr());
+  downDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mChassis, mTurret, 180).ToPtr());
   lBumperButton.WhileTrue(TurretManualControl(mTurret, 1).ToPtr()); //Turn Turret Left
   rBumperButton.WhileTrue(TurretManualControl(mTurret, -1).ToPtr()); //Turn Turret Right
   //Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist, 170, -60).ToPtr());

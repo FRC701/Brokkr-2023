@@ -14,6 +14,6 @@ AutoDriveAndTurn::AutoDriveAndTurn(Chassis& chassis, Turret& turret, Wrist& wris
   AddCommands
   (
   AutoDriveOntoRamp(chassis, 9, Chassis::DistanceToTicks(chasdirec)),
-  AutoFeatureTurnToNode(wrist, turret, arm, armang, wrisang, turang)
+  AutoFeatureTurnToNode(wrist, turret, chassis, arm, armang, wrisang, turang)
   );
 }

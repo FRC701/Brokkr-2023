@@ -36,7 +36,7 @@ void GetIntakeSpin::Execute()
     {
       if (mCouldBeStalled)
       {
-        if (mTimer.HasElapsed(units::millisecond_t(2500)))
+        if (mTimer.HasElapsed(units::millisecond_t(1250)))
         {
           mIsMotorStalling = true;
           mTimer.Stop();
