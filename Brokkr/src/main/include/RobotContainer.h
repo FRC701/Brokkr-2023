@@ -132,9 +132,11 @@ class RobotContainer
 
   AutoDriveOntoRamp mAutoTaxi{mChassis, 0.25, Chassis::DistanceToTicks(110.0 /* 99.0 - 16.0 */)};
 
-  AutoHighMidNodeTaxi mAutoMidNodeTaxi{mArm, mTurret, mWrist, mChassis, mClaw, Chassis::DistanceToTicks(kCommunityZoneDepth)};
+  AutoHighMidNodeTaxi mAutoMidLeftNodeTaxi{mArm, mTurret, mWrist, mChassis, mClaw, Chassis::DistanceToTicks(kCommunityZoneDepth), 180};
 
-  AutoHighMidNodeTaxi mAutoMidNodeBalance{mArm, mTurret,mWrist, mChassis, mClaw, 86500};
+  AutoHighMidNodeTaxi mAutoMidRightNodeTaxi{mArm, mTurret, mWrist, mChassis, mClaw, Chassis::DistanceToTicks(kCommunityZoneDepth), -180};
+
+  AutoHighMidNodeTaxi mAutoMidNodeBalance{mArm, mTurret,mWrist, mChassis, mClaw, 86500, 180};
 
   void ConfigureBindings();
 };

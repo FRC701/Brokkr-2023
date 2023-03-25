@@ -12,12 +12,12 @@
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-AutoHighMidNodeTaxi::AutoHighMidNodeTaxi(Arm& arm, Turret& turret, Wrist& wrist, Chassis& chassis, Claw& claw, double distance) {
+AutoHighMidNodeTaxi::AutoHighMidNodeTaxi(Arm& arm, Turret& turret, Wrist& wrist, Chassis& chassis, Claw& claw, double distance, double turretangle) {
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
     //RetractAndPivot(arm, wrist, turret, 180),
-    AutoFeatureTurnToNode(wrist, turret, arm, -5, 45, 180), // turret is not used
+    AutoFeatureTurnToNode(wrist, turret, arm, -5, 45, turretangle), // turret is not used
     //AutoFeatureTimedWrist(wrist, 45),
     IntakeEjectObject(claw, -6),
     RetractAndPivot(arm, wrist, turret, 0),

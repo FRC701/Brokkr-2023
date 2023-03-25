@@ -83,7 +83,8 @@ RobotContainer::RobotContainer() {
 //mChooser.AddOption("Auto Balance Drive", &mAutoBalanceDrive);
 //mChooser.AddOption("Auto 2 Piece", &mAutoTwoPieceTaxi);
 mChooser.AddOption("Auto (Ramp) Drive", &mAutoDriveOntoRamp);
-mChooser.AddOption("Auto Score and Drive", &mAutoMidNodeTaxi);
+mChooser.AddOption("Auto Score Left and Drive", &mAutoMidLeftNodeTaxi);
+mChooser.AddOption("Auto Score Right and Drive", &mAutoMidRightNodeTaxi);
 mChooser.AddOption("Auto Score and Balance", &mAutoMidNodeBalance);
 mChooser.AddOption("Auto Taxi", &mAutoTaxi);
 
