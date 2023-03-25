@@ -40,7 +40,7 @@ void GetTurretPID::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool GetTurretPID::IsFinished() {
-  return timer.HasElapsed(units::second_t(4));
+  return timer.HasElapsed(units::second_t(3));
 }
 
 double GetTurretPID::GetPosition() {

@@ -130,7 +130,7 @@ class RobotContainer
 
   AutoDriveOntoRamp mAutoDriveOntoRamp{mChassis, 0.25, 86500};
 
-  AutoDriveOntoRamp mAutoTaxi{mChassis, -0.25, -Chassis::DistanceToTicks(110.0 /* 99.0 - 16.0 */)};
+  AutoDriveOntoRamp mAutoTaxi{mChassis, 0.25, Chassis::DistanceToTicks(110.0 /* 99.0 - 16.0 */)};
 
   AutoHighMidNodeTaxi mAutoMidNodeTaxi{mArm, mTurret, mWrist, mChassis, mClaw, Chassis::DistanceToTicks(kCommunityZoneDepth)};
 

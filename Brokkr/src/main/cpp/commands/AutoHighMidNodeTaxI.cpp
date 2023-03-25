@@ -7,6 +7,7 @@
 #include "commands/AutoDriveOntoRamp.h"
 #include "commands/IntakeEjectObject.h"
 #include"commands/RetractAndPivot.h" 
+#include "commands/AutoFeatureTimedWrist.h"
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
@@ -15,9 +16,11 @@ AutoHighMidNodeTaxi::AutoHighMidNodeTaxi(Arm& arm, Turret& turret, Wrist& wrist,
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
+    RetractAndPivot(arm, wrist, turret, 180),
     AutoFeatureTurnToNode(wrist, turret, arm, -10, 45, 180), // turret is not used
+    AutoFeatureTimedWrist(wrist, 45),
     IntakeEjectObject(claw, -6),
     RetractAndPivot(arm, wrist, turret, 0),
-    AutoDriveOntoRamp(chassis, -0.25, distance)
+    AutoDriveOntoRamp(chassis, 0.25, distance)
   );
 }

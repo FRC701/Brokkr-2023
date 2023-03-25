@@ -38,6 +38,7 @@
 #include "commands/GetTurretPID.h"
 #include "commands/SetNeutralModeToBrake.h"
 #include "commands/RetractAndPivot.h"
+#include "commands/WristCurrentPosition.h"
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
@@ -91,7 +92,8 @@ frc::SmartDashboard::PutData("Autonomous Chooser", &mChooser);
 
   mClaw.SetDefaultCommand(IntakeSpinSimple(mClaw, 0.0));
   // Disable while testing. 18
-   mWrist.SetDefaultCommand(PivotWrist(mWrist, 0));
+   //mWrist.SetDefaultCommand(PivotWrist(mWrist, 0));
+   //mWrist.SetDefaultCommand(WristCurrentPosition(mWrist));
   // Configure the button bindings
   ConfigureBindings();
 
@@ -141,7 +143,7 @@ void RobotContainer::ConfigureBindings()
   );
 
   button4.ToggleOnTrue(SetNeutralModeToBrake(mChassis).ToPtr());
-  button11.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -10, 45, 0).ToPtr()); //Mid Drop
+  button11.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -15, 45, 0).ToPtr()); //Mid Drop
   button9.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
   //button9.ToggleOnTrue(TurnTurretAndExtendToNode(mArm, mWrist, mTurret, NodeLevel::MiddleNodeLevel, 100).ToPtr()); //placeholder
   button10.ToggleOnTrue(IntakeEjectObject(mClaw, 6).ToPtr());
