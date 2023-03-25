@@ -16,9 +16,9 @@ AutoHighMidNodeTaxi::AutoHighMidNodeTaxi(Arm& arm, Turret& turret, Wrist& wrist,
   // Add your commands here, e.g.
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
-    RetractAndPivot(arm, wrist, turret, 180),
-    AutoFeatureTurnToNode(wrist, turret, arm, -10, 45, 180), // turret is not used
-    AutoFeatureTimedWrist(wrist, 45),
+    //RetractAndPivot(arm, wrist, turret, 180),
+    AutoFeatureTurnToNode(wrist, turret, arm, -5, 45, 180), // turret is not used
+    //AutoFeatureTimedWrist(wrist, 45),
     IntakeEjectObject(claw, -6),
     RetractAndPivot(arm, wrist, turret, 0),
     AutoDriveOntoRamp(chassis, 0.25, distance)

@@ -17,8 +17,8 @@ AutoFeatureTurnToNode::AutoFeatureTurnToNode(Wrist& wrist, Turret& turret, Arm& 
   {
   // AddCommands(FooCommand{}, BarCommand{});
   AddCommands(
-    ArmPosition(arm, armangle)
-    //WristInitialPosition(wrist, wristangle)
-    //TurretPID(turret, turretangle)
+    ArmPosition(arm, armangle),
+    WristInitialPosition(wrist, wristangle),
+    TurretPID(turret, turretangle)
   );
 }
