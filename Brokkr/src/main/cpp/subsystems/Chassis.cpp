@@ -52,7 +52,7 @@ Chassis::Chassis(WPI_TalonFX& leftFront, WPI_TalonFX& leftRear, WPI_TalonFX& rig
     
 #if ! __APPLE__
     //mGyroX.ZeroYaw();
-    mGyroX.Reset();
+    //mGyroX.Reset();
 #endif
     mLeftFront.Config_kP(0, 0, 0);
     mLeftFront.Config_kI(0, 0, 0);

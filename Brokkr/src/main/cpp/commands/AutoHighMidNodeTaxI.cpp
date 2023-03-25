@@ -19,7 +19,7 @@ AutoHighMidNodeTaxi::AutoHighMidNodeTaxi(Arm& arm, Turret& turret, Wrist& wrist,
     //RetractAndPivot(arm, wrist, turret, 180),
     AutoFeatureTurnToNode(wrist, turret, chassis, arm, -5, 45, turretangle), // turret is not used
     //AutoFeatureTimedWrist(wrist, 45),
-    IntakeEjectObject(claw, -12),
+    IntakeEjectObject(claw, -8),
     RetractAndPivot(arm, wrist, chassis, turret, 0),
     AutoDriveOntoRamp(chassis, 0.25, distance)
   );

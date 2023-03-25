@@ -29,7 +29,7 @@ void GetTurretPID::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void GetTurretPID::Execute() {
   double Pose = GetPosition();
-  double TurretYaw = mTurret.GetYawIMU(); //+ (mChassis.GetYawNavX() - mTurret.GetYawIMU());
+  double TurretYaw = mTurret.GetYawIMU() + mChassis.GetYawNavX();
   frc::SmartDashboard::PutNumber("REALTurretYaw", TurretYaw);
   double output = TurretControl.Calculate(TurretYaw, Pose);
   mTurret.SetTurretSpeed(output);
