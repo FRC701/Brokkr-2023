@@ -17,5 +17,5 @@ class PivotCompleteRetract
     : public frc2::CommandHelper<frc2::SequentialCommandGroup,
                                  PivotCompleteRetract> {
  public:
-  PivotCompleteRetract(Arm& mArm, Turret& mTurret, Chassis& mChassis, Wrist& mWrist, Claw& mClaw);
+  PivotCompleteRetract(Arm& mArm, Turret& mTurret, Chassis& mChassis, Wrist& mWrist, Claw& mClaw, double turan, double armang);
 };

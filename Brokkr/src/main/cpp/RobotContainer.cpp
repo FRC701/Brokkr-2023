@@ -146,7 +146,7 @@ void RobotContainer::ConfigureBindings()
       [this] {return -0.65*(((-driver.GetThrottle()+1)/2) + 0.2) * driver.GetTwist(); }
     ).ToPtr()
   );
-  trigger.ToggleOnTrue(PivotCompleteRetract(mArm, mTurret, mChassis, mWrist, mClaw).ToPtr());
+  //trigger.ToggleOnTrue(PivotCompleteRetract(mArm, mTurret, mChassis, mWrist, mClaw, 0).ToPtr());
   button4.ToggleOnTrue(SetNeutralModeToBrake(mChassis).ToPtr());
   button11.ToggleOnTrue(MoveArmIntake(0, mArm,mWrist, mClaw, -15, 45, 0).ToPtr()); //Mid Drop
   button9.ToggleOnTrue(IntakeEjectObject(mClaw, -6).ToPtr());
@@ -167,8 +167,8 @@ void RobotContainer::ConfigureBindings()
   rTrigger.WhileTrue(PivotWrist(mWrist, -3).ToPtr());
   
   //ManualArmAngle(mArm, -3).ToPtr()); // Lower Arm
-  upDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mChassis, mTurret, 0).ToPtr());
-  downDPAD.ToggleOnTrue(RetractAndPivot(mArm, mWrist, mChassis, mTurret, 180).ToPtr());
+  upDPAD.ToggleOnTrue(PivotCompleteRetract(mArm, mTurret, mChassis, mWrist, mClaw, 0, -80).ToPtr());
+  downDPAD.ToggleOnTrue(PivotCompleteRetract(mArm, mTurret, mChassis, mWrist, mClaw, 180, -70).ToPtr());
   lBumperButton.WhileTrue(TurretManualControl(mTurret, 1).ToPtr()); //Turn Turret Left
   rBumperButton.WhileTrue(TurretManualControl(mTurret, -1).ToPtr()); //Turn Turret Right
   //Middle.ToggleOnTrue(RetractIntoFramePerimeter(mArm, mWrist, 170, -60).ToPtr());
