@@ -22,7 +22,7 @@ GetTurretPID::GetTurretPID(Turret& turret, Chassis& chassis)
 // Called when the command is initially scheduled.
 void GetTurretPID::Initialize() {
   timer.Start();
-  TurretControl.SetTolerance(0);
+  //TurretControl.SetTolerance(4);
   //TurretControl.EnableContinuousInput(-360, 360);
 }
 
@@ -43,7 +43,7 @@ void GetTurretPID::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool GetTurretPID::IsFinished() {
-  return timer.HasElapsed(units::second_t(2.5));
+  return timer.HasElapsed(units::second_t(2.25));//TurretControl.AtSetpoint();
 }
 
 double GetTurretPID::GetPosition() {

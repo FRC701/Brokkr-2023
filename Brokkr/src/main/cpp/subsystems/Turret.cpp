@@ -22,8 +22,8 @@ Turret::Turret(WPI_TalonFX& turret, WPI_PigeonIMU& gyro)
     mGyro.SetYaw(0);
     mTurretMotor.SetNeutralMode(Brake);
     mTurretMotor.SetInverted(false);
-    mTurretMotor.ConfigPeakOutputForward(0.2);
-    mTurretMotor.ConfigPeakOutputReverse(-0.2);
+    mTurretMotor.ConfigPeakOutputForward(0.15);
+    mTurretMotor.ConfigPeakOutputReverse(-0.15);
     mTurretMotor.ConfigNeutralDeadband(0.001);
     }
 

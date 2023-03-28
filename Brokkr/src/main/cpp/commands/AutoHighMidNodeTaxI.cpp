@@ -6,8 +6,9 @@
 #include "commands/AutoFeatureTurnToNode.h"
 #include "commands/AutoDriveOntoRamp.h"
 #include "commands/IntakeEjectObject.h"
-#include"commands/RetractAndPivot.h" 
+#include"commands/RetractAndPivot.h"
 #include "commands/AutoFeatureTimedWrist.h"
+#include <frc2/command/WaitCommand.h>
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
@@ -18,6 +19,7 @@ AutoHighMidNodeTaxi::AutoHighMidNodeTaxi(Arm& arm, Turret& turret, Wrist& wrist,
   AddCommands(
     //RetractAndPivot(arm, wrist, turret, 180),
     AutoFeatureTurnToNode(wrist, turret, chassis, arm, -5, 45, turretangle), // turret is not used
+    frc2::WaitCommand(units::second_t(0.5)),
     //AutoFeatureTimedWrist(wrist, 45),
     IntakeEjectObject(claw, -8),
     RetractAndPivot(arm, wrist, chassis, turret, 0),

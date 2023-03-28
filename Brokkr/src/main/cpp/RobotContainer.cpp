@@ -156,9 +156,9 @@ void RobotContainer::ConfigureBindings()
   
 
   xButton.ToggleOnTrue(MoveArmIntake(-12.0, mArm,mWrist, mClaw, -70, 35, 60).ToPtr()); // floor cube
-  yButton.WhileTrue(IntakeSpinSimple(mClaw, 12).ToPtr()); // cube eject
+  yButton.WhileTrue(IntakeSpinSimple(mClaw, 9).ToPtr()); // cube eject
   bButton.ToggleOnTrue(MoveArmIntake(12.0, mArm, mWrist, mClaw, -0.1, 45, 60).ToPtr()); // sky cone
-  aButton.WhileTrue(IntakeSpinSimple(mClaw, -12).ToPtr()); // cone eject
+  aButton.WhileTrue(IntakeSpinSimple(mClaw, -9).ToPtr()); // cone eject
 
   //xButton.ToggleOnFalse(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
   //yButton.ToggleOnFalse(RetractIntoFramePerimeter(mArm, mWrist).ToPtr());
